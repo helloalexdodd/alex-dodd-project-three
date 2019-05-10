@@ -1,0 +1,39 @@
+// Position Mixin
+@mixin position ($type, $top, $right, $bottom, $left) {
+    position: $type;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+};
+
+//example of Position Mixin
+// @include position (relative, 100px, 0px, null, null);
+
+//
+
+// Flexbox Mixin
+@mixin flexEnable($lR:true, $uD:false, $centerLR:false, $centerUD:false) {
+   @if $lR {display: flex;}
+   @if $uD {flex-direction: column;}
+   @if $centerLR {justify-content: center;}
+   @if $centerUD {align-items: center;}
+}
+
+//example of Flexbox Mixin
+// @include flexEnable(true, false, true, false);
+
+//
+
+// Media Query Mixin
+@mixin media($max-width) {
+    @media (max-width: $max-width) {@content;}
+}
+
+// example of Media Query Mixin
+// h1 {
+//    font-size: 13.8rem;
+//    @include media(960px) {
+//        font-size: 8rem;
+//    }
+// }
