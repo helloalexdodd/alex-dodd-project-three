@@ -186,3 +186,31 @@ html {
 .wrapper {
   max-width: 1400px;
 }
+
+body {
+  width: 100%;
+}
+
+.gameBoard {
+  border: 3px solid #634E3B;
+  width: auto;
+}
+
+.gameBoard {
+  margin: 50px;
+  height: 90vh;
+}
+
+.beigeSquare, .blueSquare {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+}
+
+.beigeSquare {
+  background-color: beige;
+}
+
+.blueSquare {
+  background-color: blue;
+}
