@@ -254,11 +254,11 @@ body {
   border: 20px solid #3d4448;
 }
 
-.red {
+.redSelected {
   background-color: #8db3d2;
 }
 
-.red::before {
+.redSelected::before {
   background-color: #e85a6a;
   border: 20px solid #e54356;
 }

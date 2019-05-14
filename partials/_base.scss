@@ -72,7 +72,7 @@ body {
 }
 
 
-.red {
+.redSelected {
   background-color: lighten($blue, 20%);
 
   &::before {
