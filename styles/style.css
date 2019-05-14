@@ -192,25 +192,56 @@ body {
 }
 
 .gameBoard {
-  border: 3px solid #634E3B;
-  width: auto;
+  margin: 20px auto;
+  width: 1000px;
+  max-height: 100vh;
 }
 
-.gameBoard {
-  margin: 50px;
-  height: 90vh;
+.row {
+  height: 110px;
 }
 
-.beigeSquare, .blueSquare {
+.white, .black {
   display: inline-block;
-  width: 150px;
-  height: 150px;
+  margin: 0px;
+  padding: 0px;
+  border: 3px solid #30261d;
+  width: 110px;
+  height: 110px;
 }
 
-.beigeSquare {
-  background-color: beige;
+.white {
+  background-color: #f2f0ed;
 }
 
-.blueSquare {
-  background-color: blue;
+.black {
+  background-color: #4782b2;
+}
+
+.blackPiece:before {
+  content: '';
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  background-color: #31373a;
+  border: 20px solid #252a2c;
+  top: 50px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.redPiece:before {
+  content: '';
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  background-color: #e22d42;
+  border: 20px solid #d81e33;
+  top: 50px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
