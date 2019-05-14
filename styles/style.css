@@ -192,22 +192,21 @@ body {
 }
 
 .gameBoard {
-  margin: 20px auto;
-  width: 1000px;
-  max-height: 100vh;
+  margin: 50px auto;
+  text-align: center;
 }
 
 .row {
-  height: 110px;
+  height: 100px;
 }
 
 .white, .black {
   display: inline-block;
   margin: 0px;
   padding: 0px;
-  border: 3px solid #30261d;
-  width: 110px;
-  height: 110px;
+  border: 4px solid #30261d;
+  width: 100px;
+  height: 100px;
 }
 
 .white {
@@ -220,28 +219,46 @@ body {
 
 .blackPiece:before {
   content: '';
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   display: block;
   position: relative;
   background-color: #31373a;
   border: 20px solid #252a2c;
-  top: 50px;
+  top: 45px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
 
 .redPiece:before {
   content: '';
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   display: block;
   position: relative;
   background-color: #e22d42;
   border: 20px solid #d81e33;
-  top: 50px;
+  top: 45px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+.blackSelected {
+  background-color: #8db3d2;
+}
+
+.blackSelected::before {
+  background-color: #485156;
+  border: 20px solid #3d4448;
+}
+
+.red {
+  background-color: #8db3d2;
+}
+
+.red::before {
+  background-color: #e85a6a;
+  border: 20px solid #e54356;
 }
