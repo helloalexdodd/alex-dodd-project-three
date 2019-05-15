@@ -1,7 +1,7 @@
 $(document).ready(() => {
 // an empty array to create our boardGrid inside of
     let boardGrid = [];
-//function for setting up the board by looping through nested arrays and creating divs
+// function for setting up the board by looping through nested arrays and creating divs
     function setup(rows, cols) {
         for (let i = 0; i < rows; i++) {
             boardGrid[i] = [];
@@ -18,61 +18,72 @@ $(document).ready(() => {
     setup(8, 8);
 
 // looping through the boardGrid array and appending the divs to the main gameboard
-    // I can't figure out why this arrow function doesn't work.
-    // boardGrid.forEach((row) => {
-    //     $(`#gameboard`).append(`<div class="row">${row.join(' ')}</div>`)
-    // });
-    boardGrid.forEach(function (row) {
+    boardGrid.forEach((row) => {
         $(`#gameBoard`).append(`<div class="row">${row.join('')}</div>`)
     });
-//looping through the boardGrid array and placing the game pieces in their starting positions
+// looping through the boardGrid array and placing the game pieces in their starting positions
     for (let i = 0; i < boardGrid.length; i++) {
         for (let j = 0; j < boardGrid.length; j++) {
             if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i <= 2) {
                 let cellID = `#${i}_${j}`;
-                $(cellID).addClass(`blackPiece`);
+                $(cellID).addClass(`blackPiece gamePiece`);
             } else if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i >= 5){
                 let cellID = `#${i}_${j}`;
-                $(cellID).addClass(`redPiece`);
+                $(cellID).addClass(`redPiece gamePiece`);
             }
         }
     };
-//listening event for selecting the piece a user wants to move
-    $(`#gameBoard`).on(`click`, `.row > div`, function () {
+// listening event for selecting the piece a user wants to move
+    $(`#gameBoard`).on(`click`, `.row > div`, function (rows, cols) {
         let allSquares = `#gameBoard > div > div`;
-        // let $selectedPiece = $(allSquares).filter('.blackSelected redSelected'); //an array of only selected pieces that I thought I might need one day
+//this is an array of only selected pieces that I thought I might need one day
+        // let $selectedPiece = $(allSquares).filter('.blackSelected redSelected');
 
-        for (let i = 0; i < rows; i++) {
-            boardGrid[i] = [];
-            for (let j = 0; j < cols; j++) {
-                if {
-                };
-            }
-        }    
+        //if this click is a black square (because pieces can only move on black squares)
         if (this.classList.contains(`blackSquare`)) {
+            // if any piece is already selected
             if ($(allSquares).hasClass(`blackSelected`) || $(allSquares).hasClass(`redSelected`)) {
+                //if this click is already a selected black piece
                 if (this.classList.contains(`blackSelected`)) {
+                    // unselect the piece
                     $(this).removeClass(`blackSelected`)
-                    $(this).addClass(`blackPiece`)
+                    // style the piece back to default
+                    $(this).addClass(`blackPiece gamePiece`)
+                    //if this click is already a selected red piece
                 } else if (this.classList.contains(`redSelected`)) {
+                    //unselect the piece
                     $(this).removeClass(`redSelected`)
-                    $(this).addClass(`redPiece`)
-                } else if (this.classList.contains(`blackSelected`) === false && $(allSquares).hasClass(`blackSelected`)) {
-                    $(this).addClass(`blackPiece`)
+                    //style the piece back to default
+                    $(this).addClass(`redPiece gamePiece`)
+                    //if this isn't already where any piece already sits and a piece somewhere is already selected
+                } else if (this.classList.contains(`gamePiece`) === false && $(allSquares).hasClass(`blackSelected`)) {
+                    //place the piece here
+                    $(this).addClass(`blackPiece gamePiece`)
+                    // remove the piece from its original square
                     $(allSquares).removeClass(`blackSelected`)
-                } else if (this.classList.contains(`redSelected`) === false && $(allSquares).hasClass(`redSelected`)) {
-                    $(this).addClass(`redPiece`)
+                // if this isn't already where any piece already sits and a piece somewhere is already selected
+                } else if (this.classList.contains(`gamePiece`) === false && $(allSquares).hasClass(`redSelected`)) {
+                    //place the piece here
+                    $(this).addClass(`redPiece gamePiece`)
+                    // remove the piece from its original square
                     $(allSquares).removeClass(`redSelected`)
                 };
+            // if no pieces are already selected
             } else if ($(allSquares).hasClass(`blackSelected` || `redSelected`) === false) {
+                // if it's a black piece
                 if (this.classList.contains(`blackPiece`)) {
+                    // select the piece    
                     $(this).addClass(`blackSelected`)
-                    $(this).removeClass(`blackPiece`)
+                    // remove styling
+                    $(this).removeClass(`blackPiece gamePiece`)
+                // if it's a red piece
                 } else if (this.classList.contains(`redPiece`)) {
+                    // select the piece
                     $(this).addClass(`redSelected`)
-                    $(this).removeClass(`redPiece`)
+                    // remove styling
+                    $(this).removeClass(`redPiece gamePiece`)
                 };
-            }
+            };
         };
 //create a css class of NO and use a setTimeout function to flash red when user clicks a square they can't place a piece on
         //if the div is empty
