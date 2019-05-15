@@ -200,7 +200,7 @@ body {
   height: 100px;
 }
 
-.white, .black {
+.square {
   display: inline-block;
   margin: 0px;
   padding: 0px;
@@ -209,11 +209,11 @@ body {
   height: 100px;
 }
 
-.white {
+.whiteSquare {
   background-color: #f2f0ed;
 }
 
-.black {
+.blackSquare {
   background-color: #4782b2;
 }
 
@@ -250,8 +250,17 @@ body {
 }
 
 .blackSelected::before {
-  background-color: #485156;
-  border: 20px solid #3d4448;
+  content: '';
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  background-color: #3d4448;
+  border: 20px solid #31373a;
+  top: 45px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 .redSelected {
@@ -259,6 +268,15 @@ body {
 }
 
 .redSelected::before {
-  background-color: #e85a6a;
-  border: 20px solid #e54356;
+  content: '';
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  background-color: #e54356;
+  border: 20px solid #e22d42;
+  top: 45px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
