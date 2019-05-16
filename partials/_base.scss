@@ -10,8 +10,12 @@ body {
   width: 100%;
 }
 
+.main {
+  display: flex;
+}
+
 .gameBoard {
-  margin: 50px auto;
+  margin: 50px  ;
   text-align: center;
 }
 
