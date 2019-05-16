@@ -27,9 +27,10 @@ body {
   width: 100px;
   height: 100px;
 
-  &:focus {
-    // border: 2px dotted mediumpurple;
-  }
+  // &:focus,
+  // &:hover {
+  //   border: 2px dotted mediumpurple;
+  // }
 }
 
 .whiteSquare {
