@@ -72,7 +72,8 @@ $(document).ready(() => {
         });
 // making an array of the origin of the player
         const originSquarePosition = [];
-        const originSquareX = idArrayNums[0] - 2;
+        console.log(idArrayNums)
+        let originSquareX = idArrayNums[0] - 2;
         const originSquareY = idArrayNums[1] + 2;
         originSquarePosition.push(originSquareX, originSquareY);
 // turning that array into an ID
@@ -80,27 +81,29 @@ $(document).ready(() => {
         const $originDOMId = $(`#${originDOMId}`);
 // making an array of the opponent piece; position
         const opponentSquarePosition = [];
-        console.log(idArrayNums)
-        const opponentSquareX = idArrayNums[0] - 1;
+        let opponentSquareX = idArrayNums[0] - 1;
         const opponentSquareY = idArrayNums[1] + 1;
         opponentSquarePosition.push(opponentSquareX, opponentSquareY);
 // turning that array into an ID
         const opponentDOMId = opponentSquarePosition.join(`_`);
-        const $opponentDOMId = $(`#${opponentDOMId}`);
-// getting the cellValue of the opponent piece
-        const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-// if the opponent's piece is between the origin and new location of the piece
-        if (opponentCellValue == 2 && $($originDOMId).hasClass(`blackSelected`)) {
-// remove the opponent piece
-            $($opponentDOMId).removeClass(`redPiece`);
-// change the opponent piece position's cellValue
-            playerPosition[opponentSquareX][opponentSquareY] = 0;
-// run this function
-            return true
-        } else { 
-            return false
+        const $opponentDOMId = $(`#${opponentDOMId}`);        
+        //check to make sure the opponent piece isn't off the board
+        if (opponentSquareX >= 0) {
+            // getting the cellValue of the opponent piece
+            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
+            // if the opponent's piece is between the origin and new location of the piece
+            if (opponentCellValue == 2 && $($originDOMId).hasClass(`blackSelected`)) {
+                // remove the opponent piece
+                $($opponentDOMId).removeClass(`redPiece`);
+                // change the opponent piece position's cellValue
+                    playerPosition[opponentSquareX][opponentSquareY] = 0;
+                // run this function
+                return true
+            } else {
+                return false
+            };
         };
-    };
+        };
 // function for checking if there's an opponent piece on jump when moving down and to the left
     let checkForOpponentPieceDownRight = (cellValue, idArrayString) => {
         // making an array of ID numbers
@@ -123,19 +126,23 @@ $(document).ready(() => {
         // turning that array into an ID
         const opponentDOMId = opponentSquarePosition.join(`_`);
         const $opponentDOMId = $(`#${opponentDOMId}`);
-        // getting the cellValue of the opponent piece
-        const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-        // if the opponent's piece is between the origin and new location of the piece
-        if (opponentCellValue == 2 && $($originDOMId).hasClass(`blackSelected`)) {
-            // remove the opponent piece
-            $($opponentDOMId).removeClass(`redPiece`);
-            // change the opponent piece position's cellValue
-            playerPosition[opponentSquareX][opponentSquareY] = 0;
-            // run this function
-            return true
-        } else {
-            return false
-        };
+        //check to make sure the opponent piece isn't off the board
+        if (opponentSquareX >= 0) {
+            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
+            console.log(opponentCellValue)
+            // if the opponent's piece is between the origin and new location of the piece
+            if (opponentCellValue == 2 && $($originDOMId).hasClass(`blackSelected`)) {
+                // remove the opponent piece
+                console.log(playerPosition[opponentSquareX][opponentSquareY])
+                $($opponentDOMId).removeClass(`redPiece`);
+                // change the opponent piece position's cellValue
+                playerPosition[opponentSquareX][opponentSquareY] = 0;
+                // run this function
+                return true
+            } else {
+                return false
+            };
+        }
     };
 // function for checking if there's an opponent piece on jump when moving down and to the left
     let checkForOpponentPieceUpLeft = (cellValue, idArrayString) => {
@@ -159,18 +166,21 @@ $(document).ready(() => {
         // turning that array into an ID
         const opponentDOMId = opponentSquarePosition.join(`_`);
         const $opponentDOMId = $(`#${opponentDOMId}`);
+        //check to make sure the opponent piece isn't off the board
+        if (opponentSquareX <= 7) {        
         // getting the cellValue of the opponent piece
-        const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-        // if the opponent's piece is between the origin and new location of the piece
-        if (opponentCellValue == 1 && $($originDOMId).hasClass(`redSelected`)) {
-            // remove the opponent piece
-            $($opponentDOMId).removeClass(`blackPiece`);
-            // change the opponent piece position's cellValue
-            playerPosition[opponentSquareX][opponentSquareY] = 0;
-            // run this function
-            return true
-        } else {
-            return false
+            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
+            // if the opponent's piece is between the origin and new location of the piece
+            if (opponentCellValue == 1 && $($originDOMId).hasClass(`redSelected`)) {
+                // remove the opponent piece
+                $($opponentDOMId).removeClass(`blackPiece`);
+                // change the opponent piece position's cellValue
+                playerPosition[opponentSquareX][opponentSquareY] = 0;
+                // run this function
+                return true
+            } else {
+                return false
+            };
         };
     };
 // function for checking if there's an opponent piece on jump when moving down and to the left
@@ -195,18 +205,21 @@ $(document).ready(() => {
         // turning that array into an ID
         const opponentDOMId = opponentSquarePosition.join(`_`);
         const $opponentDOMId = $(`#${opponentDOMId}`);
-        // getting the cellValue of the opponent piece
-        const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-        // if the opponent's piece is between the origin and new location of the piece
-        if (opponentCellValue == 1 && $($originDOMId).hasClass(`redSelected`)) {
-            // remove the opponent piece
-            $($opponentDOMId).removeClass(`blackPiece`);
-            // change the opponent piece position's cellValue
-            playerPosition[opponentSquareX][opponentSquareY] = 0;
-            // run this function
-            return true
-        } else {
-            return false
+        //check to make sure the opponent piece isn't off the board
+        if (opponentSquareX <= 7) {
+            // getting the cellValue of the opponent piece
+            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
+            // if the opponent's piece is between the origin and new location of the piece
+            if (opponentCellValue == 1 && $($originDOMId).hasClass(`redSelected`)) {
+                // remove the opponent piece
+                $($opponentDOMId).removeClass(`blackPiece`);
+                // change the opponent piece position's cellValue
+                playerPosition[opponentSquareX][opponentSquareY] = 0;
+                // run this function
+                return true
+            } else {
+                return false
+            };
         };
     };
 // calling the setup functions and passing it the columns and rows
@@ -303,6 +316,11 @@ $(document).ready(() => {
                                 addToPlayerOneCounter();
                             };
                         };
+                    } else {
+                        $(this).addClass(`noPlay`)
+                        setTimeout(() => {
+                            $(this).removeClass(`noPlay`)
+                        }, 1000);
                     };
 
                 // if this isn't already where any piece already sits and the piece that is selected is red

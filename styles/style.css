@@ -252,7 +252,7 @@ body {
 }
 
 .blackSelected {
-  background-color: #b2cbe0;
+  background-color: #8db3d2;
 }
 
 .blackSelected::before {
@@ -270,7 +270,7 @@ body {
 }
 
 .redSelected {
-  background-color: #b2cbe0;
+  background-color: #8db3d2;
 }
 
 .redSelected::before {
@@ -287,43 +287,19 @@ body {
           transform: translateY(-50%);
 }
 
-@-webkit-keyframes fade {
+@-webkit-keyframes blinking {
   0% {
-    background-color: #fff728;
-  }
-  100% {
-    background-color: rgba(255, 247, 40, 0);
+    background-color: #e22d42;
   }
 }
 
-@keyframes fade {
+@keyframes blinking {
   0% {
-    background-color: #fff728;
-  }
-  100% {
-    background-color: rgba(255, 247, 40, 0);
+    background-color: #e22d42;
   }
 }
 
 .noPlay {
-  -webkit-animation-name: 'fade';
-          animation-name: 'fade';
   -webkit-animation: blinking 1.5s linear;
           animation: blinking 1.5s linear;
-}
-
-.noPlay::before {
-  border: 0;
-  width: 95px;
-  height: 95px;
-  background-color: #fff728;
-  top: 45px;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  -webkit-animation-name: 'fade';
-          animation-name: 'fade';
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
 }
