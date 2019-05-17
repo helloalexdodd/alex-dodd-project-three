@@ -72,7 +72,7 @@ body {
 }
 
 .blackSelected {
-  background-color: lighten($blue, 20%);
+  background-color: lighten($blue, 30%);
 
   &::before{
     content: '';
@@ -82,14 +82,14 @@ body {
     display: block;
     position: relative;
     background-color: $lightBlack;
-    border: 20px solid $black;
+    border: 20px solid lighten($black, 10%);
     top: 45px;
     transform: translateY(-50%);
   }
 }
 
 .redSelected {
-  background-color: lighten($blue, 20%);
+  background-color: lighten($blue, 30%);
 
   &::before {
     content: '';
@@ -99,8 +99,30 @@ body {
     display: block;
     position: relative;
     background-color: $lightRed;
-    border: 20px solid $red;
+    border: 20px solid lighten($red, 10%);
     top: 45px;
     transform: translateY(-50%);
   }
+}
+
+@keyframes fade {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+  }
+
+.noPlay{
+  animation-name: 'fade';
+  animation: blinking 1.5s linear;
+
+  &::before{
+    border: 0;
+    width: 95px;
+    height: 95px;
+    background-color: $yellow;
+    top: 45px;
+    transform: translateY(-50%);
+    animation-name: 'fade';
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }         
 }

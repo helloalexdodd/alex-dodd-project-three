@@ -35,9 +35,9 @@ $(document).ready(() => {
         });
     };
 // function for looping through the boardGrid array and placing the game pieces in their starting positions
-    function setupPieces() {    
-        for (let i = 0; i < boardGrid.length; i++) {
-            for (let j = 0; j < boardGrid.length; j++) {
+    function setupPieces(rows, cols) {    
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
                 if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i <= 2) {
                     let cellID = `#${i}_${j}`;
                     $(`#${i}_${j}`).addClass(`blackPiece`);
@@ -80,6 +80,7 @@ $(document).ready(() => {
         const $originDOMId = $(`#${originDOMId}`);
 // making an array of the opponent piece; position
         const opponentSquarePosition = [];
+        console.log(idArrayNums)
         const opponentSquareX = idArrayNums[0] - 1;
         const opponentSquareY = idArrayNums[1] + 1;
         opponentSquarePosition.push(opponentSquareX, opponentSquareY);
@@ -144,16 +145,16 @@ $(document).ready(() => {
         });
         // making an array of the origin of the player
         const originSquarePosition = [];
-        const originSquareX = idArrayNums[0] - 2;
-        const originSquareY = idArrayNums[1] - 2;
+        const originSquareX = idArrayNums[0] + 2;
+        const originSquareY = idArrayNums[1] + 2;
         originSquarePosition.push(originSquareX, originSquareY);
         // turning that array into an ID
         const originDOMId = originSquarePosition.join(`_`);
         const $originDOMId = $(`#${originDOMId}`);
         // making an array of the opponent piece; position
         const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] - 1;
-        const opponentSquareY = idArrayNums[1] - 1;
+        const opponentSquareX = idArrayNums[0] + 1;
+        const opponentSquareY = idArrayNums[1] + 1;
         opponentSquarePosition.push(opponentSquareX, opponentSquareY);
         // turning that array into an ID
         const opponentDOMId = opponentSquarePosition.join(`_`);
@@ -210,19 +211,18 @@ $(document).ready(() => {
     };
 // calling the setup functions and passing it the columns and rows
     setup(8, 8);
-    setupPieces();
+    setupPieces(8, 8);
 // listening event for selecting the piece a user wants to move
-    $(`#gameBoard`).on(`click`, `.row > div`, function ($opponentDOMId) {
+    $(`#gameBoard`).on(`click`, `.row > div`, function () {
         let allSquares = `#gameBoard > div > div`;
 // this stuff lets me access the i and j axis of my global arrays by using the id's of each div and passing it
         const $idString = $(this).attr(`id`);
-        const idArrayString = $idString.split("_", 2) ;
+        const idArrayString = $idString.split("_", 2);
         const i = idArrayString[0];
         const j = idArrayString[1];
 //variable to hold clicked playerPosition
         let cellValue = (playerPosition[i][j])
-
-        //passing the arguments to the function and placing it in a variable to use later on in an if statement
+//passing the arguments to the function and placing it in a variable to use later on in an if statement
         let hasOpponentPieceDownLeft = checkForOpponentPieceDownLeft(cellValue, idArrayString);
         let hasOpponentPieceDownRight = checkForOpponentPieceDownRight(cellValue, idArrayString);
         let hasOpponentPieceUpLeft = checkForOpponentPieceUpLeft(cellValue, idArrayString);
@@ -301,7 +301,7 @@ $(document).ready(() => {
                                 playerSwitch();
                                 // add a move onto the counter and display it to the user
                                 addToPlayerOneCounter();
-                            }
+                            };
                         };
                     };
 
@@ -309,10 +309,8 @@ $(document).ready(() => {
                 } else if (cellValue === 0 && $(allSquares).hasClass(`redSelected`)) {
                     // store the new x and y axis
                     xy = [boardx[i], boardy[j]];
-
                     // if the piece is being moved forward on the board  
                     if (xy[0] < storedxy[0]) {
-
                         //if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one down than the starting position
                         if (xy[1] === (storedxy[1] + 1) || xy[1] === (storedxy[1] - 1) && (xy[0]) === (storedxy[0] - 1)) {
                             //place the piece here
@@ -326,7 +324,7 @@ $(document).ready(() => {
                             // add a move onto the counter and display it to the user
                             addToPlayerTwoCounter();
                             //if the x axis is two rows down from the starting point
-                        } else if (xy[0] === (storedxy[0] + 2)) {
+                        } else if (xy[0] === (storedxy[0] - 2)) {
                             // and the y axis of the click is two columns to the left and the square in between those two squares has an opposing player's piece in it
                             if ((xy[1] === (storedxy[1] - 2)) && hasOpponentPieceUpLeft) {
                                 //place the piece here
@@ -338,8 +336,7 @@ $(document).ready(() => {
                                 // switch players
                                 playerSwitch();
                                 // add a move onto the counter and display it to the user
-                                addToPlayerOneCounter();
-                                // and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
+                                addToPlayerTwoCounter();
                             } else if ((xy[1] === (storedxy[1] + 2)) && hasOpponentPieceUpRight) {
                                 //place the piece here
                                 $(this).addClass(`redPiece`)
@@ -350,12 +347,11 @@ $(document).ready(() => {
                                 // switch players
                                 playerSwitch();
                                 // add a move onto the counter and display it to the user
-                                addToPlayerOneCounter();
-                            }
+                                addToPlayerTwoCounter();
+                            };
                         };
                     };
                 };
-            
             
             // if no pieces are already selected
             } else if ($(allSquares).hasClass(`blackSelected` || `redSelected`) === false) {
@@ -379,8 +375,23 @@ $(document).ready(() => {
                     $(this).removeClass(`redPiece`)
                     // change the playerPosition
                     playerPosition[i][j] = 0;
+                } else if ($(`#gameBoard`).hasClass(`playerOne`)) {
+                    $(this).addClass(`noPlay`)
+                    setTimeout(() => {
+                        $(this).removeClass(`noPlay`)
+                    }, 1000);
+                } else if ($(`#gameBoard`).hasClass(`playerTwo`)) {
+                    $(this).addClass(`noPlay`)
+                    setTimeout(() => {
+                        $(this).removeClass(`noPlay`)
+                    }, 1000);
                 };
             };
-        };
+        } else {
+            $(this).addClass(`noPlay`)
+            setTimeout(() => {
+                $(this).removeClass(`noPlay`)                
+            }, 1000);
+        }
     });
 });
