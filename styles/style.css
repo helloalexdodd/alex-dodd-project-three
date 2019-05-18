@@ -181,6 +181,11 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
 
 html {
   font-size: 125%;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #eddae4;
 }
 
 .outer-box {
@@ -224,18 +229,19 @@ html {
 .game-info h1 {
   margin: 50px 0;
   font-size: 3rem;
+  font-family: "Cormorant Garamond", serif;
 }
 
 .game-info h2 {
   color: #4782b2;
   margin: 0;
-  text-align: center;
   -webkit-transition: .5s;
   transition: .5s;
 }
 
 .game-info p {
-  padding: 50px;
+  margin-top: 50px;
+  padding-right: 60px;
 }
 
 .row {
@@ -587,6 +593,29 @@ html {
   right: 0;
   background: rgba(0, 0, 255, 0.5);
   z-index: 0;
+}
+
+@media (max-width: 1175px) {
+  .gameBoard {
+    float: none;
+    padding-bottom: 0;
+  }
+  .gameBoard .game-info {
+    position: initial;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    padding: 0px;
+    height: auto;
+    max-width: 1000px;
+  }
+  .gameBoard .game-info h1 {
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 960px) {
