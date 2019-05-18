@@ -12,6 +12,9 @@ $(document).ready(() => {
 // variables to hold each player's move count
     let playerOneCounter = 0;
     let playerTwoCounter = 0;
+//variable to hold each player's eat count
+    let playerOneEatCounter = 0;
+    let playerTwoEatCounter = 0;
 // function for setting up the board by looping through nested arrays and creating divs. also fills empty global divs for access to x and y axis
     function setup(rows, cols) {
         for (let i = 0; i < rows; i++) {
@@ -51,19 +54,29 @@ $(document).ready(() => {
         };
     };
 // function for switching players
-    let playerSwitch = () => {
+    const playerSwitch = () => {
         $(`#gameBoard`).toggleClass("playerOne playerTwo");
     };
 // add a move onto the PlayerOneCounter and display it to the user
-    let addToPlayerOneCounter = () => {
+    const addToPlayerOneCounter = () => {
         playerOneCounter = playerOneCounter + 1;
         $('.playerOneCounter').text(playerOneCounter);
     };
-// add a move onto the PlayerTwoounter and display it to the user
-    let addToPlayerTwoCounter = () => {
+// add a move onto the PlayerTwoCounter and display it to the user
+    const addToPlayerTwoCounter = () => {
         playerTwoCounter = playerTwoCounter + 1;
         $('.playerTwoCounter').text(playerTwoCounter);
     };
+// add an opponent piece onto the PlayerOneEatCounter and display it to the user
+    const addToPlayerEatCounter = () => {
+        if ($(`#gameBoard`).hasClass(`playerOne`)) {
+            playerOneEatCounter = playerOneEatCounter + 1
+            $('.playerOneEatCounter').text(playerOneEatCounter);
+        } else {
+            playerTwoEatCounter = playerTwoEatCounter + 1
+            $('.playerTwoEatCounter').text(playerTwoEatCounter);
+        }
+};
 // function for checking if there's an opponent piece on jump when moving down and to the left
     let checkForOpponentPieceDownLeft = (cellValue, idArrayString) => {
 // making an array of ID numbers
@@ -455,6 +468,8 @@ $(document).ready(() => {
                                 // change the playerPosition
                                 playerPosition[i][j] = 1;
                                 console.log(playerPosition)
+                                //add an opponent piece to the counter and display it to the user
+                                addToPlayerEatCounter();
                                 // switch players
                                 playerSwitch();
                                 // add a move onto the counter and display it to the user
@@ -495,6 +510,8 @@ $(document).ready(() => {
                                 // change the playerPosition
                                 playerPosition[i][j] = 1;
                                 console.log(playerPosition)
+                                //add an opponent piece to the counter and display it to the user
+                                addToPlayerEatCounter();
                                 // switch players
                                 playerSwitch();
                                 // add a move onto the counter and display it to the user
@@ -564,11 +581,13 @@ $(document).ready(() => {
                                 // change the playerPosition
                                 playerPosition[i][j] = 2;
                                 console.log(playerPosition)
+                                //add an opponent piece to the counter and display it to the user
+                                addToPlayerEatCounter();
                                 // switch players
                                 playerSwitch();
                                 // add a move onto the counter and display it to the user
                                 addToPlayerOneCounter();     
-                                //has doubel jump opportunity up and to the left
+                                //has double jump opportunity up and to the left
                                 if (hasDoubleJumpUpLeft) {
                                     // switch back players
                                     playerSwitch();
@@ -603,6 +622,8 @@ $(document).ready(() => {
                                 // change the playerPosition
                                 playerPosition[i][j] = 2;
                                 console.log(playerPosition)
+                                //add an opponent piece to the counter and display it to the user
+                                addToPlayerEatCounter();
                                 // switch players
                                 playerSwitch();
                                 // add a move onto the counter and display it to the user
