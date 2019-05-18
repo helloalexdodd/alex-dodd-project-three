@@ -8,17 +8,18 @@
     <title>My Checkers Game</title>
 </head>
 <body id="main" class="main">
-    
-    <div id="gameBoard" class="gameBoard playerOne"></div>
-    <div class="info">
-
-        <h1>This is Checkers!</h1>
-        <h2>Player 1</h2>
-        <h3>Move Count =  <span class="playerOneCounter">0</span></h3>
-        <h3>Red Pieces Taken = <span class="playerOneEatCounter">0</span></h3>
-        <h2>Player 2</h2>
-        <h3>Move Count =  <span class="playerTwoCounter">0</span></h3>
-        <h3>Black Pieces Taken = <span class="playerTwoEatCounter">0</span></h3>
+    <div class="outer-box">
+        <div id="gameBoard" class="gameBoard playerOne"></div>
+        <div class="game-info">
+            <h1>This is Checkers!</h1>
+            <h2 class="playerTurn">Player 1</h2>
+            <h3>Move Count =  <span class="playerOneCounter">0</span></h3>
+            <h3>Red Pieces Taken = <span class="playerOneEatCounter">0</span></h3>
+            <h2>Player 2</h2>
+            <h3>Move Count =  <span class="playerTwoCounter">0</span></h3>
+            <h3>Black Pieces Taken = <span class="playerTwoEatCounter">0</span></h3>
+        </div>
+        <p class="inner-box">This game is not designed to be played on screens this size. Please come back and play on a larger screen.</p>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="

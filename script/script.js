@@ -55,7 +55,8 @@ $(document).ready(() => {
     };
 // function for switching players
     const playerSwitch = () => {
-        $(`#gameBoard`).toggleClass("playerOne playerTwo");
+        $(`#gameBoard`).toggleClass(`playerOne playerTwo`);
+        $(`.game-info > h2`).toggleClass(`playerTurn`)
     };
 // add a move onto the PlayerOneCounter and display it to the user
     const addToPlayerOneCounter = () => {

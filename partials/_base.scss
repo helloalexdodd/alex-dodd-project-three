@@ -2,34 +2,72 @@ html {
     font-size: 125%;
 }
 
-.wrapper {
-    max-width: 1400px;
+// .wrapper {
+  //  max-width: 1400px;
+// }
+
+// body {
+  // width: 100%;
+// }
+
+// .main {
+  // display: flex;
+// }
+
+.outer-box {
+  width: 100vw;
+  height: 100vh;
+  display:block;
+  position:relative;
+  margin: 50px  ;
 }
 
-body {
-  width: 100%;
-}
-
-.main {
-  display: flex;
+.inner-box {
+  visibility: hidden;
 }
 
 .gameBoard {
-  margin: 50px  ;
-  text-align: center;
+  float: left;
+  padding: 50px;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px;
+  height: 500px;
+  max-width: 500px;
+
+  .playerTurn {
+    font-size: 2.5rem;
+    color: $darkRed;
+    transition: .5s;
+  }
+
+  h2,
+  h3 {
+    text-align: center;
+    color: $black;
+    transition: .5s;
+  }
+
+  h3 {
+    text-align: left;
+  }
 }
 
 .row {
-  height: 100px;
+  height: 90px;
 }
 
 .square {
   display: inline-block;
   margin: 0px;
   padding: 0px;
-  border: 4px solid $brown;
-  width: 100px;
-  height: 100px;
+  border: 3px solid $brown;
+  width: 90px;
+  height: 90px;
 
   // &:focus {
   //   border: 2px dotted mediumpurple;
@@ -46,27 +84,27 @@ body {
 
 .blackPiece:before{
     content: '';
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: block;
     position: relative;
     background-color: $black;
-    border: 20px solid $darkBlack;
-    top: 45px;
+    border: 17.5px solid $darkBlack;
+    top: 42px;
     transform: translateY(-50%);
 }
 
 .redPiece:before{
     content: '';
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: block;
     position: relative;
     background-color: $red;
-    border: 20px solid $darkRed;
-    top: 45px;
+    border: 17.5px solid $darkRed;
+    top: 42px;
     transform: translateY(-50%);
 }
 
@@ -75,14 +113,14 @@ body {
 
   &::before{
     content: '';
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: block;
     position: relative;
     background-color: $lightBlack;
-    border: 20px solid lighten($black, 10%);
-    top: 45px;
+    border: 17.5px solid lighten($black, 10%);
+    top: 42px;
     transform: translateY(-50%);
   }
 }
@@ -92,14 +130,15 @@ body {
 
   &::before {
     content: '';
-    width: 55px;
-    height: 55px;
+    content: '';
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: block;
     position: relative;
     background-color: $lightRed;
-    border: 20px solid lighten($red, 10%);
-    top: 45px;
+    border: 17.5px solid lighten($red, 10%);
+    top: 42px;
     transform: translateY(-50%);
   }
 }
@@ -111,42 +150,71 @@ body {
 }
 
 .noPlay{
-  animation: blinking 1.5s linear;
+  animation: blinking 2s linear;
 }
 
 @keyframes blackflicker{
     0% {background: $blue}
-    10% {background: $beige}
-    20% {background: $blue}
+    6% {background: $beige}
+    12% {background: $blue}
+    18% {background: $beige}
+    24% {background: $blue}
     30% {background: $beige}
-    40% {background: $blue}
-    50% {background: $beige}
-    60% {background: $blue}
-    70% {background: $beige}
-    80% {background: $blue}
-    90% {background: $beige}
+    36% {background: $blue}
+    42% {background: $beige}
+    48% {background: $blue}
+    54% {background: $blue}
+    59% {background: $beige}
+    64% {background: $blue}
+    69% {background: $beige}
+    74% {background: $blue}
+    79% {background: $beige}
+    84% {background: $blue}
+    92% {background: $beige}
     100% {background: $blue}
-}
-
-.blackFlicker {
-    animation: blackflicker 1.5s;    
 }
 
 @keyframes whiteflicker{
     0% {background: $beige}
-    10% {background: $blue}
-    20% {background: $beige}
+    6% {background: $blue}
+    12% {background: $beige}
+    18% {background: $blue}
+    24% {background: $beige}
     30% {background: $blue}
-    40% {background: $beige}
-    50% {background: $blue}
-    60% {background: $beige}
-    70% {background: $blue}
-    80% {background: $beige}
-    90% {background: $blue}
-    99% {background: $beige}
+    36% {background: $beige}
+    42% {background: $blue}
+    48% {background: $beige}
+    54% {background: $blue}
+    59% {background: $beige}
+    64% {background: $blue}
+    69% {background: $beige}
+    74% {background: $blue}
+    79% {background: $beige}
+    84% {background: $blue}
+    92% {background: $beige}
     100% {background: $blue}
 }
 
 .whiteFlicker {
-    animation: whiteflicker 1.5s;    
+    animation: whiteflicker 1.8s;    
+}
+
+.blackFlicker {
+    animation: blackflicker 1.8s;    
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 255, 0.5);
+    z-index: -1;
+}
+
+@media (max-width: 960px) {
+.outer-box {
+  opacity: .4;
+}
 }

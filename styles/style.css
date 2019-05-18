@@ -183,36 +183,69 @@ html {
   font-size: 125%;
 }
 
-.wrapper {
-  max-width: 1400px;
+.outer-box {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  position: relative;
+  margin: 50px;
 }
 
-body {
-  width: 100%;
-}
-
-.main {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.inner-box {
+  visibility: hidden;
 }
 
 .gameBoard {
-  margin: 50px;
+  float: left;
+  padding: 50px;
+}
+
+.game-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 50px;
+  height: 500px;
+  max-width: 500px;
+}
+
+.game-info .playerTurn {
+  font-size: 2.5rem;
+  color: #d81e33;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.game-info h2,
+.game-info h3 {
   text-align: center;
+  color: #31373a;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.game-info h3 {
+  text-align: left;
 }
 
 .row {
-  height: 100px;
+  height: 90px;
 }
 
 .square {
   display: inline-block;
   margin: 0px;
   padding: 0px;
-  border: 4px solid #30261d;
-  width: 100px;
-  height: 100px;
+  border: 3px solid #30261d;
+  width: 90px;
+  height: 90px;
 }
 
 .whiteSquare {
@@ -225,28 +258,28 @@ body {
 
 .blackPiece:before {
   content: '';
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: block;
   position: relative;
   background-color: #31373a;
-  border: 20px solid #252a2c;
-  top: 45px;
+  border: 17.5px solid #252a2c;
+  top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
 
 .redPiece:before {
   content: '';
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: block;
   position: relative;
   background-color: #e22d42;
-  border: 20px solid #d81e33;
-  top: 45px;
+  border: 17.5px solid #d81e33;
+  top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
@@ -257,14 +290,14 @@ body {
 
 .blackSelected::before {
   content: '';
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: block;
   position: relative;
   background-color: #606b71;
-  border: 20px solid #485156;
-  top: 45px;
+  border: 17.5px solid #485156;
+  top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
@@ -275,14 +308,15 @@ body {
 
 .redSelected::before {
   content: '';
-  width: 55px;
-  height: 55px;
+  content: '';
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: block;
   position: relative;
   background-color: #ee8793;
-  border: 20px solid #e85a6a;
-  top: 45px;
+  border: 17.5px solid #e85a6a;
+  top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
@@ -300,39 +334,60 @@ body {
 }
 
 .noPlay {
-  -webkit-animation: blinking 1.5s linear;
-          animation: blinking 1.5s linear;
+  -webkit-animation: blinking 2s linear;
+          animation: blinking 2s linear;
 }
 
 @-webkit-keyframes blackflicker {
   0% {
     background: #4782b2;
   }
-  10% {
+  6% {
     background: #f2f0ed;
   }
-  20% {
+  12% {
+    background: #4782b2;
+  }
+  18% {
+    background: #f2f0ed;
+  }
+  24% {
     background: #4782b2;
   }
   30% {
     background: #f2f0ed;
   }
-  40% {
+  36% {
     background: #4782b2;
   }
-  50% {
+  42% {
     background: #f2f0ed;
   }
-  60% {
+  48% {
     background: #4782b2;
   }
-  70% {
+  54% {
+    background: #4782b2;
+  }
+  59% {
     background: #f2f0ed;
   }
-  80% {
+  64% {
     background: #4782b2;
   }
-  90% {
+  69% {
+    background: #f2f0ed;
+  }
+  74% {
+    background: #4782b2;
+  }
+  79% {
+    background: #f2f0ed;
+  }
+  84% {
+    background: #4782b2;
+  }
+  92% {
     background: #f2f0ed;
   }
   100% {
@@ -344,31 +399,52 @@ body {
   0% {
     background: #4782b2;
   }
-  10% {
+  6% {
     background: #f2f0ed;
   }
-  20% {
+  12% {
+    background: #4782b2;
+  }
+  18% {
+    background: #f2f0ed;
+  }
+  24% {
     background: #4782b2;
   }
   30% {
     background: #f2f0ed;
   }
-  40% {
+  36% {
     background: #4782b2;
   }
-  50% {
+  42% {
     background: #f2f0ed;
   }
-  60% {
+  48% {
     background: #4782b2;
   }
-  70% {
+  54% {
+    background: #4782b2;
+  }
+  59% {
     background: #f2f0ed;
   }
-  80% {
+  64% {
     background: #4782b2;
   }
-  90% {
+  69% {
+    background: #f2f0ed;
+  }
+  74% {
+    background: #4782b2;
+  }
+  79% {
+    background: #f2f0ed;
+  }
+  84% {
+    background: #4782b2;
+  }
+  92% {
     background: #f2f0ed;
   }
   100% {
@@ -376,43 +452,56 @@ body {
   }
 }
 
-.blackFlicker {
-  -webkit-animation: blackflicker 1.5s;
-          animation: blackflicker 1.5s;
-}
-
 @-webkit-keyframes whiteflicker {
   0% {
     background: #f2f0ed;
   }
-  10% {
+  6% {
     background: #4782b2;
   }
-  20% {
+  12% {
+    background: #f2f0ed;
+  }
+  18% {
+    background: #4782b2;
+  }
+  24% {
     background: #f2f0ed;
   }
   30% {
     background: #4782b2;
   }
-  40% {
+  36% {
     background: #f2f0ed;
   }
-  50% {
+  42% {
     background: #4782b2;
   }
-  60% {
+  48% {
     background: #f2f0ed;
   }
-  70% {
+  54% {
     background: #4782b2;
   }
-  80% {
+  59% {
     background: #f2f0ed;
   }
-  90% {
+  64% {
     background: #4782b2;
   }
-  99% {
+  69% {
+    background: #f2f0ed;
+  }
+  74% {
+    background: #4782b2;
+  }
+  79% {
+    background: #f2f0ed;
+  }
+  84% {
+    background: #4782b2;
+  }
+  92% {
     background: #f2f0ed;
   }
   100% {
@@ -424,34 +513,52 @@ body {
   0% {
     background: #f2f0ed;
   }
-  10% {
+  6% {
     background: #4782b2;
   }
-  20% {
+  12% {
+    background: #f2f0ed;
+  }
+  18% {
+    background: #4782b2;
+  }
+  24% {
     background: #f2f0ed;
   }
   30% {
     background: #4782b2;
   }
-  40% {
+  36% {
     background: #f2f0ed;
   }
-  50% {
+  42% {
     background: #4782b2;
   }
-  60% {
+  48% {
     background: #f2f0ed;
   }
-  70% {
+  54% {
     background: #4782b2;
   }
-  80% {
+  59% {
     background: #f2f0ed;
   }
-  90% {
+  64% {
     background: #4782b2;
   }
-  99% {
+  69% {
+    background: #f2f0ed;
+  }
+  74% {
+    background: #4782b2;
+  }
+  79% {
+    background: #f2f0ed;
+  }
+  84% {
+    background: #4782b2;
+  }
+  92% {
     background: #f2f0ed;
   }
   100% {
@@ -460,6 +567,27 @@ body {
 }
 
 .whiteFlicker {
-  -webkit-animation: whiteflicker 1.5s;
-          animation: whiteflicker 1.5s;
+  -webkit-animation: whiteflicker 1.8s;
+          animation: whiteflicker 1.8s;
+}
+
+.blackFlicker {
+  -webkit-animation: blackflicker 1.8s;
+          animation: blackflicker 1.8s;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 255, 0.5);
+  z-index: -1;
+}
+
+@media (max-width: 960px) {
+  .outer-box {
+    opacity: .4;
+  }
 }
