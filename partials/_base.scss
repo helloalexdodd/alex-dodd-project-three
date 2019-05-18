@@ -3,15 +3,15 @@ html {
 }
 
 // .wrapper {
-  //  max-width: 1400px;
+//    max-width: 1400px;
 // }
 
 // body {
-  // width: 100%;
+//   width: 100%;
 // }
 
 // .main {
-  // display: flex;
+//   display: flex;
 // }
 
 .outer-box {
@@ -32,12 +32,12 @@ html {
 }
 
 .game-info {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 50px;
-  height: 500px;
-  max-width: 500px;
+  padding: 40px;
+  height: calc(90px * 7);
+  max-width: 600px;
 
   .playerTurn {
     font-size: 2.5rem;
@@ -45,15 +45,20 @@ html {
     transition: .5s;
   }
 
-  h2,
-  h3 {
+  h1 {
+    margin: 50px 0;
+    font-size: 3rem;
+  }
+
+  h2 {
+    color: $blue;
+    margin: 0;
     text-align: center;
-    color: $black;
     transition: .5s;
   }
 
-  h3 {
-    text-align: left;
+  p {
+    padding: 50px;
   }
 }
 
@@ -171,7 +176,7 @@ html {
     79% {background: $beige}
     84% {background: $blue}
     92% {background: $beige}
-    100% {background: $blue}
+    96% {background: $blue}
 }
 
 @keyframes whiteflicker{
@@ -192,7 +197,7 @@ html {
     79% {background: $beige}
     84% {background: $blue}
     92% {background: $beige}
-    100% {background: $blue}
+    96% {background: $blue}
 }
 
 .whiteFlicker {
@@ -210,11 +215,19 @@ html {
     left: 0;
     right: 0;
     background: rgba(0, 0, 255, 0.5);
-    z-index: -1;
+    z-index: 0;
 }
 
 @media (max-width: 960px) {
 .outer-box {
-  opacity: .4;
+  opacity: .2;
+}
+
+.inner-box {
+  visibility: visible;
+  width: 80vw;
+  color: black;
+  font-size: 2rem;
+  @include position (fixed, 300px, null, null, 10%)
 }
 }

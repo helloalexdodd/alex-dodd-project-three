@@ -201,6 +201,7 @@ html {
 }
 
 .game-info {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -208,12 +209,9 @@ html {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding: 50px;
-  height: 500px;
-  max-width: 500px;
+  padding: 40px;
+  height: calc(90px * 7);
+  max-width: 600px;
 }
 
 .game-info .playerTurn {
@@ -223,16 +221,21 @@ html {
   transition: .5s;
 }
 
-.game-info h2,
-.game-info h3 {
+.game-info h1 {
+  margin: 50px 0;
+  font-size: 3rem;
+}
+
+.game-info h2 {
+  color: #4782b2;
+  margin: 0;
   text-align: center;
-  color: #31373a;
   -webkit-transition: .5s;
   transition: .5s;
 }
 
-.game-info h3 {
-  text-align: left;
+.game-info p {
+  padding: 50px;
 }
 
 .row {
@@ -390,7 +393,7 @@ html {
   92% {
     background: #f2f0ed;
   }
-  100% {
+  96% {
     background: #4782b2;
   }
 }
@@ -447,7 +450,7 @@ html {
   92% {
     background: #f2f0ed;
   }
-  100% {
+  96% {
     background: #4782b2;
   }
 }
@@ -504,7 +507,7 @@ html {
   92% {
     background: #f2f0ed;
   }
-  100% {
+  96% {
     background: #4782b2;
   }
 }
@@ -561,7 +564,7 @@ html {
   92% {
     background: #f2f0ed;
   }
-  100% {
+  96% {
     background: #4782b2;
   }
 }
@@ -583,11 +586,20 @@ html {
   left: 0;
   right: 0;
   background: rgba(0, 0, 255, 0.5);
-  z-index: -1;
+  z-index: 0;
 }
 
 @media (max-width: 960px) {
   .outer-box {
-    opacity: .4;
+    opacity: .2;
+  }
+  .inner-box {
+    visibility: visible;
+    width: 80vw;
+    color: black;
+    font-size: 2rem;
+    position: fixed;
+    top: 300px;
+    left: 10%;
   }
 }
