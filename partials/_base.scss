@@ -113,3 +113,40 @@ body {
 .noPlay{
   animation: blinking 1.5s linear;
 }
+
+@keyframes blackflicker{
+    0% {background: $blue}
+    10% {background: $beige}
+    20% {background: $blue}
+    30% {background: $beige}
+    40% {background: $blue}
+    50% {background: $beige}
+    60% {background: $blue}
+    70% {background: $beige}
+    80% {background: $blue}
+    90% {background: $beige}
+    100% {background: $blue}
+}
+
+.blackFlicker {
+    animation: blackflicker 1.5s;    
+}
+
+@keyframes whiteflicker{
+    0% {background: $beige}
+    10% {background: $blue}
+    20% {background: $beige}
+    30% {background: $blue}
+    40% {background: $beige}
+    50% {background: $blue}
+    60% {background: $beige}
+    70% {background: $blue}
+    80% {background: $beige}
+    90% {background: $blue}
+    99% {background: $beige}
+    100% {background: $blue}
+}
+
+.whiteFlicker {
+    animation: whiteflicker 1.5s;    
+}

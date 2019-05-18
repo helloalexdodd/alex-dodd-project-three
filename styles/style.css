@@ -303,3 +303,163 @@ body {
   -webkit-animation: blinking 1.5s linear;
           animation: blinking 1.5s linear;
 }
+
+@-webkit-keyframes blackflicker {
+  0% {
+    background: #4782b2;
+  }
+  10% {
+    background: #f2f0ed;
+  }
+  20% {
+    background: #4782b2;
+  }
+  30% {
+    background: #f2f0ed;
+  }
+  40% {
+    background: #4782b2;
+  }
+  50% {
+    background: #f2f0ed;
+  }
+  60% {
+    background: #4782b2;
+  }
+  70% {
+    background: #f2f0ed;
+  }
+  80% {
+    background: #4782b2;
+  }
+  90% {
+    background: #f2f0ed;
+  }
+  100% {
+    background: #4782b2;
+  }
+}
+
+@keyframes blackflicker {
+  0% {
+    background: #4782b2;
+  }
+  10% {
+    background: #f2f0ed;
+  }
+  20% {
+    background: #4782b2;
+  }
+  30% {
+    background: #f2f0ed;
+  }
+  40% {
+    background: #4782b2;
+  }
+  50% {
+    background: #f2f0ed;
+  }
+  60% {
+    background: #4782b2;
+  }
+  70% {
+    background: #f2f0ed;
+  }
+  80% {
+    background: #4782b2;
+  }
+  90% {
+    background: #f2f0ed;
+  }
+  100% {
+    background: #4782b2;
+  }
+}
+
+.blackFlicker {
+  -webkit-animation: blackflicker 1.5s;
+          animation: blackflicker 1.5s;
+}
+
+@-webkit-keyframes whiteflicker {
+  0% {
+    background: #f2f0ed;
+  }
+  10% {
+    background: #4782b2;
+  }
+  20% {
+    background: #f2f0ed;
+  }
+  30% {
+    background: #4782b2;
+  }
+  40% {
+    background: #f2f0ed;
+  }
+  50% {
+    background: #4782b2;
+  }
+  60% {
+    background: #f2f0ed;
+  }
+  70% {
+    background: #4782b2;
+  }
+  80% {
+    background: #f2f0ed;
+  }
+  90% {
+    background: #4782b2;
+  }
+  99% {
+    background: #f2f0ed;
+  }
+  100% {
+    background: #4782b2;
+  }
+}
+
+@keyframes whiteflicker {
+  0% {
+    background: #f2f0ed;
+  }
+  10% {
+    background: #4782b2;
+  }
+  20% {
+    background: #f2f0ed;
+  }
+  30% {
+    background: #4782b2;
+  }
+  40% {
+    background: #f2f0ed;
+  }
+  50% {
+    background: #4782b2;
+  }
+  60% {
+    background: #f2f0ed;
+  }
+  70% {
+    background: #4782b2;
+  }
+  80% {
+    background: #f2f0ed;
+  }
+  90% {
+    background: #4782b2;
+  }
+  99% {
+    background: #f2f0ed;
+  }
+  100% {
+    background: #4782b2;
+  }
+}
+
+.whiteFlicker {
+  -webkit-animation: whiteflicker 1.5s;
+          animation: whiteflicker 1.5s;
+}
