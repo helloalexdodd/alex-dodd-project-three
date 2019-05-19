@@ -1,6 +1,6 @@
 html {
     font-size: 125%;
-    font-family: $primaryFont;
+    font-family: $primary-font;
     letter-spacing: -1.2px
 }
 
@@ -25,7 +25,8 @@ body {
   visibility: hidden;
 }
 
-.gameBoard {
+.game-board {
+  position: relative;
   float: left;
   padding: 50px;
 }
@@ -37,20 +38,24 @@ body {
   padding: 40px 0 40px 40px;
   height: calc(90px * 7);
 
-  .playerTurn {
-    font-size: 2.5rem;
-    color: $black;
+  .player-turn {
+    font-size: 2.7rem;
     transition: .5s;
   }
 
+  .player-one-turn {
+    color: $dark-black;
+  }
+
+  .player-two-turn {
+    color: $red;
+  }
+
+
   h2 {
-    color: darken($blue, 20%);
+    color: $dark-black;
     margin: 0;
     transition: .5s;
-
-    // &:first-of-type {
-    //   visibility: hidden;
-    // }
   }
 
   p {
@@ -60,7 +65,7 @@ body {
   h1 {
     margin: 50px 0;
     font-size: 3rem;
-    font-family: $secondaryFont;
+    font-family: $secondary-font;
   }
 }
 
@@ -77,15 +82,15 @@ body {
   height: 90px;
 }
 
-.whiteSquare {
+.white-square {
   background-color: $beige;
 }
 
-.blackSquare {
+.black-square {
   background-color: $blue;
 }
 
-.blackPiece:before{
+.black-piece:before{
     content: '';
     width: 50px;
     height: 50px;
@@ -93,12 +98,12 @@ body {
     display: block;
     position: relative;
     background-color: $black;
-    border: 17.5px solid $darkBlack;
+    border: 17.5px solid $dark-black;
     top: 42px;
     transform: translateY(-50%);
 }
 
-.redPiece:before{
+.red-piece:before{
     content: '';
     width: 50px;
     height: 50px;
@@ -106,12 +111,12 @@ body {
     display: block;
     position: relative;
     background-color: $red;
-    border: 17.5px solid $darkRed;
+    border: 17.5px solid $dark-red;
     top: 42px;
     transform: translateY(-50%);
 }
 
-.blackSelected {
+.black-selected {
   background-color: lighten($blue, 20%);
 
   &::before{
@@ -121,14 +126,14 @@ body {
     border-radius: 50%;
     display: block;
     position: relative;
-    background-color: $lightBlack;
+    background-color: $light-black;
     border: 17.5px solid lighten($black, 10%);
     top: 42px;
     transform: translateY(-50%);
   }
 }
 
-.redSelected {
+.red-selected {
   background-color: lighten($blue, 20%);
 
   &::before {
@@ -139,7 +144,7 @@ body {
     border-radius: 50%;
     display: block;
     position: relative;
-    background-color: $lightRed;
+    background-color: $light-red;
     border: 17.5px solid lighten($red, 10%);
     top: 42px;
     transform: translateY(-50%);
@@ -152,58 +157,78 @@ body {
   }
 }
 
-.noPlay{
+.no-play{
   animation: blinking 2s linear;
 }
 
-@keyframes blackflicker{
-    0% {background: $blue}
-    6% {background: $beige}
-    12% {background: $blue}
-    18% {background: $beige}
-    24% {background: $blue}
-    30% {background: $beige}
-    36% {background: $blue}
-    42% {background: $beige}
-    48% {background: $blue}
-    54% {background: $blue}
-    59% {background: $beige}
-    64% {background: $blue}
-    69% {background: $beige}
-    74% {background: $blue}
-    79% {background: $beige}
-    84% {background: $blue}
-    92% {background: $beige}
-    96% {background: $blue}
+@keyframes black-flicker {
+  0% {background: $blue}
+  6% {background: $beige}
+  12% {background: $blue}
+  18% {background: $beige}
+  24% {background: $blue}
+  30% {background: $beige}
+  36% {background: $blue}
+  42% {background: $beige}
+  48% {background: $blue}
+  54% {background: $blue}
+  59% {background: $beige}
+  64% {background: $blue}
+  69% {background: $beige}
+  74% {background: $blue}
+  79% {background: $beige}
+  84% {background: $blue}
+  92% {background: $beige}
+  96% {background: $blue}
 }
 
-@keyframes whiteflicker{
-    0% {background: $beige}
-    6% {background: $blue}
-    12% {background: $beige}
-    18% {background: $blue}
-    24% {background: $beige}
-    30% {background: $blue}
-    36% {background: $beige}
-    42% {background: $blue}
-    48% {background: $beige}
-    54% {background: $blue}
-    59% {background: $beige}
-    64% {background: $blue}
-    69% {background: $beige}
-    74% {background: $blue}
-    79% {background: $beige}
-    84% {background: $blue}
-    92% {background: $beige}
-    96% {background: $blue}
+@keyframes white-flicker {
+  0% {background: $beige}
+  6% {background: $blue}
+  12% {background: $beige}
+  18% {background: $blue}
+  24% {background: $beige}
+  30% {background: $blue}
+  36% {background: $beige}
+  42% {background: $blue}
+  48% {background: $beige}
+  54% {background: $blue}
+  59% {background: $beige}
+  64% {background: $blue}
+  69% {background: $beige}
+  74% {background: $blue}
+  79% {background: $beige}
+  84% {background: $blue}
+  92% {background: $beige}
+  96% {background: $blue}
 }
 
-.whiteFlicker {
-    animation: whiteflicker 1.8s;    
+.white-flicker {
+    animation: white-flicker 1.8s;    
 }
 
-.blackFlicker {
-    animation: blackflicker 1.8s;    
+.black-flicker {
+    animation: black-flicker 1.8s;    
+}
+
+@keyframes black-jump {
+  0% {background: $black}
+}
+
+@keyframes red-jump {
+  0% {background: $red}
+}
+
+.black-jump {
+  animation: black-jump 1.8s;
+}
+
+.red-jump {
+  animation: red-jump 1.8s;
+}
+
+.hide {
+  visibility: hidden;
 }
 
 .overlay {
@@ -229,7 +254,7 @@ body {
     justify-content: flex-start;
   }
   
-  .gameBoard {
+  .game-board {
     float: none;
     padding: 0;
     text-align: center;
@@ -243,7 +268,7 @@ body {
     padding: 50px;
     height: 300px;
     
-    .playerTurn {
+    .player-turn {
       font-size: 2rem;
     }
 
@@ -274,18 +299,14 @@ body {
     }
   }
 
-  .hide {
-    visibility: hidden;
-  }
-
   .instructions-box {
-    position: fixed;
-    top: 230px;
-    left: 880px;
-    opacity: 1;
+    position: absolute;
+    left: 200px;
+    top: 400px;
+    opacity: .9;
     padding: 30px;
-    height: 360px;
-    width: 340px;
+    height: 260px;
+    width: 440px;
     border-radius: 20px;
     background-color: $beige;
 

@@ -206,7 +206,8 @@ body {
   visibility: hidden;
 }
 
-.gameBoard {
+.game-board {
+  position: relative;
   float: left;
   padding: 50px;
 }
@@ -224,15 +225,22 @@ body {
   height: calc(90px * 7);
 }
 
-.game-info .playerTurn {
-  font-size: 2.5rem;
-  color: #31373a;
+.game-info .player-turn {
+  font-size: 2.7rem;
   -webkit-transition: .5s;
   transition: .5s;
 }
 
+.game-info .player-one-turn {
+  color: #252a2c;
+}
+
+.game-info .player-two-turn {
+  color: #e22d42;
+}
+
 .game-info h2 {
-  color: #2a4d69;
+  color: #252a2c;
   margin: 0;
   -webkit-transition: .5s;
   transition: .5s;
@@ -261,15 +269,15 @@ body {
   height: 90px;
 }
 
-.whiteSquare {
+.white-square {
   background-color: #f2f0ed;
 }
 
-.blackSquare {
+.black-square {
   background-color: #4782b2;
 }
 
-.blackPiece:before {
+.black-piece:before {
   content: '';
   width: 50px;
   height: 50px;
@@ -283,7 +291,7 @@ body {
           transform: translateY(-50%);
 }
 
-.redPiece:before {
+.red-piece:before {
   content: '';
   width: 50px;
   height: 50px;
@@ -297,11 +305,11 @@ body {
           transform: translateY(-50%);
 }
 
-.blackSelected {
+.black-selected {
   background-color: #8db3d2;
 }
 
-.blackSelected::before {
+.black-selected::before {
   content: '';
   width: 50px;
   height: 50px;
@@ -315,11 +323,11 @@ body {
           transform: translateY(-50%);
 }
 
-.redSelected {
+.red-selected {
   background-color: #8db3d2;
 }
 
-.redSelected::before {
+.red-selected::before {
   content: '';
   content: '';
   width: 50px;
@@ -346,12 +354,12 @@ body {
   }
 }
 
-.noPlay {
+.no-play {
   -webkit-animation: blinking 2s linear;
           animation: blinking 2s linear;
 }
 
-@-webkit-keyframes blackflicker {
+@-webkit-keyframes black-flicker {
   0% {
     background: #4782b2;
   }
@@ -408,7 +416,7 @@ body {
   }
 }
 
-@keyframes blackflicker {
+@keyframes black-flicker {
   0% {
     background: #4782b2;
   }
@@ -465,7 +473,7 @@ body {
   }
 }
 
-@-webkit-keyframes whiteflicker {
+@-webkit-keyframes white-flicker {
   0% {
     background: #f2f0ed;
   }
@@ -522,7 +530,7 @@ body {
   }
 }
 
-@keyframes whiteflicker {
+@keyframes white-flicker {
   0% {
     background: #f2f0ed;
   }
@@ -579,14 +587,52 @@ body {
   }
 }
 
-.whiteFlicker {
-  -webkit-animation: whiteflicker 1.8s;
-          animation: whiteflicker 1.8s;
+.white-flicker {
+  -webkit-animation: white-flicker 1.8s;
+          animation: white-flicker 1.8s;
 }
 
-.blackFlicker {
-  -webkit-animation: blackflicker 1.8s;
-          animation: blackflicker 1.8s;
+.black-flicker {
+  -webkit-animation: black-flicker 1.8s;
+          animation: black-flicker 1.8s;
+}
+
+@-webkit-keyframes black-jump {
+  0% {
+    background: #31373a;
+  }
+}
+
+@keyframes black-jump {
+  0% {
+    background: #31373a;
+  }
+}
+
+@-webkit-keyframes red-jump {
+  0% {
+    background: #e22d42;
+  }
+}
+
+@keyframes red-jump {
+  0% {
+    background: #e22d42;
+  }
+}
+
+.black-jump {
+  -webkit-animation: black-jump 1.8s;
+          animation: black-jump 1.8s;
+}
+
+.red-jump {
+  -webkit-animation: red-jump 1.8s;
+          animation: red-jump 1.8s;
+}
+
+.hide {
+  visibility: hidden;
 }
 
 .overlay {
@@ -618,7 +664,7 @@ body {
         -ms-flex-pack: start;
             justify-content: flex-start;
   }
-  .gameBoard {
+  .game-board {
     float: none;
     padding: 0;
     text-align: center;
@@ -636,7 +682,7 @@ body {
     padding: 50px;
     height: 300px;
   }
-  .game-info .playerTurn {
+  .game-info .player-turn {
     font-size: 2rem;
   }
   .game-info .player-outer-box {
@@ -671,18 +717,14 @@ body {
   }
 }
 
-.hide {
-  visibility: hidden;
-}
-
 .instructions-box {
-  position: fixed;
-  top: 230px;
-  left: 880px;
-  opacity: 1;
+  position: absolute;
+  left: 200px;
+  top: 400px;
+  opacity: .9;
   padding: 30px;
-  height: 360px;
-  width: 340px;
+  height: 260px;
+  width: 440px;
   border-radius: 20px;
   background-color: #f2f0ed;
 }

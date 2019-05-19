@@ -28,15 +28,15 @@ $(document).ready(() => {
                 playerPosition[i][j] = 0;
                 boardy[j] = j;
                 if (i % 2 === 0 && j % 2 === 0 || i % 2 !== 0 && j % 2 !== 0) {
-                    boardGrid[i][j] = `<div id="${i}_${j}" class="whiteSquare square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j}" role="button"></div>`
+                    boardGrid[i][j] = `<div id="${i}_${j}" class="white-square square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j}" role="button"></div>`
                 } else {
-                    boardGrid[i][j] = `<div id="${i}_${j}" class="blackSquare square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j}" role="button"></div>`
+                    boardGrid[i][j] = `<div id="${i}_${j}" class="black-square square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j}" role="button"></div>`
                 };
             }
         }
-// looping through the boardGrid array and appending the divs to the main gameboard
+// looping through the boardGrid array and appending the divs to the main game-board
         boardGrid.forEach((row) => {
-            $(`#gameBoard`).append(`<div class="row">${row.join('')}</div>`)
+            $(`#game-board`).append(`<div class="row">${row.join('')}</div>`)
         });
     };
 // function for looping through the boardGrid array and placing the game pieces in their starting positions
@@ -45,11 +45,11 @@ $(document).ready(() => {
             for (let j = 0; j < cols; j++) {
                 if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i <= 2) {
                     let cellID = `#${i}_${j}`;
-                    $(`#${i}_${j}`).addClass(`blackPiece`);
+                    $(`#${i}_${j}`).addClass(`black-piece`);
                     playerPosition[i][j] = 1;
                 } else if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i >= 5) {
                     let cellID = `#${i}_${j}`;
-                    $(cellID).addClass(`redPiece`);
+                    $(cellID).addClass(`red-piece`);
                     playerPosition[i][j] = 2;
                 }
             }
@@ -57,27 +57,27 @@ $(document).ready(() => {
     };
 // function for switching players
     const playerSwitch = () => {
-        $(`#gameBoard`).toggleClass(`playerOne playerTwo`);
-        $(`h2`).toggleClass(`playerTurn`)
+        $(`#game-board`).toggleClass(`player-one player-two`);
+        $(`h2`).toggleClass(`player-turn player-one-turn player-two-turn`)
     };
 // add a move onto the PlayerOneCounter and display it to the user
     const addToPlayerCounter = () => {
-        if ($(`#gameBoard`).hasClass(`playerOne`)) {
+        if ($(`#game-board`).hasClass(`player-one`)) {
             playerOneCounter = playerOneCounter + 1;
-            $('.playerOneCounter').text(playerOneCounter);
+            $('.player-one-counter').text(playerOneCounter);
         } else {
             playerTwoCounter = playerTwoCounter + 1;
-            $('.playerTwoCounter').text(playerTwoCounter);
+            $('.player-two-counter').text(playerTwoCounter);
         }
     };
 // add an opponent piece onto the PlayerOneEatCounter and display it to the user
     const addToPlayerEatCounter = () => {
-        if ($(`#gameBoard`).hasClass(`playerOne`)) {
+        if ($(`#game-board`).hasClass(`player-one`)) {
             playerOneEatCounter = playerOneEatCounter + 1
-            $('.playerOneEatCounter').text(playerOneEatCounter);
+            $('.player-one-eat-counter').text(playerOneEatCounter);
         } else {
             playerTwoEatCounter = playerTwoEatCounter + 1
-            $('.playerTwoEatCounter').text(playerTwoEatCounter);
+            $('.player-two-eat-counter').text(playerTwoEatCounter);
         }
 };
 // function for checking if there's an opponent piece on jump when moving down and to the left
@@ -107,9 +107,9 @@ $(document).ready(() => {
             // getting the cellValue of the opponent piece
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             // if the opponent's piece is between the origin and new location of the piece
-            if (opponentCellValue == 2 && $($originDOMId).hasClass(`blackSelected`)) {
+            if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`)) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`redPiece`);
+                $($opponentDOMId).removeClass(`red-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
@@ -145,9 +145,9 @@ $(document).ready(() => {
         if (opponentSquareX >= 0) {
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             // if the opponent's piece is between the origin and new location of the piece
-            if (opponentCellValue == 2 && $($originDOMId).hasClass(`blackSelected`)) {
+            if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`)) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`redPiece`);
+                $($opponentDOMId).removeClass(`red-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
@@ -184,9 +184,9 @@ $(document).ready(() => {
         // getting the cellValue of the opponent piece
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             // if the opponent's piece is between the origin and new location of the piece
-            if (opponentCellValue == 1 && $($originDOMId).hasClass(`redSelected`)) {
+            if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`)) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`blackPiece`);
+                $($opponentDOMId).removeClass(`black-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
@@ -223,9 +223,9 @@ $(document).ready(() => {
             // getting the cellValue of the opponent piece
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             // if the opponent's piece is between the origin and new location of the piece
-            if (opponentCellValue == 1 && $($originDOMId).hasClass(`redSelected`)) {
+            if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`)) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`blackPiece`);
+                $($opponentDOMId).removeClass(`black-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
@@ -256,7 +256,7 @@ $(document).ready(() => {
             // getting the cellValue of the opponent piece
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
-            // $(destinationDOMId).filter(`blackPiece redPiece`)
+            // $(destinationDOMId).filter(`black-piece red-piece`)
             // if the opponent's piece is between the origin and new location of the piece
             if (opponentCellValue == 2 && destinationCellValue == 0) {
                 // run this function
@@ -287,7 +287,7 @@ $(document).ready(() => {
             // getting the cellValue of the opponent piece
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
-            // $(destinationDOMId).filter(`blackPiece redPiece`)
+            // $(destinationDOMId).filter(`black-piece red-piece`)
             // if the opponent's piece is between the origin and new location of the piece
             if (opponentCellValue == 2 && destinationCellValue == 0) {
                 // run this function
@@ -303,13 +303,11 @@ $(document).ready(() => {
         const idArrayNums = idArrayString.map((num) => {
             return Number(num);
         });
-        console.log(idArrayNums)
         // making an array of the destination of the player
         const destinationSquarePosition = [];
         const destinationSquareX = idArrayNums[0] - 2;
         const destinationSquareY = idArrayNums[1] - 2;
         destinationSquarePosition.push(destinationSquareX, destinationSquareY);
-        console.log(destinationSquarePosition)
         // making an array of the opponent piece position
         const opponentSquarePosition = [];
         const opponentSquareX = idArrayNums[0] - 1;
@@ -317,11 +315,10 @@ $(document).ready(() => {
         opponentSquarePosition.push(opponentSquareX, opponentSquareY);
         //check to make sure the player destination isn't off the board
         if (destinationSquareX >= 0) {
-        console.log(destinationSquareX)
             // getting the cellValue of the opponent piece
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
-            // $(destinationDOMId).filter(`blackPiece redPiece`)
+            // $(destinationDOMId).filter(`black-piece red-piece`)
             // if the opponent's piece is between the origin and new location of the piece
             if (opponentCellValue == 1 && destinationCellValue == 0) {
                 // run this function
@@ -342,21 +339,17 @@ $(document).ready(() => {
         const destinationSquareX = idArrayNums[0] - 2;
         const destinationSquareY = idArrayNums[1] + 2;
         destinationSquarePosition.push(destinationSquareX, destinationSquareY);
-        console.log(destinationSquarePosition);
         // making an array of the opponent piece position
         const opponentSquarePosition = [];
         const opponentSquareX = idArrayNums[0] - 1;
         const opponentSquareY = idArrayNums[1] + 1;
         opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-        console.log(opponentSquarePosition);
         //check to make sure the player destination isn't off the board
         if (destinationSquareX >= 0) {
             // getting the cellValue of the opponent piece
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
-            console.log(destinationCellValue);            
-            console.log(destinationCellValue);
-            // $(destinationDOMId).filter(`blackPiece redPiece`)
+            // $(destinationDOMId).filter(`black-piece red-piece`)
             // if the opponent's piece is between the origin and new location of the piece
             if (opponentCellValue == 1 && destinationCellValue == 0) {
                 // run this function
@@ -371,13 +364,13 @@ $(document).ready(() => {
     setup(8, 8);
     setupPieces(8, 8);
 // listening event for selecting the piece a user wants to move
-    $(`#gameBoard`).on(`click keypress`, `.row > div`, function () {
-//declaring some useful variables
-        const allSquares = `#gameBoard > div > div`;
+    $(`#game-board`).on(`click keypress`, `.row > div`, function () {
+//declaring some useful variables declarations
+        const allSquares = `#game-board > div > div`;
         const $allSquares = $(allSquares);
         const $this = $(this);
-        $blackSquare = $(`.blackSquare`);
-        $whiteSquare = $(`.whiteSquare`)
+        $blackSquare = $(`.black-square`);
+        $whiteSquare = $(`.white-square`)
 // this stuff lets me access the i and j axis of my global arrays by using the id's of each div and passing it
         const $idString = $this.attr(`id`);
         const idArrayString = $idString.split("_", 2);
@@ -394,66 +387,76 @@ $(document).ready(() => {
         let hasDoubleJumpDownRight = DoubleJumpDownRight(cellValue, idArrayString);
         let hasDoubleJumpUpLeft = DoubleJumpUpLeft(cellValue, idArrayString);
         let hasDoubleJumpUpRight = DoubleJumpUpRight(cellValue, idArrayString);
-
-        $(`.instructions-box`).addClass(`hide`)
+//make the instructions disappear
+        // $(`.instructions`).addClass(`hide`);
+        $(`.instructions-box`).addClass(`hide`);
 
         //if this click is a black square (because pieces can only move on black squares)
-        if (this.classList.contains(`blackSquare`)) {
+        if (this.classList.contains(`black-square`)) {
             
-            // if any piece is already selected
-            if ($allSquares.hasClass(`blackSelected`) || $allSquares.hasClass(`redSelected`)) {
+            // if any black piece is already selected
+            if ($allSquares.hasClass(`black-selected`)) {
                    
                 //if this click is already a selected black piece
-                if (this.classList.contains(`blackSelected`)) {
+                if (this.classList.contains(`black-selected`)) {
                     // unselect the piece
-                    $this.removeClass(`blackSelected`)
+                    $this.removeClass(`black-selected`);
                     // style the piece back to default
-                    $this.addClass(`blackPiece`)
+                    $this.addClass(`black-piece`);
                     // change the playerPosition
-                    playerPosition[i][j] = 1
-                    console.log(playerPosition)
-                
-                //if this click is already a selected red piece
-                } else if (this.classList.contains(`redSelected`)) {
-                    //unselect the piece
-                    $this.removeClass(`redSelected`)
-                    //style the piece back to default
-                    $this.addClass(`redPiece`)
+                    playerPosition[i][j] = 1;
+
+                // if this is a black piece and a black piece is already selected
+                } else if (cellValue === 1 && ($allSquares.classList.contains(`black-selected`))) {
+                    // unselect the previous piece
+                    $allSquares.removeClass(`black-selected`);
+                    //change the previous selected piece's cell value
+                    playerPosition[boardx[i]][boardy[j]] = 1 
+                    // select the piece    
+                    $this.addClass(`black-selected`)
+                    // remove styling
+                    $this.removeClass(`black-piece`)
                     // change the playerPosition
-                    playerPosition[i][j] = 2;
-                
-                //if this isn't already where any piece already sits and the piece that's selected is black
-                } else if (cellValue === 0 && $allSquares.hasClass(`blackSelected`)) {
+                    playerPosition[i][j] = 0; 
                     // store the new x and y axis
-                    xy = [boardx[i], boardy[j]];
+                    storedxy = [boardx[i], boardy[j]]
+
+                //if this isn't already where any piece already sits and the piece that's selected is black
+                } else if (cellValue === 0 && $allSquares.hasClass(`black-selected`)) {
                 
+                // store the new x and y axis
+                xy = [boardx[i], boardy[j]];
+
                     // if the piece is being moved forward on the board    
                     if (xy[0] > storedxy[0]) {
-                        
+
                         //if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one more than the starting position
                         if (xy[1] === (storedxy[1] + 1) || xy[1] === (storedxy[1] - 1) && (xy[0]) === (storedxy[0] + 1)) {
                             //place the piece here
-                            $this.addClass(`blackPiece`)
+                            $this.addClass(`black-piece`)
                             // remove the piece from its original square
-                            $allSquares.removeClass(`blackSelected`)
+                            $allSquares.removeClass(`black-selected`)
                             // change the playerPosition
                             playerPosition[i][j] = 1;
                             // add a move onto the counter and display it to the user
                             addToPlayerCounter();
                             // switch players
                             playerSwitch();
-                        //if the x axis is two rows down from the starting point
+                            //if the x axis is two rows down from the starting point
                         } else if (xy[0] === (storedxy[0] + 2)) {
-
-                                // and the y axis is two columns to the left and the square in between those two squares has an opposing player's piece in it
+                            // and the y axis is two columns to the left and the square in between those two squares has an opposing player's piece in it
                             if ((xy[1] === (storedxy[1] - 2)) && hasOpponentPieceDownLeft) {
                                 //place the piece here
-                                $this.addClass(`blackPiece`)
+                                $this.addClass(`black-piece`)
                                 // remove the piece from its original square
-                                $allSquares.removeClass(`blackSelected`)
+                                $allSquares.removeClass(`black-selected`)
                                 // change the playerPosition
                                 playerPosition[i][j] = 1;
-                                console.log(playerPosition)
+                                //black animation
+                                $allSquares.addClass('black-jump');
+                                setTimeout(function () {
+                                    $allSquares.removeClass('black-jump');
+                                }, 2000);
                                 //add an opponent piece to the counter and display it to the user
                                 addToPlayerEatCounter();
                                 // add a move onto the counter and display it to the user
@@ -465,81 +468,129 @@ $(document).ready(() => {
                                     // switch back players
                                     playerSwitch();
                                     //double jump animation
-                                    $blackSquare.addClass('blackFlicker');
                                     setTimeout(function () {
-                                        $blackSquare.removeClass('blackFlicker');
-                                    }, 17000);
-                                    $whiteSquare.addClass('whiteFlicker');
+                                    $blackSquare.addClass('black-flicker');
                                     setTimeout(function () {
-                                        $whiteSquare.removeClass('whiteFlicker');
-                                    }, 17000);
-                                //and has a double jump opportunity down and to the right
-                                } else if (hasDoubleJumpDownRight) {
-                                    // switch back players
-                                    playerSwitch();
-                                    //double jump animation
-                                    $blackSquare.addClass('blackFlicker');
+                                        $blackSquare.removeClass('black-flicker');
+                                    }, 2000);
+                                    }, 2000);
                                     setTimeout(function () {
-                                        $blackSquare.removeClass('blackFlicker');
-                                    }, 17000);
-                                    $whiteSquare.addClass('whiteFlicker');
+                                    $whiteSquare.addClass('white-flicker');
                                     setTimeout(function () {
-                                        $whiteSquare.removeClass('whiteFlicker');
-                                    }, 17000);
-                                }
-                            // and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
-                            } else if ((xy[1] === (storedxy[1] + 2)) && hasOpponentPieceDownRight) {
-                                //place the piece here
-                                $this.addClass(`blackPiece`)
-                                // remove the piece from its original square
-                                $allSquares.removeClass(`blackSelected`)
-                                // change the playerPosition
-                                playerPosition[i][j] = 1;
-                                console.log(playerPosition)
-                                //add an opponent piece to the counter and display it to the user
-                                addToPlayerEatCounter();
-                                // add a move onto the counter and display it to the user
-                                addToPlayerCounter();
-                                // switch players
-                                playerSwitch();
-                                //and has a double jump opportunity down and to the left
-                                if (hasDoubleJumpDownLeft) {
-                                    // switch back players
-                                    playerSwitch();
-                                    //double jump animation
-                                    $blackSquare.addClass('blackFlicker');
-                                    setTimeout(function () {
-                                        $blackSquare.removeClass('blackFlicker');
-                                    }, 17000);
-                                    $whiteSquare.addClass('whiteFlicker');
-                                    setTimeout(function () {
-                                        $whiteSquare.removeClass('whiteFlicker');
-                                    }, 17000);
+                                        $whiteSquare.removeClass('white-flicker');
+                                    }, 2000);
+                                    }, 2000);
                                     //and has a double jump opportunity down and to the right
                                 } else if (hasDoubleJumpDownRight) {
                                     // switch back players
                                     playerSwitch();
                                     //double jump animation
-                                    $blackSquare.addClass('blackFlicker');
                                     setTimeout(function () {
-                                        $blackSquare.removeClass('blackFlicker');
-                                    }, 17000);
-                                    $whiteSquare.addClass('whiteFlicker');
+                                    $blackSquare.addClass('black-flicker');
                                     setTimeout(function () {
-                                        $whiteSquare.removeClass('whiteFlicker');
-                                    }, 17000);
+                                        $blackSquare.removeClass('black-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    setTimeout(function () {
+                                    $whiteSquare.addClass('white-flicker');
+                                    setTimeout(function () {
+                                        $whiteSquare.removeClass('white-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                }
+                                // and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
+                            } else if ((xy[1] === (storedxy[1] + 2)) && hasOpponentPieceDownRight) {
+                                //place the piece here
+                                $this.addClass(`black-piece`)
+                                // remove the piece from its original square
+                                $allSquares.removeClass(`black-selected`)
+                                // change the playerPosition
+                                playerPosition[i][j] = 1;
+                                // black animation
+                                $allSquares.addClass('black-jump');
+                                setTimeout(function () {
+                                    $allSquares.removeClass('black-jump');
+                                }, 2000);
+                                //add an opponent piece to the counter and display it to the user
+                                addToPlayerEatCounter();
+                                // add a move onto the counter and display it to the user
+                                addToPlayerCounter();
+                                // switch players
+                                playerSwitch();
+                                //and has a double jump opportunity down and to the left
+                                if (hasDoubleJumpDownLeft) {
+                                    // switch back players
+                                    playerSwitch();
+                                    //double jump animation
+                                    setTimeout(function () {
+                                    $blackSquare.addClass('black-flicker');
+                                    setTimeout(function () {
+                                        $blackSquare.removeClass('black-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    setTimeout(function () {
+                                    $whiteSquare.addClass('white-flicker');
+                                    setTimeout(function () {
+                                        $whiteSquare.removeClass('white-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    //and has a double jump opportunity down and to the right
+                                } else if (hasDoubleJumpDownRight) {
+                                    // switch back players
+                                    playerSwitch();
+                                    //double jump animation
+                                    setTimeout(function () {
+                                    $blackSquare.addClass('black-flicker');
+                                    setTimeout(function () {
+                                        $blackSquare.removeClass('black-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    setTimeout(function () {
+                                    $whiteSquare.addClass('white-flicker');
+                                    setTimeout(function () {
+                                        $whiteSquare.removeClass('white-flicker');
+                                    }, 2000);
+                                    }, 2000);
                                 }
                             };
                         };
-                    } else {
-                        $this.addClass(`noPlay`)
-                        setTimeout(() => {
-                            $this.removeClass(`noPlay`)
-                        }, 1000);
                     };
+                } else {
+                    $this.addClass(`no-play`)
+                    setTimeout(() => {
+                        $this.removeClass(`no-play`)
+                    }, 1000);
+                };
 
+            // if any red piece is already selected
+            } else if ($allSquares.hasClass(`red-selected`)) {
+                
+                //if this click is already a selected red piece
+                if (this.classList.contains(`red-selected`)) {
+                    //unselect the piece
+                    $this.removeClass(`red-selected`)
+                    //style the piece back to default
+                    $this.addClass(`red-piece`)
+                    // change the playerPosition
+                    playerPosition[i][j] = 2;
+
+                // if this is already a red piece and a red piece is already selected
+                } else if (cellValue === 2 && ($allSquares.classList.contains(`red-selected`))) {
+                    // unselect the previous piece
+                    $allSquares.removeClass(`red-selected`);
+                    //change the previous selected piece's cell value
+                    playerPosition[boardx[i]][boardy[j]] = 2
+                    // select the piece    
+                    $this.addClass(`red-selected`)
+                    // remove styling
+                    $this.removeClass(`red-piece`)
+                    // change the playerPosition
+                    playerPosition[i][j] = 0;
+                    // store the new x and y axis
+                    storedxy = [boardx[i], boardy[j]]
+                
                 // if this isn't already where any piece already sits and the piece that is selected is red
-                } else if (cellValue === 0 && $allSquares.hasClass(`redSelected`)) {
+                } else if (cellValue === 0 && $allSquares.hasClass(`red-selected`)) {
                     // store the new x and y axis
                     xy = [boardx[i], boardy[j]];
                     // if the piece is being moved forward on the board  
@@ -547,9 +598,9 @@ $(document).ready(() => {
                         //if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one down than the starting position
                         if (xy[1] === (storedxy[1] + 1) || xy[1] === (storedxy[1] - 1) && (xy[0]) === (storedxy[0] - 1)) {
                             //place the piece here
-                            $this.addClass(`redPiece`)
+                            $this.addClass(`red-piece`)
                             // remove the piece from its original square
-                            $allSquares.removeClass(`redSelected`)
+                            $allSquares.removeClass(`red-selected`)
                             // change the playerPosition
                             playerPosition[i][j] = 2;
                             // add a move onto the counter and display it to the user
@@ -561,16 +612,20 @@ $(document).ready(() => {
                             // and the y axis of the click is two columns to the left and the square in between those two squares has an opposing player's piece in it
                             if ((xy[1] === (storedxy[1] - 2)) && hasOpponentPieceUpLeft) {
                                 //place the piece here
-                                $this.addClass(`redPiece`)
+                                $this.addClass(`red-piece`)
                                 // remove the piece from its original square
-                                $allSquares.removeClass(`redSelected`)
+                                $allSquares.removeClass(`red-selected`)
                                 // change the playerPosition
                                 playerPosition[i][j] = 2;
-                                console.log(playerPosition)
+                                //red animation
+                                $allSquares.addClass('red-jump');
+                                setTimeout(function () {
+                                    $allSquares.removeClass('red-jump');
+                                }, 2000);
                                 //add an opponent piece to the counter and display it to the user
                                 addToPlayerEatCounter();
                                 // add a move onto the counter and display it to the user
-                                addToPlayerCounter();     
+                                addToPlayerCounter();
                                 // switch players
                                 playerSwitch();
                                 //has double jump opportunity up and to the left
@@ -578,36 +633,48 @@ $(document).ready(() => {
                                     // switch back players
                                     playerSwitch();
                                     //double jump animation
-                                    $blackSquare.addClass('blackFlicker');
                                     setTimeout(function () {
-                                        $blackSquare.removeClass('blackFlicker');
-                                    }, 17000);
-                                    $whiteSquare.addClass('whiteFlicker');
+                                    $blackSquare.addClass('black-flicker');
                                     setTimeout(function () {
-                                        $whiteSquare.removeClass('whiteFlicker');
-                                    }, 17000);
+                                        $blackSquare.removeClass('black-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    setTimeout(function () {
+                                    $whiteSquare.addClass('white-flicker');
+                                    setTimeout(function () {
+                                        $whiteSquare.removeClass('white-flicker');
+                                    }, 2000);
+                                    }, 2000);
                                     //and has a double jump opportunity up and to the right
                                 } else if (hasDoubleJumpUpRight) {
                                     // switch back players
                                     playerSwitch();
                                     //double jump animation
-                                    $blackSquare.addClass('blackFlicker');
                                     setTimeout(function () {
-                                        $blackSquare.removeClass('blackFlicker');
-                                    }, 17000);
-                                    $whiteSquare.addClass('whiteFlicker');
+                                    $blackSquare.addClass('black-flicker');
                                     setTimeout(function () {
-                                        $whiteSquare.removeClass('whiteFlicker');
-                                    }, 17000);
+                                        $blackSquare.removeClass('black-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    setTimeout(function () {
+                                    $whiteSquare.addClass('white-flicker');
+                                    setTimeout(function () {
+                                        $whiteSquare.removeClass('white-flicker');
+                                    }, 2000);
+                                    }, 2000);
                                 }
                             } else if ((xy[1] === (storedxy[1] + 2)) && hasOpponentPieceUpRight) {
                                 //place the piece here
-                                $this.addClass(`redPiece`)
+                                $this.addClass(`red-piece`)
                                 // remove the piece from its original square
-                                $allSquares.removeClass(`redSelected`)
+                                $allSquares.removeClass(`red-selected`)
                                 // change the playerPosition
                                 playerPosition[i][j] = 2;
-                                console.log(playerPosition)
+                                // red animation
+                                $allSquares.addClass('red-jump');
+                                setTimeout(function () {
+                                    $allSquares.removeClass('red-jump');
+                                }, 2000);
                                 //add an opponent piece to the counter and display it to the user
                                 addToPlayerEatCounter();
                                 // add a move onto the counter and display it to the user
@@ -619,72 +686,83 @@ $(document).ready(() => {
                                     // switch back players
                                     playerSwitch();
                                     //double jump animation
-                                    $blackSquare.addClass('blackFlicker');
                                     setTimeout(function () {
-                                        $blackSquare.removeClass('blackFlicker');
-                                    }, 17000);
-                                    $whiteSquare.addClass('whiteFlicker');
+                                    $blackSquare.addClass('black-flicker');
                                     setTimeout(function () {
-                                        $whiteSquare.removeClass('whiteFlicker');
-                                    }, 17000);
-                                //and has a double jump opportunity up and to the right
+                                        $blackSquare.removeClass('black-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    setTimeout(function () {
+                                    $whiteSquare.addClass('white-flicker');
+                                    setTimeout(function () {
+                                        $whiteSquare.removeClass('white-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    //and has a double jump opportunity up and to the right
                                 } else if (hasDoubleJumpUpRight) {
                                     // switch back players
                                     playerSwitch();
                                     //double jump animation
-                                    $blackSquare.addClass('blackFlicker');
                                     setTimeout(function () {
-                                        $blackSquare.removeClass('blackFlicker');
-                                    }, 17000);
-                                    $whiteSquare.addClass('whiteFlicker');
+                                    $blackSquare.addClass('black-flicker');
                                     setTimeout(function () {
-                                        $whiteSquare.removeClass('whiteFlicker');
-                                    }, 17000);
+                                        $blackSquare.removeClass('black-flicker');
+                                    }, 2000);
+                                    }, 2000);
+                                    setTimeout(function () {
+                                    $whiteSquare.addClass('white-flicker');
+                                    setTimeout(function () {
+                                        $whiteSquare.removeClass('white-flicker');
+                                    }, 2000);
+                                    }, 2000);
                                 }
                             };
                         };
                     };
-                };
-            
+                };                      
             // if no pieces are already selected
-            } else if ($allSquares.hasClass(`blackSelected` || `redSelected`) === false) {
+            } else if ($allSquares.hasClass(`black-selected` || `red-selected`) === false) {
+               
                 // store the x and y axis
                 storedxy = [boardx[i], boardy[j]]
 
                 // if it's a black piece  
-                if (cellValue === 1 && ($(`#gameBoard`).hasClass(`playerOne`))) {
+                if (cellValue === 1 && ($(`#game-board`).hasClass(`player-one`))) {
                     // select the piece    
-                    $this.addClass(`blackSelected`)
+                    $this.addClass(`black-selected`)
                     // remove styling
-                    $this.removeClass(`blackPiece`)
+                    $this.removeClass(`black-piece`)
                     // change the playerPosition
                     playerPosition[i][j] = 0; 
                 
                 // if it's a red piece
-                } else if (cellValue === 2 && ($(`#gameBoard`).hasClass(`playerTwo`))) {
+                } else if (cellValue === 2 && ($(`#game-board`).hasClass(`player-two`))) {
                     // select the piece
-                    $this.addClass(`redSelected`)
+                    $this.addClass(`red-selected`)
                     // remove styling
-                    $this.removeClass(`redPiece`)
+                    $this.removeClass(`red-piece`)
                     // change the playerPosition
                     playerPosition[i][j] = 0;
-                } else if ($(`#gameBoard`).hasClass(`playerOne`)) {
-                    $this.addClass(`noPlay`)
+
+                } else if ($(`#game-board`).hasClass(`player-one`)) {
+                    $this.addClass(`no-play`)
                     setTimeout(() => {
-                        $this.removeClass(`noPlay`)
+                        $this.removeClass(`no-play`)
                     }, 1000);
-                } else if ($(`#gameBoard`).hasClass(`playerTwo`)) {
-                    $this.addClass(`noPlay`)
+                } else if ($(`#game-board`).hasClass(`player-two`)) {
+                    $this.addClass(`no-play`)
                     setTimeout(() => {
-                        $this.removeClass(`noPlay`)
+                        $this.removeClass(`no-play`)
                     }, 1000);
                 };
-            };
+            
+        
         } else {
-            $this.addClass(`noPlay`)
+            $this.addClass(`no-play`)
             setTimeout(() => {
-                $this.removeClass(`noPlay`)                
+                $this.removeClass(`no-play`)                
             }, 1000);
         }
+        };
     });
 });
