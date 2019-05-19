@@ -38,24 +38,40 @@ body {
   padding: 40px 0 40px 40px;
   height: calc(90px * 7);
 
-  .player-turn {
-    font-size: 2.7rem;
-    transition: .5s;
-  }
-
-  .player-one-turn {
-    color: $dark-black;
-  }
-
-  .player-two-turn {
-    color: $red;
-  }
-
-
   h2 {
-    color: $dark-black;
     margin: 0;
+    font-size: 2rem;
     transition: .5s;
+    color: $blue;
+  }
+
+  .player-box:first-of-type  {
+    h2 {
+      color: $blue;
+    }
+
+    .player-turn {
+      color: $black;
+    }
+  }
+  
+  .player-box:last-of-type  {
+    h2 {
+      color: $blue;
+    }
+
+    .player-turn {
+      color: $red;
+    }
+  }
+
+  .player-turn {
+    font-size: 3rem;
+    transition: .5s;
+  }
+
+  h3 {
+    margin-top: 30px;
   }
 
   p {
@@ -204,11 +220,11 @@ body {
 }
 
 .white-flicker {
-    animation: white-flicker 1.8s;    
+    animation: white-flicker 3s;    
 }
 
 .black-flicker {
-    animation: black-flicker 1.8s;    
+    animation: black-flicker 3s;    
 }
 
 @keyframes black-jump {
@@ -242,8 +258,9 @@ body {
 }
 
 @media (max-width: 1400px) {
-  h1 {
-    font-size: 1rem;
+  .game-info h1 {
+    margin-left: -60px;
+    text-align: center;
   }
 }
 
@@ -269,7 +286,7 @@ body {
     height: 300px;
     
     .player-turn {
-      font-size: 2rem;
+      font-size: 2.5rem;
     }
 
     .player-outer-box {
@@ -319,7 +336,7 @@ body {
   }
 
 
-@media (max-width: 824px) {
+@media (max-width: 819px) {
 .outer-box {
   opacity: .2;
 }

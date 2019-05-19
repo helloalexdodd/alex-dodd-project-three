@@ -225,25 +225,38 @@ body {
   height: calc(90px * 7);
 }
 
-.game-info .player-turn {
-  font-size: 2.7rem;
-  -webkit-transition: .5s;
-  transition: .5s;
-}
-
-.game-info .player-one-turn {
-  color: #252a2c;
-}
-
-.game-info .player-two-turn {
-  color: purple;
-}
-
 .game-info h2 {
-  color: #252a2c;
   margin: 0;
+  font-size: 2rem;
   -webkit-transition: .5s;
   transition: .5s;
+  color: #4782b2;
+}
+
+.game-info .player-box:first-of-type h2 {
+  color: #4782b2;
+}
+
+.game-info .player-box:first-of-type .player-turn {
+  color: #31373a;
+}
+
+.game-info .player-box:last-of-type h2 {
+  color: #4782b2;
+}
+
+.game-info .player-box:last-of-type .player-turn {
+  color: #e22d42;
+}
+
+.game-info .player-turn {
+  font-size: 3rem;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.game-info h3 {
+  margin-top: 30px;
 }
 
 .game-info p {
@@ -298,8 +311,8 @@ body {
   border-radius: 50%;
   display: block;
   position: relative;
-  background-color: purple;
-  border: 17.5px solid #670067;
+  background-color: #e22d42;
+  border: 17.5px solid #d81e33;
   top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -316,7 +329,7 @@ body {
   border-radius: 50%;
   display: block;
   position: relative;
-  background-color: #606b71;
+  background-color: #939ea4;
   border: 17.5px solid #485156;
   top: 42px;
   -webkit-transform: translateY(-50%);
@@ -335,8 +348,8 @@ body {
   border-radius: 50%;
   display: block;
   position: relative;
-  background-color: #e600e6;
-  border: 17.5px solid #b300b3;
+  background-color: #f19da7;
+  border: 17.5px solid #e85a6a;
   top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -344,13 +357,13 @@ body {
 
 @-webkit-keyframes blinking {
   0% {
-    background-color: purple;
+    background-color: #e22d42;
   }
 }
 
 @keyframes blinking {
   0% {
-    background-color: purple;
+    background-color: #e22d42;
   }
 }
 
@@ -588,13 +601,13 @@ body {
 }
 
 .white-flicker {
-  -webkit-animation: white-flicker 1.8s;
-          animation: white-flicker 1.8s;
+  -webkit-animation: white-flicker 3s;
+          animation: white-flicker 3s;
 }
 
 .black-flicker {
-  -webkit-animation: black-flicker 1.8s;
-          animation: black-flicker 1.8s;
+  -webkit-animation: black-flicker 3s;
+          animation: black-flicker 3s;
 }
 
 @-webkit-keyframes black-jump {
@@ -611,13 +624,13 @@ body {
 
 @-webkit-keyframes red-jump {
   0% {
-    background: purple;
+    background: #e22d42;
   }
 }
 
 @keyframes red-jump {
   0% {
-    background: purple;
+    background: #e22d42;
   }
 }
 
@@ -646,8 +659,9 @@ body {
 }
 
 @media (max-width: 1400px) {
-  h1 {
-    font-size: 1rem;
+  .game-info h1 {
+    margin-left: -60px;
+    text-align: center;
   }
 }
 
@@ -683,7 +697,7 @@ body {
     height: 300px;
   }
   .game-info .player-turn {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
   .game-info .player-outer-box {
     display: -webkit-box;
@@ -736,7 +750,7 @@ body {
   text-align: center;
 }
 
-@media (max-width: 824px) {
+@media (max-width: 819px) {
   .outer-box {
     opacity: .2;
   }
