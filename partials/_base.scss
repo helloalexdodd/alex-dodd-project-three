@@ -1,19 +1,24 @@
 html {
     font-size: 125%;
     font-family: $primaryFont;
-    // letter-spacing: -1.5px;
+    letter-spacing: -1.2px
 }
 
 body {
   background-color: #eddae4;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .outer-box {
-  width: 100vw;
-  height: 100vh;
-  display:block;
-  position:relative;
-  margin: 50px  ;
+  display: block;
+  position: relative;
+  margin: 50px;
 }
 
 .inner-box {
@@ -29,32 +34,33 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 40px;
+  padding: 40px 0 40px 40px;
   height: calc(90px * 7);
-  max-width: 600px;
 
   .playerTurn {
     font-size: 2.5rem;
-    color: $darkRed;
+    color: $black;
     transition: .5s;
-  }
-
-  h1 {
-    margin: 50px 0;
-    font-size: 3rem;
-    font-family: $secondaryFont;
   }
 
   h2 {
-    color: $blue;
+    color: darken($blue, 20%);
     margin: 0;
-    // text-align: center;
     transition: .5s;
+
+    // &:first-of-type {
+    //   visibility: hidden;
+    // }
   }
 
   p {
     margin-top: 50px;
-    padding-right: 60px;
+  }
+  
+  h1 {
+    margin: 50px 0;
+    font-size: 3rem;
+    font-family: $secondaryFont;
   }
 }
 
@@ -69,10 +75,6 @@ body {
   border: 3px solid $brown;
   width: 90px;
   height: 90px;
-
-  // &:focus {
-  //   border: 2px dotted mediumpurple;
-  // }
 }
 
 .whiteSquare {
@@ -214,27 +216,89 @@ body {
     z-index: 0;
 }
 
-@media (max-width: 1175px) {
-  .gameBoard {
-    float: none;
-    padding-bottom: 0;
-
-    .game-info {
-      position: initial;
-      display: flex;
-      flex-direction: row;
-      padding: 0px;
-      height: auto;
-      max-width: 1000px;
-  
-      h1 {
-        margin-top: 0;
-      }
-    }
+@media (max-width: 1400px) {
+  h1 {
+    font-size: 1rem;
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1175px) {
+  .outer-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .gameBoard {
+    float: none;
+    padding: 0;
+    text-align: center;
+  }
+
+  .game-info {
+    position: initial;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    padding: 50px;
+    height: 300px;
+    
+    .playerTurn {
+      font-size: 2rem;
+    }
+
+    .player-outer-box {
+      display: flex;
+      justify-content: flex-start;
+    }
+    
+    .player-box {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 0 40px;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+  }
+    p {
+      text-align: center;
+    }
+  }
+
+  .hide {
+    visibility: hidden;
+  }
+
+  .instructions-box {
+    position: fixed;
+    top: 320px;
+    left: 880px;
+    opacity: 1;
+    padding: 30px;
+    height: 360px;
+    width: 340px;
+    border-radius: 20px;
+    background-color: $beige;
+
+    .instructions {
+      margin: 0;
+      font-size: 1.6rem;
+      color: black;
+      text-align: center;
+    }
+  }
+
+
+@media (max-width: 824px) {
 .outer-box {
   opacity: .2;
 }

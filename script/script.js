@@ -17,18 +17,20 @@ $(document).ready(() => {
     let playerTwoEatCounter = 0;
 // function for setting up the board by looping through nested arrays and creating divs. also fills empty global divs for access to x and y axis
     function setup(rows, cols) {
+        
         for (let i = 0; i < rows; i++) {
             boardGrid[i] = [];
             playerPosition[i] = [];
             boardx[i] = i;
-            boardy[i] = [];            
+            boardy[i] = [];
+            let n = String.fromCharCode(i + 97);
             for (let j = 0; j < cols; j++) {
                 playerPosition[i][j] = 0;
                 boardy[j] = j;
                 if (i % 2 === 0 && j % 2 === 0 || i % 2 !== 0 && j % 2 !== 0) {
-                    boardGrid[i][j] = `<div id="${i}_${j}" class="whiteSquare square" tabIndex="${i + 1}_${j + 1}"></div>`
+                    boardGrid[i][j] = `<div id="${i}_${j}" class="whiteSquare square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j}" role="button"></div>`
                 } else {
-                    boardGrid[i][j] = `<div id="${i}_${j}" class="blackSquare square" tabIndex="${i + 1}_${j + 1}"></div>`
+                    boardGrid[i][j] = `<div id="${i}_${j}" class="blackSquare square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j}" role="button"></div>`
                 };
             }
         }
@@ -56,7 +58,7 @@ $(document).ready(() => {
 // function for switching players
     const playerSwitch = () => {
         $(`#gameBoard`).toggleClass(`playerOne playerTwo`);
-        $(`.game-info > div > h2`).toggleClass(`playerTurn`)
+        $(`h2`).toggleClass(`playerTurn`)
     };
 // add a move onto the PlayerOneCounter and display it to the user
     const addToPlayerOneCounter = () => {
@@ -369,7 +371,7 @@ $(document).ready(() => {
     setup(8, 8);
     setupPieces(8, 8);
 // listening event for selecting the piece a user wants to move
-    $(`#gameBoard`).on(`click`, `.row > div`, function () {
+    $(`#gameBoard`).on(`click keypress`, `.row > div`, function () {
 //declaring some useful variables
         const allSquares = `#gameBoard > div > div`;
         const $allSquares = $(allSquares);
@@ -393,6 +395,7 @@ $(document).ready(() => {
         let hasDoubleJumpUpLeft = DoubleJumpUpLeft(cellValue, idArrayString);
         let hasDoubleJumpUpRight = DoubleJumpUpRight(cellValue, idArrayString);
 
+        $(`.instructions-box`).addClass(`hide`)
 
         //if this click is a black square (because pieces can only move on black squares)
         if (this.classList.contains(`blackSquare`)) {
@@ -442,23 +445,6 @@ $(document).ready(() => {
                         
                         //if the x axis is two rows down from the starting point
                         } else if (xy[0] === (storedxy[0] + 2)) {
-
-//////////////////////////////////
-// YOU NEED TO CASCADE THROUGH THE hasopponentPieceDownLeft
-// BEFORE THE hasDoubleJumpDownLeft SO THAT YOU CAN HAVE
-// THE DOUBLE JUMP HAPPEN AUTOMATICALLY I THINK.
-// THAT'S THE BEST I CAN COME UP WITH RIGHT NOW
-// ANYWAY.
-
-// OTHER NOTES FOR TOMORROW INCLUDE TRYING TO PASS MORE
-// PARAMETERS INTO THE OPPONENT PIECE FUNCTIONS TO
-// TRY TO MAKE THEM MORE REUSABLE.
-// TRY TO MAKE ACCESSIBLE WHILE YOU HAVE MENTORSHIP
-
-// ASK BECKY ABOUT BACKGROUND AND FONTS
-
-// CAN/SHOULD YOU REDO YOUR IF/ELSE'S TO SWITCH EXPRESSIONS
-//////////////////////////////////
 
                                 // and the y axis is two columns to the left and the square in between those two squares has an opposing player's piece in it
                             if ((xy[1] === (storedxy[1] - 2)) && hasOpponentPieceDownLeft) {
