@@ -61,14 +61,14 @@ $(document).ready(() => {
         $(`h2`).toggleClass(`playerTurn`)
     };
 // add a move onto the PlayerOneCounter and display it to the user
-    const addToPlayerOneCounter = () => {
-        playerOneCounter = playerOneCounter + 1;
-        $('.playerOneCounter').text(playerOneCounter);
-    };
-// add a move onto the PlayerTwoCounter and display it to the user
-    const addToPlayerTwoCounter = () => {
-        playerTwoCounter = playerTwoCounter + 1;
-        $('.playerTwoCounter').text(playerTwoCounter);
+    const addToPlayerCounter = () => {
+        if ($(`#gameBoard`).hasClass(`playerOne`)) {
+            playerOneCounter = playerOneCounter + 1;
+            $('.playerOneCounter').text(playerOneCounter);
+        } else {
+            playerTwoCounter = playerTwoCounter + 1;
+            $('.playerTwoCounter').text(playerTwoCounter);
+        }
     };
 // add an opponent piece onto the PlayerOneEatCounter and display it to the user
     const addToPlayerEatCounter = () => {
@@ -438,11 +438,10 @@ $(document).ready(() => {
                             $allSquares.removeClass(`blackSelected`)
                             // change the playerPosition
                             playerPosition[i][j] = 1;
+                            // add a move onto the counter and display it to the user
+                            addToPlayerCounter();
                             // switch players
                             playerSwitch();
-                            // add a move onto the counter and display it to the user
-                            addToPlayerOneCounter();
-                        
                         //if the x axis is two rows down from the starting point
                         } else if (xy[0] === (storedxy[0] + 2)) {
 
@@ -457,10 +456,10 @@ $(document).ready(() => {
                                 console.log(playerPosition)
                                 //add an opponent piece to the counter and display it to the user
                                 addToPlayerEatCounter();
+                                // add a move onto the counter and display it to the user
+                                addToPlayerCounter();
                                 // switch players
                                 playerSwitch();
-                                // add a move onto the counter and display it to the user
-                                addToPlayerOneCounter();
                                 //and has a double jump opportunity down and to the left
                                 if (hasDoubleJumpDownLeft) {
                                     // switch back players
@@ -499,10 +498,10 @@ $(document).ready(() => {
                                 console.log(playerPosition)
                                 //add an opponent piece to the counter and display it to the user
                                 addToPlayerEatCounter();
+                                // add a move onto the counter and display it to the user
+                                addToPlayerCounter();
                                 // switch players
                                 playerSwitch();
-                                // add a move onto the counter and display it to the user
-                                addToPlayerOneCounter();
                                 //and has a double jump opportunity down and to the left
                                 if (hasDoubleJumpDownLeft) {
                                     // switch back players
@@ -553,10 +552,10 @@ $(document).ready(() => {
                             $allSquares.removeClass(`redSelected`)
                             // change the playerPosition
                             playerPosition[i][j] = 2;
+                            // add a move onto the counter and display it to the user
+                            addToPlayerCounter();
                             // switch players
                             playerSwitch();
-                            // add a move onto the counter and display it to the user
-                            addToPlayerTwoCounter();
                             //if the x axis is two rows down from the starting point
                         } else if (xy[0] === (storedxy[0] - 2)) {
                             // and the y axis of the click is two columns to the left and the square in between those two squares has an opposing player's piece in it
@@ -570,10 +569,10 @@ $(document).ready(() => {
                                 console.log(playerPosition)
                                 //add an opponent piece to the counter and display it to the user
                                 addToPlayerEatCounter();
+                                // add a move onto the counter and display it to the user
+                                addToPlayerCounter();     
                                 // switch players
                                 playerSwitch();
-                                // add a move onto the counter and display it to the user
-                                addToPlayerOneCounter();     
                                 //has double jump opportunity up and to the left
                                 if (hasDoubleJumpUpLeft) {
                                     // switch back players
@@ -611,10 +610,10 @@ $(document).ready(() => {
                                 console.log(playerPosition)
                                 //add an opponent piece to the counter and display it to the user
                                 addToPlayerEatCounter();
+                                // add a move onto the counter and display it to the user
+                                addToPlayerCounter();
                                 // switch players
                                 playerSwitch();
-                                // add a move onto the counter and display it to the user
-                                addToPlayerOneCounter();
                                 // has double jump opportunity up and to the left
                                 if (hasDoubleJumpUpLeft) {
                                     // switch back players
