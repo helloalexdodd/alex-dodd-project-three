@@ -236,7 +236,7 @@ body {
 }
 
 .game-info .player-two-turn {
-  color: #e22d42;
+  color: purple;
 }
 
 .game-info h2 {
@@ -298,8 +298,8 @@ body {
   border-radius: 50%;
   display: block;
   position: relative;
-  background-color: #e22d42;
-  border: 17.5px solid #d81e33;
+  background-color: purple;
+  border: 17.5px solid #670067;
   top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -335,8 +335,8 @@ body {
   border-radius: 50%;
   display: block;
   position: relative;
-  background-color: #ee8793;
-  border: 17.5px solid #e85a6a;
+  background-color: #e600e6;
+  border: 17.5px solid #b300b3;
   top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -344,13 +344,13 @@ body {
 
 @-webkit-keyframes blinking {
   0% {
-    background-color: #e22d42;
+    background-color: purple;
   }
 }
 
 @keyframes blinking {
   0% {
-    background-color: #e22d42;
+    background-color: purple;
   }
 }
 
@@ -611,13 +611,13 @@ body {
 
 @-webkit-keyframes red-jump {
   0% {
-    background: #e22d42;
+    background: purple;
   }
 }
 
 @keyframes red-jump {
   0% {
-    background: #e22d42;
+    background: purple;
   }
 }
 
