@@ -324,7 +324,7 @@ html {
 }
 
 .king-piece:before {
-  background-color: #e7ed36;
+  background-color: #f6fc4b;
 }
 
 .black-selected {
@@ -364,7 +364,7 @@ html {
 }
 
 .king-selected:before {
-  background-color: #f2f594;
+  background-color: #fbfeaf;
 }
 
 @-webkit-keyframes blinking {
@@ -648,13 +648,13 @@ html {
 
 @-webkit-keyframes gold-jump {
   0% {
-    background: #e7ed36;
+    background: #f6fc4b;
   }
 }
 
 @keyframes gold-jump {
   0% {
-    background: #e7ed36;
+    background: #f6fc4b;
   }
 }
 
