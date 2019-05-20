@@ -413,7 +413,7 @@ $(document).ready(() => {
         const $this = $(this);
         const $blackSquare = $(`.black-square`);
         const $whiteSquare = $(`.white-square`);
-        const $instructionBox = $(`instruction-box`);
+        const $instructionsBox = $(`.instructions-box`);
 // this stuff lets me access the i and j axis of my global arrays by using the id's of each div and passing it
         const $idString = $this.attr(`id`);
         const idArrayString = $idString.split("_", 2);
@@ -433,7 +433,8 @@ $(document).ready(() => {
 
 
         //make the instructions disappear
-        $instructionBox.addClass(`hide`);
+        $instructionsBox.hide()
+        console.log($instructionsBox);
         
         //if this click is a black square (because pieces can only move on black squares)
         if (this.classList.contains(`black-square`)) {
