@@ -94,6 +94,8 @@ $(document).ready(() => {
         const idArrayNums = idArrayString.map((num) => {
             return Number(num);
         });
+        console.log(storedxy[0], storedxy[1])
+        console.log(idArrayNums[0], idArrayNums[1])
 // making an array of the origin of the player
         const originSquarePosition = [];
         const originSquareX = idArrayNums[0] - 2;
@@ -117,14 +119,14 @@ $(document).ready(() => {
             // if the opponent's piece is between the origin and new location of the piece
             if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`) && cellValue == 0) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`red-piece`);
+                $($opponentDOMId).removeClass(`red-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
                 return true
             } else if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`) && cellValue == 0) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`black-piece`);
+                $($opponentDOMId).removeClass(`black-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
@@ -162,14 +164,14 @@ $(document).ready(() => {
             // if the opponent's piece is between the origin and new location of the piece
             if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`) && cellValue == 0) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`red-piece`);
+                $($opponentDOMId).removeClass(`red-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
                 return true
             } else if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`) && cellValue == 0) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`black-piece`);
+                $($opponentDOMId).removeClass(`black-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
@@ -208,14 +210,14 @@ $(document).ready(() => {
             // if the opponent's piece is between the origin and new location of the piece
             if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`) && cellValue == 0) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`red-piece`);
+                $($opponentDOMId).removeClass(`red-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
                 return true
             } else if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`) && cellValue == 0) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`black-piece`);
+                $($opponentDOMId).removeClass(`black-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
@@ -254,14 +256,14 @@ $(document).ready(() => {
             // if the opponent's piece is between the origin and new location of the piece
             if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`) && cellValue == 0) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`red-piece`);
+                $($opponentDOMId).removeClass(`red-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
                 return true
             } else if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`) && cellValue == 0) {
                 // remove the opponent piece
-                $($opponentDOMId).removeClass(`black-piece`);
+                $($opponentDOMId).removeClass(`black-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
