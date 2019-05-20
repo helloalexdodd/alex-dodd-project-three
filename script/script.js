@@ -1,4 +1,3 @@
-$(document).ready(() => {
 // an empty array to create our boardGrid inside of
     const boardGrid = [];
 // an empty array to create our playerPosition index inside of
@@ -27,14 +26,14 @@ $(document).ready(() => {
             playerPosition[i] = [];
             boardx[i] = i;
             boardy[i] = [];
-            let n = String.fromCharCode(i + 97);
+            let n = String.fromCharCode(104 - i);
             for (let j = 0; j < cols; j++) {
                 playerPosition[i][j] = 0;
                 boardy[j] = j;
                 if (i % 2 === 0 && j % 2 === 0 || i % 2 !== 0 && j % 2 !== 0) {
-                    boardGrid[i][j] = `<div id="${i}_${j}" class="white-square square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j}" role="button"></div>`
+                    boardGrid[i][j] = `<div id="${i}_${j}" class="white-square square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j + 1}" role="button"></div>`
                 } else {
-                    boardGrid[i][j] = `<div id="${i}_${j}" class="black-square square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j}" role="button"></div>`
+                    boardGrid[i][j] = `<div id="${i}_${j}" class="black-square square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j + 1}" role="button"></div>`
                 };
             }
         }
@@ -88,28 +87,51 @@ $(document).ready(() => {
             $('.player-two-eat-counter').text(playerTwoEatCounter);
         }
 };
-// function for checking if there's an opponent piece on jump when moving down and to the left
-    let checkForOpponentPieceDownLeft = (cellValue, idArrayString) => {
-// making an array of ID numbers
-        const idArrayNums = idArrayString.map((num) => {
-            return Number(num);
-        });
-// making an array of the origin of the player
+    // function for checking if there's an opponent piece on jump when moving down and to the left
+    let checkForOpponentPiece = (cellValue, storedxy, direction) => {
+        let originSquareX;
+        let originSquareY;
+        let opponentSquareX;
+        let opponentSquareY;
+       
+        switch (direction) {
+           case `downLeft`:
+                originSquareX = storedxy[0] - 2;
+                originSquareY = storedxy[1] + 2;
+                opponentSquareX = storedxy[0] - 1;
+                opponentSquareY = storedxy[1] + 1;
+                break;
+           case `downRight`:
+               originSquareX = storedxy[0] - 2;
+               originSquareY = storedxy[1] - 2;
+               opponentSquareX = storedxy[0] - 1;
+               opponentSquareY = storedxy[1] - 1;
+               break;
+            case `upLeft`:
+               originSquareX = storedxy[0] + 2;
+               originSquareY = storedxy[1] + 2;
+               opponentSquareX = storedxy[0] + 1;
+               opponentSquareY = storedxy[1] + 1;
+               break; 
+            case `upRight`:
+               originSquareX = storedxy[0] + 2;
+               originSquareY = storedxy[1] - 2;
+               opponentSquareX = storedxy[0] + 1;
+               opponentSquareY = storedxy[1] - 1;
+               break;
+        }
+        // making an array of the origin of the player
         const originSquarePosition = [];
-        const originSquareX = idArrayNums[0] - 2;
-        const originSquareY = idArrayNums[1] + 2;
         originSquarePosition.push(originSquareX, originSquareY);
-// turning that array into an ID
+        // turning that array into an ID
         const originDOMId = originSquarePosition.join(`_`);
         const $originDOMId = $(`#${originDOMId}`);
-// making an array of the opponent piece; position
+        // making an array of the opponent piece; position
         const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] - 1;
-        const opponentSquareY = idArrayNums[1] + 1;
         opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-// turning that array into an ID
+        // turning that array into an ID
         const opponentDOMId = opponentSquarePosition.join(`_`);
-        const $opponentDOMId = $(`#${opponentDOMId}`);        
+        const $opponentDOMId = $(`#${opponentDOMId}`);
         //check to make sure the opponent piece isn't off the board
         if (opponentSquareX <= 7 && opponentSquareX >= 0) {
             // getting the cellValue of the opponent and destination
@@ -122,279 +144,12 @@ $(document).ready(() => {
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
                 // run this function
                 return true
+            // if the opponent's piece is between the origin and new location of the piece
             } else if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`) && cellValue == 0) {
                 // remove the opponent piece
                 $($opponentDOMId).removeClass(`black-piece king-piece`);
                 // change the opponent piece position's cellValue
                 playerPosition[opponentSquareX][opponentSquareY] = 0;
-                // run this function
-                return true 
-            } else {
-                return false
-            };
-        };
-    };
-// function for checking if there's an opponent piece on jump when moving down and to the left
-    let checkForOpponentPieceDownRight = (cellValue, idArrayString) => {
-        // making an array of ID numbers
-        const idArrayNums = idArrayString.map((num) => {
-            return Number(num);
-        });
-        // making an array of the origin of the player
-        const originSquarePosition = [];
-        const originSquareX = idArrayNums[0] - 2;
-        const originSquareY = idArrayNums[1] - 2;
-        originSquarePosition.push(originSquareX, originSquareY);
-        // turning that array into an ID
-        const originDOMId = originSquarePosition.join(`_`);
-        const $originDOMId = $(`#${originDOMId}`);
-        // making an array of the opponent piece; position
-        const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] - 1;
-        const opponentSquareY = idArrayNums[1] - 1;
-        opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-        // turning that array into an ID
-        const opponentDOMId = opponentSquarePosition.join(`_`);
-        const $opponentDOMId = $(`#${opponentDOMId}`);
-        //check to make sure the opponent piece isn't off the board
-        if (opponentSquareX <= 7 && opponentSquareX >= 0) {
-            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-            // if the opponent's piece is between the origin and new location of the piece
-            if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`) && cellValue == 0) {
-                // remove the opponent piece
-                $($opponentDOMId).removeClass(`red-piece king-piece`);
-                // change the opponent piece position's cellValue
-                playerPosition[opponentSquareX][opponentSquareY] = 0;
-                // run this function
-                return true
-            } else if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`) && cellValue == 0) {
-                // remove the opponent piece
-                $($opponentDOMId).removeClass(`black-piece king-piece`);
-                // change the opponent piece position's cellValue
-                playerPosition[opponentSquareX][opponentSquareY] = 0;
-                // run this function
-                return true
-            } else {
-                return false
-            };
-        }
-    };
-// function for checking if there's an opponent piece on jump when moving down and to the left
-    let checkForOpponentPieceUpLeft = (cellValue, idArrayString) => {
-        // making an array of ID numbers
-        const idArrayNums = idArrayString.map((num) => {
-            return Number(num);
-        });
-        // making an array of the origin of the player
-        const originSquarePosition = [];
-        const originSquareX = idArrayNums[0] + 2;
-        const originSquareY = idArrayNums[1] + 2;
-        originSquarePosition.push(originSquareX, originSquareY);
-        // turning that array into an ID
-        const originDOMId = originSquarePosition.join(`_`);
-        const $originDOMId = $(`#${originDOMId}`);
-        // making an array of the opponent piece; position
-        const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] + 1;
-        const opponentSquareY = idArrayNums[1] + 1;
-        opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-        // turning that array into an ID
-        const opponentDOMId = opponentSquarePosition.join(`_`);
-        const $opponentDOMId = $(`#${opponentDOMId}`);
-        //check to make sure the opponent piece isn't off the board
-        if (opponentSquareX <= 7 && opponentSquareX >=0) {        
-        // getting the cellValue of the opponent piece
-            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-            // if the opponent's piece is between the origin and new location of the piece
-            if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`) && cellValue == 0) {
-                // remove the opponent piece
-                $($opponentDOMId).removeClass(`red-piece king-piece`);
-                // change the opponent piece position's cellValue
-                playerPosition[opponentSquareX][opponentSquareY] = 0;
-                // run this function
-                return true
-            } else if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`) && cellValue == 0) {
-                // remove the opponent piece
-                $($opponentDOMId).removeClass(`black-piece king-piece`);
-                // change the opponent piece position's cellValue
-                playerPosition[opponentSquareX][opponentSquareY] = 0;
-                // run this function
-                return true 
-            } else {
-                return false
-            };
-        };
-    };
-// function for checking if there's an opponent piece on jump when moving down and to the left
-    let checkForOpponentPieceUpRight = (cellValue, idArrayString) => {
-        // making an array of ID numbers
-        const idArrayNums = idArrayString.map((num) => {
-            return Number(num);
-        });
-        // making an array of the origin of the player
-        const originSquarePosition = [];
-        const originSquareX = idArrayNums[0] + 2;
-        const originSquareY = idArrayNums[1] - 2;
-        originSquarePosition.push(originSquareX, originSquareY);
-        // turning that array into an ID
-        const originDOMId = originSquarePosition.join(`_`);
-        const $originDOMId = $(`#${originDOMId}`);
-        // making an array of the opponent piece; position
-        const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] + 1;
-        const opponentSquareY = idArrayNums[1] - 1;
-        opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-        // turning that array into an ID
-        const opponentDOMId = opponentSquarePosition.join(`_`);
-        const $opponentDOMId = $(`#${opponentDOMId}`);
-        //check to make sure the opponent piece isn't off the board
-        if (opponentSquareX <= 7 && opponentSquareX >= 0) {
-            // getting the cellValue of the opponent piece
-            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-            // if the opponent's piece is between the origin and new location of the piece
-            if (opponentCellValue == 2 && $($originDOMId).hasClass(`black-selected`) && cellValue == 0) {
-                // remove the opponent piece
-                $($opponentDOMId).removeClass(`red-piece king-piece`);
-                // change the opponent piece position's cellValue
-                playerPosition[opponentSquareX][opponentSquareY] = 0;
-                // run this function
-                return true
-            } else if (opponentCellValue == 1 && $($originDOMId).hasClass(`red-selected`) && cellValue == 0) {
-                // remove the opponent piece
-                $($opponentDOMId).removeClass(`black-piece king-piece`);
-                // change the opponent piece position's cellValue
-                playerPosition[opponentSquareX][opponentSquareY] = 0;
-                // run this function
-                return true
-            } else {
-                return false
-            };
-        };
-    };
-// function for checking if there's a double jump opportunity down and to the left
-    let DoubleJumpDownLeft = (cellValue, idArrayString) => {
-        // making an array of ID numbers
-        const idArrayNums = idArrayString.map((num) => {
-            return Number(num);
-        });
-        // making an array of the destination of the player
-        const destinationSquarePosition = [];
-        const destinationSquareX = idArrayNums[0] + 2;
-        const destinationSquareY = idArrayNums[1] - 2;
-        destinationSquarePosition.push(destinationSquareX, destinationSquareY);
-        // making an array of the opponent piece position
-        const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] + 1;
-        const opponentSquareY = idArrayNums[1] - 1;
-        opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-        //check to make sure the player destination isn't off the board
-        if (destinationSquareX <= 7 && destinationSquareY >= 0) {
-            // getting the cellValue of the opponent piece
-            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-            const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
-            // $(destinationDOMId).filter(`black-piece red-piece`)
-            // if the opponent's piece is between the origin and new location of the piece
-            console.log(opponentCellValue)
-            console.log(destinationCellValue)
-            console.log(cellValue)
-            if ((opponentCellValue == 2 && destinationCellValue == 0 && cellValue == 0 && ($(`#game-board`).hasClass(`player-one`))) ||
-                (opponentCellValue === 1 && destinationCellValue === 0 && cellValue === 0 && ($(`#game-board`).hasClass(`player-two`)))) {
-                // run this function
-                return true
-            } else {
-                return false
-            };
-        };
-    };
-    // function for checking if there's a double jump opportunity down and to the left
-    let DoubleJumpDownRight = (cellValue, idArrayString) => {
-        // making an array of ID numbers
-        const idArrayNums = idArrayString.map((num) => {
-            return Number(num);
-        });
-        // making an array of the destination of the player
-        const destinationSquarePosition = [];
-        const destinationSquareX = idArrayNums[0] + 2;
-        const destinationSquareY = idArrayNums[1] + 2;
-        destinationSquarePosition.push(destinationSquareX, destinationSquareY);
-        // making an array of the opponent piece position
-        const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] + 1;
-        const opponentSquareY = idArrayNums[1] + 1;
-        opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-        //check to make sure the player destination isn't off the board
-        if (destinationSquareX <= 7 && destinationSquareY <= 7) {
-            // getting the cellValue of the opponent piece
-            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-            const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
-            // $(destinationDOMId).filter(`black-piece red-piece`)
-            // if the opponent's piece is between the origin and new location of the piece
-            if ((opponentCellValue == 2 && destinationCellValue == 0 && cellValue == 0 && ($(`#game-board`).hasClass(`player-one`))) ||
-                (opponentCellValue === 1 && destinationCellValue === 0 && cellValue === 0 && ($(`#game-board`).hasClass(`player-two`)))) {
-                // run this function
-                return true
-            } else {
-                return false
-            };
-        };
-    };
-    // function for checking if there's a double jump opportunity down and to the left
-    let DoubleJumpUpLeft = (cellValue, idArrayString) => {
-        // making an array of ID numbers
-        const idArrayNums = idArrayString.map((num) => {
-            return Number(num);
-        });
-        // making an array of the destination of the player
-        const destinationSquarePosition = [];
-        const destinationSquareX = idArrayNums[0] - 2;
-        const destinationSquareY = idArrayNums[1] - 2;
-        destinationSquarePosition.push(destinationSquareX, destinationSquareY);
-        // making an array of the opponent piece position
-        const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] - 1;
-        const opponentSquareY = idArrayNums[1] - 1;
-        opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-        //check to make sure the player destination isn't off the board
-        if (destinationSquareX >= 0 && destinationSquareY >= 0) {
-            // getting the cellValue of the opponent piece
-            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-            const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
-            // $(destinationDOMId).filter(`black-piece red-piece`)
-            // if the opponent's piece is between the origin and new location of the piece
-            if ((opponentCellValue == 2 && destinationCellValue == 0 && cellValue == 0 && ($(`#game-board`).hasClass(`player-one`))) ||
-                (opponentCellValue === 1 && destinationCellValue === 0 && cellValue === 0 && ($(`#game-board`).hasClass(`player-two`)))) {
-                // run this function
-                return true
-            } else {
-                return false
-            };
-        };
-    };
-    // function for checking if there's a double jump opportunity down and to the left
-    let DoubleJumpUpRight = (cellValue, idArrayString) => {
-        // making an array of ID numbers
-        const idArrayNums = idArrayString.map((num) => {
-            return Number(num);
-        });
-        // making an array of the destination of the player
-        const destinationSquarePosition = [];
-        const destinationSquareX = idArrayNums[0] - 2;
-        const destinationSquareY = idArrayNums[1] + 2;
-        destinationSquarePosition.push(destinationSquareX, destinationSquareY);
-        // making an array of the opponent piece position
-        const opponentSquarePosition = [];
-        const opponentSquareX = idArrayNums[0] - 1;
-        const opponentSquareY = idArrayNums[1] + 1;
-        opponentSquarePosition.push(opponentSquareX, opponentSquareY);
-        //check to make sure the player destination isn't off the board
-        if (destinationSquareX >= 0 & destinationSquareY <= 7) {
-            // getting the cellValue of the opponent piece
-            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
-            const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
-            // $(destinationDOMId).filter(`black-piece red-piece`)
-            // if the opponent's piece is between the origin and new location of the piece
-            if ((opponentCellValue == 2 && destinationCellValue == 0 && cellValue == 0 && ($(`#game-board`).hasClass(`player-one`))) ||
-                (opponentCellValue === 1 && destinationCellValue === 0 && cellValue === 0 && ($(`#game-board`).hasClass(`player-two`)))) {
                 // run this function
                 return true
             } else {
@@ -403,6 +158,60 @@ $(document).ready(() => {
         };
     };
 
+// function for checking if there's a double jump opportunity down and to the left
+    let doubleJumpDetection = (cellValue, storedxy, direction) => {
+        let destinationSquareX;
+        let destinationSquareY;
+        let opponentSquareX;
+        let opponentSquareY;
+
+        switch (direction) {
+            case `downLeft`:
+                destinationSquareX = storedxy[0] + 2;
+                destinationSquareY = storedxy[1] - 2;
+                opponentSquareX = storedxy[0] + 1;
+                opponentSquareY = storedxy[1] - 1;
+                break;
+            case `downRight`:
+                destinationSquareX = storedxy[0] + 2;
+                destinationSquareY = storedxy[1] + 2;
+                opponentSquareX = storedxy[0] + 1;
+                opponentSquareY = storedxy[1] + 1;
+                break;
+            case `upLeft`:
+                originSquareX = storedxy[0] - 2;
+                originSquareY = storedxy[1] - 2;
+                opponentSquareX = storedxy[0] - 1;
+                opponentSquareY = storedxy[1] - 1;
+                break;
+            case `upRight`:
+                originSquareX = storedxy[0] +-2;
+                originSquareY = storedxy[1] + 2;
+                opponentSquareX = storedxy[0] - 1;
+                opponentSquareY = storedxy[1] + 1;
+                break;
+        }// making an array of the destination of the player
+        const destinationSquarePosition = [];
+       destinationSquarePosition.push(destinationSquareX, destinationSquareY);
+        // making an array of the opponent piece position
+        const opponentSquarePosition = [];
+        opponentSquarePosition.push(opponentSquareX, opponentSquareY);
+        //check to make sure the player destination isn't off the board
+        if (destinationSquareX <= 7 && destinationSquareY >= 0) {
+            // getting the cellValue of the opponent piece
+            const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
+            const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
+            // if the opponent's piece is between the origin and new location of the piece
+            if ((opponentCellValue == 2 && destinationCellValue == 0 && cellValue == 0 && ($(`#game-board`).hasClass(`player-one`))) ||
+                (opponentCellValue === 1 && destinationCellValue === 0 && cellValue === 0 && ($(`#game-board`).hasClass(`player-two`)))) {
+                // run this function
+                return true
+            } else {
+                return false
+            };
+        };
+    };
+$(document).ready(() => {
 // calling the setup functions and passing it the columns and rows
     setup(8, 8);
     setupPieces(8, 8);
@@ -423,22 +232,23 @@ $(document).ready(() => {
         const j = idArrayString[1];
 //variable to hold clicked playerPosition
         let cellValue = (playerPosition[i][j]);
-//passing the arguments to the function and placing it in a variable to use later on in an if statement
-        let hasOpponentPieceDownLeft = checkForOpponentPieceDownLeft(cellValue, idArrayString);
-        let hasOpponentPieceDownRight = checkForOpponentPieceDownRight(cellValue, idArrayString);
-        let hasOpponentPieceUpLeft = checkForOpponentPieceUpLeft(cellValue, idArrayString);
-        let hasOpponentPieceUpRight = checkForOpponentPieceUpRight(cellValue, idArrayString);
-        let hasDoubleJumpDownLeft = DoubleJumpDownLeft(cellValue, idArrayString);
-        let hasDoubleJumpDownRight = DoubleJumpDownRight(cellValue, idArrayString);
-        let hasDoubleJumpUpLeft = DoubleJumpUpLeft(cellValue, idArrayString);
-        let hasDoubleJumpUpRight = DoubleJumpUpRight(cellValue, idArrayString);
 
 //if this click is a black square (because pieces can only move on black squares)
         if (this.classList.contains(`black-square`)) {
            
             // store the new x and y axis
             xy = [boardx[i], boardy[j]];
-            
+ 
+            //passing the arguments to the function and placing it in a variable to use later on in an if statement
+            let hasOpponentPieceDownLeft = checkForOpponentPiece(cellValue, xy, `downLeft`);
+            let hasOpponentPieceDownRight = checkForOpponentPiece(cellValue, xy, `downRight`);
+            let hasOpponentPieceUpLeft = checkForOpponentPiece(cellValue, xy, `upLeft`);
+            let hasOpponentPieceUpRight = checkForOpponentPiece(cellValue, xy, `upRight`);
+            let hasDoubleJumpDownLeft = doubleJumpDetection(cellValue, xy, `downLeft`);
+            let hasDoubleJumpDownRight = doubleJumpDetection(cellValue, xy, `downRight`);
+            let hasDoubleJumpUpLeft = doubleJumpDetection(cellValue, xy, `upLeft`);
+            let hasDoubleJumpUpRight = doubleJumpDetection(cellValue, xy, `upRight`);
+           
 // if any black piece is already selected
             if ($allSquares.hasClass(`black-selected`)) {
                    
