@@ -271,7 +271,7 @@ html {
     left: 0;
     right: 0;
     background: rgba(0, 0, 255, 0.5);
-    z-index: 0;
+
 }
 
 @media (max-width: 1400px) {
@@ -337,6 +337,7 @@ html {
     position: absolute;
     left: 200px;
     top: 400px;
+
     opacity: .9;
     padding: 30px;
     height: 260px;
@@ -355,15 +356,19 @@ html {
 
 
 @media (max-width: 840px) {
-.outer-box {
-  opacity: .2;
+.instructions-box {
+  visibility: hidden;
 }
 
 .inner-box {
+  @include position (fixed, 0, 0, 0, 0);
   visibility: visible;
-  width: 80vw;
+  background: rgba(255, 255, 255, 0.3);
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 30vh 50px;
   color: black;
   font-size: 2rem;
-  @include position (fixed, 200px, null, null, 10%)
 }
 }

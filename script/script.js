@@ -1,31 +1,25 @@
-    // an empty array to create our boardGrid inside of
+$(document).ready(() => {
+// an empty array to create our boardGrid inside of
     const boardGrid = [];
-
-    // an empty array to create our playerPosition index inside of
+// an empty array to create our playerPosition index inside of
     const playerPosition = [];
-
-    // empty arrays to hold x and y axis
+// empty arrays to hold x and y axis
     const boardx = [];
     const boardy = [];
-
-    // variables to hold clicked board positions
+// variables to hold clicked board positions
     let xy;
     let storedxy;
-
-    // variables to hold each player's move count
+// variables to hold each player's move count
     let playerOneCounter = 0;
     let playerTwoCounter = 0;
-
-    // variable to hold each player's eat count
+// variable to hold each player's eat count
     let playerOneEatCounter = 0;
     let playerTwoEatCounter = 0;
-
-    // some useful variable declarations
+// some useful variable declarations
     const $instructionsBox = $(`.instructions-box`);
     const $gameboard = $(`#game-board`);
     const $h2 = $(`h2`);
-
-    // function for setting up the board by looping through nested arrays and creating divs. also fills empty global divs for access to x and y axis
+// function for setting up the board by looping through nested arrays and creating divs. also fills empty global divs for access to x and y axis
     function setup(rows, cols) {
         
         for (let i = 0; i < rows; i++) {
@@ -49,25 +43,23 @@
             $gameboard.append(`<div class="row">${row.join('')}</div>`)
         });
     };
-
-    // function for looping through the boardGrid array and placing the game pieces in their starting positions
+// function for looping through the boardGrid array and placing the game pieces in their starting positions
     function setupPieces(rows, cols) {    
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
                 if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i <= 2) {
                     let cellID = `#${i}_${j}`;
-                    $(`#${i}_${j}`).addClass(`black-piece king-piece`);
+                    $(`#${i}_${j}`).addClass(`black-piece`);
                     playerPosition[i][j] = 1;
                 } else if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i >= 5) {
                     let cellID = `#${i}_${j}`;
-                    $(cellID).addClass(`red-piece king-piece`);
+                    $(cellID).addClass(`red-piece`);
                     playerPosition[i][j] = 2;
                 }
             }
         };
     };
-
-    // function for switching players
+// function for switching players
     const playerSwitch = () => {
         if ($gameboard.hasClass(`player-two`)) {
            $h2.toggleClass(`player-two-turn`);
@@ -76,8 +68,7 @@
         $h2.toggleClass(`player-turn`);
         $gameboard.toggleClass(`player-one player-two`);
     };
-
-    // add a move onto the PlayerOneCounter and display it to the user
+// add a move onto the PlayerOneCounter and display it to the user
     const addToPlayerCounter = () => {
         if ($gameboard.hasClass(`player-one`)) {
             playerOneCounter = playerOneCounter + 1;
@@ -87,7 +78,7 @@
             $('.player-two-counter').text(playerTwoCounter);
         }
     };
-    // add an opponent piece onto the PlayerOneEatCounter and display it to the user
+// add an opponent piece onto the PlayerOneEatCounter and display it to the user
     const addToPlayerEatCounter = () => {
         if ($gameboard.hasClass(`player-one`)) {
             playerOneEatCounter = playerOneEatCounter + 1
@@ -195,19 +186,19 @@
                 opponentSquareY = storedxy[1] - 1;
                 break;
             case `upRight`:
-                destinationSquareX = storedxy[0] + 2;
+                destinationSquareX = storedxy[0] +-2;
                 destinationSquareY = storedxy[1] + 2;
                 opponentSquareX = storedxy[0] - 1;
                 opponentSquareY = storedxy[1] + 1;
                 break;
         }// making an array of the destination of the player
         const destinationSquarePosition = [];
-        destinationSquarePosition.push(destinationSquareX, destinationSquareY);
+       destinationSquarePosition.push(destinationSquareX, destinationSquareY);
         // making an array of the opponent piece position
         const opponentSquarePosition = [];
         opponentSquarePosition.push(opponentSquareX, opponentSquareY);
         //check to make sure the player destination isn't off the board
-        if (destinationSquareX <= 7 && destinationSquareY >= 0 && destinationSquareX >= 0 && destinationSquareY <= 7) {
+        if (destinationSquareX <= 7 && destinationSquareX >= 0 && destinationSquareY <= 7 && destinationSquareY >= 0) {
             // getting the cellValue of the opponent piece
             const opponentCellValue = playerPosition[opponentSquareX][opponentSquareY];
             const destinationCellValue = playerPosition[destinationSquareX][destinationSquareY];
@@ -221,8 +212,6 @@
             };
         };
     };
-
-$(document).ready(() => {
 // calling the setup functions and passing it the columns and rows
     setup(8, 8);
     setupPieces(8, 8);
