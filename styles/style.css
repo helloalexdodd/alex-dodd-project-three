@@ -185,7 +185,8 @@ html {
   letter-spacing: -1.2px;
 }
 
-body {
+.wrapper {
+  max-width: 1400px;
   background-color: #eddae4;
 }
 
@@ -200,6 +201,10 @@ body {
   display: block;
   position: relative;
   margin: 50px;
+}
+
+.outer-box:last-of-type p {
+  margin-bottom: 50px;
 }
 
 .inner-box {
@@ -318,6 +323,10 @@ body {
           transform: translateY(-50%);
 }
 
+.king-piece:before {
+  background-color: #ecf23a;
+}
+
 .black-selected {
   background-color: #8db3d2;
 }
@@ -342,7 +351,6 @@ body {
 
 .red-selected::before {
   content: '';
-  content: '';
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -353,6 +361,10 @@ body {
   top: 42px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+.king-selected:before {
+  background-color: #f1f56a;
 }
 
 @-webkit-keyframes blinking {
@@ -634,6 +646,18 @@ body {
   }
 }
 
+@-webkit-keyframes gold-jump {
+  0% {
+    background: #ecf23a;
+  }
+}
+
+@keyframes gold-jump {
+  0% {
+    background: #ecf23a;
+  }
+}
+
 .black-jump {
   -webkit-animation: black-jump 1.8s;
           animation: black-jump 1.8s;
@@ -642,6 +666,11 @@ body {
 .red-jump {
   -webkit-animation: red-jump 1.8s;
           animation: red-jump 1.8s;
+}
+
+.gold-jump {
+  -webkit-animation: gold-jump 1.8s;
+          animation: gold-jump 1.8s;
 }
 
 .hide {
@@ -740,6 +769,8 @@ body {
   height: 260px;
   width: 440px;
   border-radius: 20px;
+  -webkit-box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
+          box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
   background-color: #f2f0ed;
 }
 
@@ -750,7 +781,7 @@ body {
   text-align: center;
 }
 
-@media (max-width: 819px) {
+@media (max-width: 840px) {
   .outer-box {
     opacity: .2;
   }
@@ -760,7 +791,7 @@ body {
     color: black;
     font-size: 2rem;
     position: fixed;
-    top: 300px;
+    top: 200px;
     left: 10%;
   }
 }

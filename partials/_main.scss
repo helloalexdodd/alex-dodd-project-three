@@ -1,0 +1,373 @@
+html {
+    font-size: 125%;
+    font-family: $primary-font;
+    letter-spacing: -1.2px
+}
+
+.wrapper {
+  max-width: 1400px;
+  background-color: #eddae4;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.outer-box {
+  display: block;
+  position: relative;
+  margin: 50px;
+
+  &:last-of-type p {
+    margin-bottom: 50px;
+  }
+}
+
+.inner-box {
+  visibility: hidden;
+}
+
+.game-board {
+  position: relative;
+  float: left;
+  padding: 50px;
+}
+
+
+.game-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0 40px 40px;
+  height: calc(90px * 7);
+
+  h2 {
+    margin: 0;
+    font-size: 2rem;
+    transition: .5s;
+    color: $blue;
+  }
+
+  .player-box:first-of-type  {
+    h2 {
+      color: $blue;
+    }
+
+    .player-turn {
+      color: $black;
+    }
+  }
+  
+  .player-box:last-of-type  {
+    h2 {
+      color: $blue;
+    }
+
+    .player-turn {
+      color: $red;
+    }
+  }
+
+  .player-turn {
+    font-size: 3rem;
+    transition: .5s;
+  }
+
+  h3 {
+    margin-top: 30px;
+  }
+
+  p {
+    margin-top: 50px;
+  }
+  
+  h1 {
+    margin: 50px 0;
+    font-size: 3rem;
+    font-family: $secondary-font;
+  }
+}
+
+.row {
+  height: 90px;
+}
+
+.square {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  border: 3px solid $brown;
+  width: 90px;
+  height: 90px;
+}
+
+.white-square {
+  background-color: $beige;
+}
+
+.black-square {
+  background-color: $blue;
+}
+
+.black-piece:before {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    background-color: $black;
+    border: 17.5px solid $dark-black;
+    top: 42px;
+    transform: translateY(-50%);
+}
+
+.red-piece:before {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    background-color: $red;
+    border: 17.5px solid $dark-red;
+    top: 42px;
+    transform: translateY(-50%);
+}
+
+.king-piece:before {
+    background-color: $yellow;
+}
+
+.black-selected {
+  background-color: lighten($blue, 20%);
+
+  &::before{
+    content: '';
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    background-color: $light-black;
+    border: 17.5px solid lighten($black, 10%);
+    top: 42px;
+    transform: translateY(-50%);
+  }
+}
+
+.red-selected {
+  background-color: lighten($blue, 20%);
+
+  &::before {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    background-color: $light-red;
+    border: 17.5px solid lighten($red, 10%);
+    top: 42px;
+    transform: translateY(-50%);
+  }
+}
+
+.king-selected:before {
+  background-color: lighten($yellow, 10%);
+}
+
+@keyframes blinking {
+  0%{
+    background-color: $red;
+  }
+}
+
+.no-play{
+  animation: blinking 2s linear;
+}
+
+@keyframes black-flicker {
+  0% {background: $blue}
+  6% {background: $beige}
+  12% {background: $blue}
+  18% {background: $beige}
+  24% {background: $blue}
+  30% {background: $beige}
+  36% {background: $blue}
+  42% {background: $beige}
+  48% {background: $blue}
+  54% {background: $blue}
+  59% {background: $beige}
+  64% {background: $blue}
+  69% {background: $beige}
+  74% {background: $blue}
+  79% {background: $beige}
+  84% {background: $blue}
+  92% {background: $beige}
+  96% {background: $blue}
+}
+
+@keyframes white-flicker {
+  0% {background: $beige}
+  6% {background: $blue}
+  12% {background: $beige}
+  18% {background: $blue}
+  24% {background: $beige}
+  30% {background: $blue}
+  36% {background: $beige}
+  42% {background: $blue}
+  48% {background: $beige}
+  54% {background: $blue}
+  59% {background: $beige}
+  64% {background: $blue}
+  69% {background: $beige}
+  74% {background: $blue}
+  79% {background: $beige}
+  84% {background: $blue}
+  92% {background: $beige}
+  96% {background: $blue}
+}
+
+.white-flicker {
+    animation: white-flicker 3s;    
+}
+
+.black-flicker {
+    animation: black-flicker 3s;    
+}
+
+@keyframes black-jump {
+  0% {background: $black}
+}
+
+@keyframes red-jump {
+  0% {background: $red}
+}
+
+@keyframes gold-jump {
+  0% {background: $yellow}
+}
+
+.black-jump {
+  animation: black-jump 1.8s;
+}
+
+.red-jump {
+  animation: red-jump 1.8s;
+}
+
+.gold-jump {
+  animation: gold-jump 1.8s;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 255, 0.5);
+    z-index: 0;
+}
+
+@media (max-width: 1400px) {
+  .game-info h1 {
+    margin-left: -60px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1175px) {
+  .outer-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .game-board {
+    float: none;
+    padding: 0;
+    text-align: center;
+  }
+
+  .game-info {
+    position: initial;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    padding: 50px;
+    height: 300px;
+    
+    .player-turn {
+      font-size: 2.5rem;
+    }
+
+    .player-outer-box {
+      display: flex;
+      justify-content: flex-start;
+    }
+    
+    .player-box {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 0 40px;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+  }
+    p {
+      text-align: center;
+    }
+  }
+
+  .instructions-box {
+    position: absolute;
+    left: 200px;
+    top: 400px;
+    opacity: .9;
+    padding: 30px;
+    height: 260px;
+    width: 440px;
+    border-radius: 20px;
+    box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
+    background-color: $beige;
+
+    .instructions {
+      margin: 0;
+      font-size: 1.6rem;
+      color: black;
+      text-align: center;
+    }
+  }
+
+
+@media (max-width: 840px) {
+.outer-box {
+  opacity: .2;
+}
+
+.inner-box {
+  visibility: visible;
+  width: 80vw;
+  color: black;
+  font-size: 2rem;
+  @include position (fixed, 200px, null, null, 10%)
+}
+}
