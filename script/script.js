@@ -94,8 +94,6 @@ $(document).ready(() => {
         const idArrayNums = idArrayString.map((num) => {
             return Number(num);
         });
-        console.log(storedxy[0], storedxy[1])
-        console.log(idArrayNums[0], idArrayNums[1])
 // making an array of the origin of the player
         const originSquarePosition = [];
         const originSquareX = idArrayNums[0] - 2;
