@@ -12,10 +12,11 @@ $(document).ready(() => {
 // variables to hold each player's move count
     let playerOneCounter = 0;
     let playerTwoCounter = 0;
-//variable to hold each player's eat count
+// variable to hold each player's eat count
     let playerOneEatCounter = 0;
     let playerTwoEatCounter = 0;
-
+// some useful variable declarations
+    const $instructionsBox = $(`.instructions-box`);
     const $gameboard = $(`#game-board`);
     const $h2 = $(`h2`);
 // function for setting up the board by looping through nested arrays and creating divs. also fills empty global divs for access to x and y axis
@@ -407,13 +408,14 @@ $(document).ready(() => {
     setupPieces(8, 8);
 // listening event for selecting the piece a user wants to move
     $gameboard.on(`click keypress`, `.row > div`, function () {
-//declaring some useful variables declarations
+//some useful variables declarations
         const allSquares = `#game-board > div > div`;
         const $allSquares = $(allSquares);
-        const $this = $(this);
         const $blackSquare = $(`.black-square`);
         const $whiteSquare = $(`.white-square`);
-        const $instructionsBox = $(`.instructions-box`);
+        const $this = $(this);
+//make the instructions disappear
+        $instructionsBox.hide()
 // this stuff lets me access the i and j axis of my global arrays by using the id's of each div and passing it
         const $idString = $this.attr(`id`);
         const idArrayString = $idString.split("_", 2);
@@ -431,18 +433,13 @@ $(document).ready(() => {
         let hasDoubleJumpUpLeft = DoubleJumpUpLeft(cellValue, idArrayString);
         let hasDoubleJumpUpRight = DoubleJumpUpRight(cellValue, idArrayString);
 
-
-        //make the instructions disappear
-        $instructionsBox.hide()
-        console.log($instructionsBox);
-        
-        //if this click is a black square (because pieces can only move on black squares)
+//if this click is a black square (because pieces can only move on black squares)
         if (this.classList.contains(`black-square`)) {
            
             // store the new x and y axis
             xy = [boardx[i], boardy[j]];
             
-            // if any black piece is already selected
+// if any black piece is already selected
             if ($allSquares.hasClass(`black-selected`)) {
                    
                 //if this click is already a selected black piece
@@ -534,13 +531,13 @@ $(document).ready(() => {
                                     setTimeout(function () {
                                         $blackSquare.removeClass('black-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                     setTimeout(function () {
                                     $whiteSquare.addClass('white-flicker');
                                     setTimeout(function () {
                                         $whiteSquare.removeClass('white-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                 }
                             // and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
                             } else if ((xy[1] === (storedxy[1] + 2)) && hasOpponentPieceDownRight) {
@@ -572,17 +569,17 @@ $(document).ready(() => {
                                     setTimeout(function () {
                                         $blackSquare.removeClass('black-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                     setTimeout(function () {
                                     $whiteSquare.addClass('white-flicker');
                                     setTimeout(function () {
                                         $whiteSquare.removeClass('white-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                 }
                             };
                         };
-// KIIIIIIIIIIIIIIIIIIIINNNNNNGGGGGSSSSS!!!! if the x and y axis is only one space away from the starting position
+//KINGS             // if the x and y axis is only one space away from the starting position
                     } else if (((xy[1] === (storedxy[1] + 1)) || (xy[1] === (storedxy[1] - 1) || (xy[0]) === (storedxy[0] + 1)) || (xy[0] === (storedxy[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
                         //place the piece here
                         $this.addClass(`black-piece king-piece`)
@@ -633,7 +630,7 @@ $(document).ready(() => {
                                         $blackSquare.removeClass('black-flicker');
                                         $whiteSquare.removeClass('white-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                 }
                             } 
                         }
@@ -644,7 +641,7 @@ $(document).ready(() => {
                         }, 1000);
                     };
 
-                // if any red piece is already selected
+// if any red piece is already selected
                  } else if ($allSquares.hasClass(`red-selected`)) {
 
                     //if this click is already a selected red piece
@@ -691,7 +688,7 @@ $(document).ready(() => {
                             $whiteSquare.addClass(`red-jump`);
                             setTimeout(function () {
                                 $allSquares.removeClass('gold-jump');
-                            }, 2000);
+                            }, 3000);
                         };
                         //if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one down than the starting position
                         if (xy[1] === (storedxy[1] + 1) || xy[1] === (storedxy[1] - 1) && (xy[0]) === (storedxy[0] - 1)) {
@@ -738,13 +735,13 @@ $(document).ready(() => {
                                     setTimeout(function () {
                                         $blackSquare.removeClass('black-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                     setTimeout(function () {
                                     $whiteSquare.addClass('white-flicker');
                                     setTimeout(function () {
                                         $whiteSquare.removeClass('white-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                 }
                             } else if ((xy[1] === (storedxy[1] + 2)) && hasOpponentPieceUpRight) {
                                 //place the piece here
@@ -775,17 +772,17 @@ $(document).ready(() => {
                                     setTimeout(function () {
                                         $blackSquare.removeClass('black-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                     setTimeout(function () {
                                     $whiteSquare.addClass('white-flicker');
                                     setTimeout(function () {
                                         $whiteSquare.removeClass('white-flicker');
                                     }, 4000);
-                                    }, 1200);
+                                    }, 1000);
                                 }
                             };
                         };
-// KKKKKKKKKKKKKKKKKIIIIIIIIIIIIIINNNNNNNNGGGGGGSSSSSS!!!!!!!!
+//KINGS             // if the x and y axis is only one space away from the starting position
                     } else if (((xy[1] === (storedxy[1] + 1)) || (xy[1] === (storedxy[1] - 1) || (xy[0]) === (storedxy[0] + 1)) || (xy[0] === (storedxy[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
                         //place the piece here
                         $this.addClass(`red-piece king-piece`)
@@ -848,7 +845,7 @@ $(document).ready(() => {
                     }, 1000);
                 }
             } 
-            // if no pieces are already selected
+// if no pieces are already selected
             else if ($allSquares.hasClass(`black-selected` || `red-selected`) === false) {
                
                 // store the x and y axis

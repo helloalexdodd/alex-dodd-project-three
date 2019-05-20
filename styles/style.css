@@ -669,8 +669,8 @@ html {
 }
 
 .gold-jump {
-  -webkit-animation: gold-jump 1.8s;
-          animation: gold-jump 1.8s;
+  -webkit-animation: gold-jump 3.5s;
+          animation: gold-jump 3.5s;
 }
 
 .overlay {
