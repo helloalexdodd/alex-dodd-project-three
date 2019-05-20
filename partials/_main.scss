@@ -177,7 +177,7 @@ html {
 }
 
 .king-selected:before {
-  background-color: lighten($yellow, 10%);
+  background-color: lighten($yellow, 20%);
 }
 
 @keyframes blinking {

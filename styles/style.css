@@ -364,7 +364,7 @@ html {
 }
 
 .king-selected:before {
-  background-color: #f1f56a;
+  background-color: #f5f89a;
 }
 
 @-webkit-keyframes blinking {

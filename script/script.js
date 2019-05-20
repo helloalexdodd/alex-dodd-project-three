@@ -582,7 +582,7 @@ $(document).ready(() => {
                             };
                         };
 // KIIIIIIIIIIIIIIIIIIIINNNNNNGGGGGSSSSS!!!! if the x and y axis is only one space away from the starting position
-                    } else if ((xy[1] === (storedxy[1] + 1)) || (xy[1] === (storedxy[1] - 1) || (xy[0]) === (storedxy[0] + 1)) || (xy[0] === (storedxy[0] - 1)) && $allSquares.hasClass(`king-selected`)) {
+                    } else if (((xy[1] === (storedxy[1] + 1)) || (xy[1] === (storedxy[1] - 1) || (xy[0]) === (storedxy[0] + 1)) || (xy[0] === (storedxy[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
                         //place the piece here
                         $this.addClass(`black-piece king-piece`)
                         // remove the piece from its original square
@@ -785,7 +785,7 @@ $(document).ready(() => {
                             };
                         };
 // KKKKKKKKKKKKKKKKKIIIIIIIIIIIIIINNNNNNNNGGGGGGSSSSSS!!!!!!!!
-                    } else if ((xy[1] === (storedxy[1] + 1)) || (xy[1] === (storedxy[1] - 1) || (xy[0]) === (storedxy[0] + 1)) || (xy[0] === (storedxy[0] - 1)) && $allSquares.hasClass(`king-selected`)) {
+                    } else if (((xy[1] === (storedxy[1] + 1)) || (xy[1] === (storedxy[1] - 1) || (xy[0]) === (storedxy[0] + 1)) || (xy[0] === (storedxy[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
                         //place the piece here
                         $this.addClass(`red-piece king-piece`)
                         // remove the piece from its original square
