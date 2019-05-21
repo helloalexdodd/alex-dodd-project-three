@@ -74,10 +74,10 @@ checkers.winnerAlert = (winnerMessage) => {
 	checkers.$gameboard.append(`<div class="winner">${winnerMessage}</div>`);
 	setTimeout(function () {
 	}, 2000);
-}
+};
 // add a move onto the PlayerOneCounter and display it to the user
 checkers.addToPlayerCounter = () => {
-	if (checkers.$gameboard.hasClass(`player-one`)) {
+	if (checkers.$gameboard.hasClass(`player-two`)) {
 		checkers.playerOneCounter = checkers.playerOneCounter + 1;
 		$('.player-one-counter').text(checkers.playerOneCounter);
 	} else {
@@ -228,7 +228,7 @@ checkers.noPlay = ($this) => {
 	setTimeout(() => {
 		$this.removeClass(`no-play`)
 	}, 1000);
-}
+};
 // double jump animation
 checkers.doubleJumpAnimation = ($blackSquares, $whiteSquares, string) => {
 	setTimeout(function () {
@@ -252,7 +252,7 @@ checkers.doubleJumpAnimation = ($blackSquares, $whiteSquares, string) => {
 			checkers.$instructionsBox.fadeOut(`slow`);
 		}, 2500);
 	}, 2000);
-}
+};
 // kinging animation
 checkers.goldAnimation = ($blackSquares, $whiteSquares, $allSquares) => {
 	$blackSquares.addClass(`gold-jump`);
@@ -260,10 +260,10 @@ checkers.goldAnimation = ($blackSquares, $whiteSquares, $allSquares) => {
 	setTimeout(function () {
 		$allSquares.removeClass('gold-jump black-jump');
 	}, 3500);
-}
+};
 // black and red animations
 checkers.jumpAnimation = ($allSquares) => {
-	if (checkers.$gameboard.hasClass(`player-one`)) {
+	if (checkers.$gameboard.hasClass(`player-two`)) {
 		$allSquares.addClass('black-jump');
 	} else {
 		$allSquares.addClass('red-jump');
@@ -272,7 +272,9 @@ checkers.jumpAnimation = ($allSquares) => {
 		$allSquares.removeClass(`red-jump`);
 		$allSquares.removeClass(`black-jump`)
 	}, 2000);
-}
+	//add an opponent piece to the counter and display it to the user
+	checkers.addToPlayerEatCounter();
+};
 // can't play here, user
 checkers.userInstructions = (string) => {
 	checkers.$instructionsBox.css(`height`, `150px`);
@@ -281,7 +283,29 @@ checkers.userInstructions = (string) => {
 	setTimeout(() => {
 		checkers.$instructionsBox.fadeOut(`slow`);
 	}, 2500);
-}
+};
+//play the piece
+checkers.playThePiece = ($this, $allSquares, add, remove, position, i, j) => {
+	//place the piece here
+	$this.addClass(add)
+	// remove the piece from its original square
+	$allSquares.removeClass(remove)
+	// change the playerPosition
+	checkers.playerPosition[i][j] = position;
+	// add a move onto the counter and display it to the user
+	checkers.addToPlayerCounter();
+	// switch players
+	checkers.playerSwitch();
+};
+//select or unselect the piece
+checkers.selectOrUnselectThePiece = ($this, add, remove, position, i, j) => {
+// select the piece
+$this.addClass(add)
+// remove styling
+$this.removeClass(remove)
+//change the playerPosition
+checkers.playerPosition[i][j] = position
+};
 //init
 checkers.init = () => {
 	// calling the setup functions and passing it the columns and rows
@@ -330,25 +354,17 @@ checkers.init = () => {
 			};
 
 			// if any black piece is already selected
-			if ($allSquares.hasClass(`black-selected`)) {
+			if ($allSquares.hasClass(newFunction())) {
 
 				//if this click is already a selected black piece
 				if ($this.hasClass(`black-selected`) && ($this.hasClass(`king-selected`) === false)) {
-					// unselect the piece
-					$this.removeClass(`black-selected`);
-					// style the piece back to default
-					$this.addClass(`black-piece`);
-					// change the playerPosition
-					checkers.playerPosition[i][j] = 1;
+					// unselected the piece
+					checkers.selectOrUnselectThePiece($this, `black-piece`, `black-selected`, 1, i, j);
 
 					//if this click is already a selected black king
 				} else if ($this.hasClass(`king-selected`)) {
-					// unselect the piece
-					$allSquares.removeClass(`black-selected king-selected`);
-					// style the piece back to default
-					$this.addClass(`black-piece king-piece`);
-					// change the playerPosition
-					checkers.playerPosition[i][j] = 1;
+					// unselected the piece
+					checkers.selectOrUnselectThePiece($this, `black-piece king-piece`, `black-selected king-selected`, 1, i, j);
 
 					//if this is a black piece and a different black piece is already selected
 				} else if (cellValue === 1 && ($allSquares.hasClass(`black-selected`))) {
@@ -371,35 +387,16 @@ checkers.init = () => {
 						};
 						//if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one more than the starting position
 						if (checkers.xy[1] === (checkers.storedxy[1] + 1) || checkers.xy[1] === (checkers.storedxy[1] - 1) && (checkers.xy[0]) === (checkers.storedxy[0] + 1)) {
-							//place the piece here
-							$this.addClass(`black-piece`)
-							// remove the piece from its original square
-							$allSquares.removeClass(`black-selected`)
-							// change the playerPosition
-							checkers.playerPosition[i][j] = 1;
-
-							// add a move onto the counter and display it to the user
-							checkers.addToPlayerCounter();
-							// switch players
-							checkers.playerSwitch();
+							//place the piece
+							checkers.playThePiece($this, $allSquares, `black-piece`, `black-selected`, 1, i, j);
 							//if the x axis is two rows down from the starting point
 						} else if (checkers.xy[0] === (checkers.storedxy[0] + 2)) {
 							// and the y axis is two columns to the left and the square in between those two squares has an opposing player's piece in it
 							if ((checkers.xy[1] === (checkers.storedxy[1] - 2)) && hasOpponentPieceDownLeft) {
-								//place the piece here
-								$this.addClass(`black-piece`)
-								// remove the piece from its original square
-								$allSquares.removeClass(`black-selected`)
-								// change the playerPosition
-								checkers.playerPosition[i][j] = 1;
+								//place the piece
+								checkers.playThePiece($this, $allSquares, `black-piece`, `black-selected`, 1, i, j);
 								// black animation
 								checkers.jumpAnimation($allSquares);
-								//add an opponent piece to the counter and display it to the user
-								checkers.addToPlayerEatCounter();
-								// add a move onto the counter and display it to the user
-								checkers.addToPlayerCounter();
-								// switch players
-								checkers.playerSwitch();
 								//and has a double jump opportunity down
 								if (hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
 									// switch back players
@@ -409,20 +406,10 @@ checkers.init = () => {
 								}
 							// and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
 							} else if ((checkers.xy[1] === (checkers.storedxy[1] + 2)) && hasOpponentPieceDownRight) {
-								//place the piece here
-								$this.addClass(`black-piece`)
-								// remove the piece from its original square
-								$allSquares.removeClass(`black-selected`)
-								// change the playerPosition
-								checkers.playerPosition[i][j] = 1;
+								//place the piece
+								checkers.playThePiece($this, $allSquares, `black-piece`, `black-selected`, 1, i, j);
 								// black animation
 								checkers.jumpAnimation($allSquares);
-								//add an opponent piece to the counter and display it to the user
-								checkers.addToPlayerEatCounter();
-								// add a move onto the counter and display it to the user
-								checkers.addToPlayerCounter();
-								// switch players
-								checkers.playerSwitch();
 								//and has a double jump opportunity down
 								if (hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
 									// switch back players
@@ -440,36 +427,18 @@ checkers.init = () => {
 						};
 //KINGS   // if the x and y axis is only one space away from the starting position
 					} else if (((checkers.xy[1] === (checkers.storedxy[1] + 1)) || (checkers.xy[1] === (checkers.storedxy[1] - 1) || (checkers.xy[0]) === (checkers.storedxy[0] + 1)) || (checkers.xy[0] === (checkers.storedxy[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
-						//place the piece here
-						$this.addClass(`black-piece king-piece`)
-						// remove the piece from its original square
-						$allSquares.removeClass(`black-selected king-selected`)
-						// change the playerPosition
-						checkers.playerPosition[i][j] = 1;
-						// add a move onto the counter and display it to the user
-						checkers.addToPlayerCounter();
-						// switch players
-						checkers.playerSwitch();
+						//place the piece
+						checkers.playThePiece($this, $allSquares, `black-piece king-piece`, `black-selected king-selected`, 1, i, j);
 						//if the x and y axis are two rows away from the starting point and there's an opponent's piece in between
 					} else if
 						(((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) { 
-							//place the piece here
-							$this.addClass(`black-piece king-piece`)
-							// remove the piece from its original square
-							$allSquares.removeClass(`black-selected king-selected`)
-							// change the playerPosition
-							checkers.playerPosition[i][j] = 1;
+							//place the piece
+							checkers.playThePiece($this, $allSquares, `black-piece king-piece`, `black-selected king-selected`, 1, i, j);
 							//red animation
 							checkers.jumpAnimation($gameboard, `red-jump`, `black-jump`)
-							//add an opponent piece to the counter and display it to the user
-							checkers.addToPlayerEatCounter();
-							// add a move onto the counter and display it to the user
-							checkers.addToPlayerCounter();
-							// switch players
-							checkers.playerSwitch();
 							//has double jump opportunity up and to the left
 							if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
 								// switch back players
@@ -488,21 +457,13 @@ checkers.init = () => {
 
 				//if this click is already a selected red piece
 				if (this.classList.contains(`red-selected`) && (this.classList.contains(`king-selected`) === false)) {
-					// unselect the piece
-					$this.removeClass(`red-selected`);
-					// style the piece back to default
-					$this.addClass(`red-piece`);
-					// change the playerPosition
-					checkers.playerPosition[i][j] = 2;
+					// unselected the piece
+					checkers.selectOrUnselectThePiece($this, `red-piece`, `red-selected`, 2, i, j);
 
 					//if this click is already a selected red king
 				} else if (this.classList.contains(`king-selected`)) {
-					// unselect the piece
-					$allSquares.removeClass(`red-selected king-selected`);
-					// style the piece back to default
-					$this.addClass(`red-piece king-piece`);
-					// change the playerPosition
-					checkers.playerPosition[i][j] = 2;
+					// unselected the piece
+					checkers.selectOrUnselectThePiece($this, `red-piece king-piece`, `red-selected king-selected`, 2, i, j);
 
 					//if this is a red piece and a different red piece is already selected
 				} else if (cellValue === 2 && ($allSquares.hasClass(`red-selected`))) {
@@ -526,34 +487,16 @@ checkers.init = () => {
 						};
 						//if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one down than the starting position
 						if (checkers.xy[1] === (checkers.storedxy[1] + 1) || checkers.xy[1] === (checkers.storedxy[1] - 1) && (checkers.xy[0]) === (checkers.storedxy[0] - 1)) {
-							//place the piece here
-							$this.addClass(`red-piece`)
-							// remove the piece from its original square
-							$allSquares.removeClass(`red-selected`)
-							// change the playerPosition
-							checkers.playerPosition[i][j] = 2;
-							// add a move onto the counter and display it to the user
-							checkers.addToPlayerCounter();
-							// switch players
-							checkers.playerSwitch();
+							//place the piece
+							checkers.playThePiece($this, $allSquares, `red-piece`, `red-selected`, 2, i, j);
 							//if the x axis is two rows down from the starting point
 						} else if (checkers.xy[0] === (checkers.storedxy[0] - 2)) {
 							// and the y axis of the click is two columns to the left and the square in between those two squares has an opposing player's piece in it
 							if ((checkers.xy[1] === (checkers.storedxy[1] - 2)) && hasOpponentPieceUpLeft) {
-								//place the piece here
-								$this.addClass(`red-piece`)
-								// remove the piece from its original square
-								$allSquares.removeClass(`red-selected`)
-								// change the playerPosition
-								checkers.playerPosition[i][j] = 2;
+								//place the piece
+								checkers.playThePiece($this, $allSquares, `red-piece`, `red-selected`, 2, i, j);
 								//red animation
 								checkers.jumpAnimation($allSquares);
-								//add an opponent piece to the counter and display it to the user
-								checkers.addToPlayerEatCounter();
-								// add a move onto the counter and display it to the user
-								checkers.addToPlayerCounter();
-								// switch players
-								checkers.playerSwitch();
 								//has double jump opportunity up and to the left
 								if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight) {
 									// switch back players
@@ -562,20 +505,10 @@ checkers.init = () => {
 									checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
 								}
 							} else if ((checkers.xy[1] === (checkers.storedxy[1] + 2)) && hasOpponentPieceUpRight) {
-								//place the piece here
-								$this.addClass(`red-piece`)
-								// remove the piece from its original square
-								$allSquares.removeClass(`red-selected`)
-								// change the playerPosition
-								checkers.playerPosition[i][j] = 2;
+								//place the piece
+								checkers.playThePiece($this, $allSquares, `red-piece`, `red-selected`, 2, i, j);
 								// red animation
 								checkers.jumpAnimation($allSquares);
-								//add an opponent piece to the counter and display it to the user
-								checkers.addToPlayerEatCounter();
-								// add a move onto the counter and display it to the user
-								checkers.addToPlayerCounter();
-								// switch players
-								checkers.playerSwitch();
 								// has double jump opportunity up and to the left
 								if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight) {
 									// switch back players
@@ -593,36 +526,18 @@ checkers.init = () => {
 						};
 //KINGS   // if the x and y axis is only one space away from the starting position
 					} else if (((checkers.xy[1] === (checkers.storedxy[1] + 1)) || (checkers.xy[1] === (checkers.storedxy[1] - 1) || (checkers.xy[0]) === (checkers.storedxy[0] + 1)) || (checkers.xy[0] === (checkers.storedxy[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
-						//place the piece here
-						$this.addClass(`red-piece king-piece`)
-						// remove the piece from its original square
-						$allSquares.removeClass(`red-selected king-selected`)
-						// change the playerPosition
-						checkers.playerPosition[i][j] = 2;
-						// add a move onto the counter and display it to the user
-						checkers.addToPlayerCounter();
-						// switch players
-						checkers.playerSwitch();
+						//place the piece
+						checkers.playThePiece($this, $allSquares, `red-piece king-piece`, `red-selected king-selected`, 2, i, j);
 						//if the x axis is two rows down from the starting point
 					} else if
 						(((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) {
-							//place the piece here
-							$this.addClass(`red-piece king-piece`)
-							// remove the piece from its original square
-							$allSquares.removeClass(`red-selected king-selected`)
-							// change the playerPosition
-							checkers.playerPosition[i][j] = 2;
+							//place the piece
+							checkers.playThePiece($this, $allSquares, `red-piece king-piece`, `red-selected king-selected`, 2, i, j);
 							//red animation
 							checkers.jumpAnimation($gameboard);
-							//add an opponent piece to the counter and display it to the user
-							checkers.addToPlayerEatCounter();
-							// add a move onto the counter and display it to the user
-							checkers.addToPlayerCounter();
-							// switch players
-							checkers.playerSwitch();
 							//has double jump opportunity up and to the left
 							if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
 								// switch back players
@@ -644,40 +559,23 @@ checkers.init = () => {
 
 				//if it's a black king
 				if (cellValue === 1 && (checkers.$gameboard.hasClass(`player-one`) && $this.hasClass(`king-piece`))) {
-					// select the piece
-					$this.addClass(`black-selected king-selected`)
-					// remove styling
-					$this.removeClass(`black-piece king-piece`)
-					//change the playerPosition
-					checkers.playerPosition[i][j] = 0
+					// unselected the piece
+					checkers.selectOrUnselectThePiece($this, `black-selected king-selected`, `black-piece king-piece`, 0, i, j);
 				}
 				//if it's a red king
 				if (cellValue === 2 && (checkers.$gameboard.hasClass(`player-two`) && $this.hasClass(`king-piece`))) {
-					// select the piece
-					$this.addClass(`red-selected king-selected`)
-					// remove styling
-					$this.removeClass(`red-piece king-piece`)
-					//change the playerPosition
-					checkers.playerPosition[i][j] = 0
+					// unselected the piece
+					checkers.selectOrUnselectThePiece($this, `red-selected king-selected`, `red-piece king-piece`, 0, i, j);
 				}
 				// if it's a black piece  
 				else if (cellValue === 1 && (checkers.$gameboard.hasClass(`player-one`))) {
-					// select the piece    
-					$this.addClass(`black-selected`)
-					// remove styling
-					$this.removeClass(`black-piece`)
-					// change the playerPosition
-					checkers.playerPosition[i][j] = 0;
+					// unselected the piece
+					checkers.selectOrUnselectThePiece($this, `black-selected`, `black-piece`, 0, i, j);
 
 					// if it's a red piece
 				} else if (cellValue === 2 && (checkers.$gameboard.hasClass(`player-two`))) {
-					// select the piece
-					$this.addClass(`red-selected`)
-					// remove styling
-					$this.removeClass(`red-piece`)
-					// change the playerPosition
-					checkers.playerPosition[i][j] = 0;
-
+					// unselected the piece
+					checkers.selectOrUnselectThePiece($this, `red-selected`, `red-piece`, 0, i, j);
 				} else {
 					// can't play here animation
 					checkers.noPlay($this);
@@ -692,3 +590,7 @@ checkers.init = () => {
 $(document).ready(() => {
 	checkers.init();
 });
+
+function newFunction() {
+	return `black-selected`;
+}
