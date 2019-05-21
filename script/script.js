@@ -360,7 +360,7 @@ checkers.init = () => {
 				checkers.userInstructions(`Please stop trying to pick up your opponent's pieces.`)
 			};
 
-			// if any black piece is already selected
+// if any black piece is already selected
 			if ($allSquares.hasClass(`black-selected`)) {
 
 				//if this click is already a selected black piece
@@ -407,7 +407,7 @@ checkers.init = () => {
 								if (hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
 									// double jump animation
 									checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
-								}
+								};
 							// and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
 							} else if ((checkers.xy[1] === (checkers.storedxy[1] + 2)) && hasOpponentPieceDownRight) {
 								//place the piece
@@ -418,7 +418,7 @@ checkers.init = () => {
 								if (hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
 									//double jump animation
 									checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
-								}
+								};
 							} else {
 								// can't play here animation
 								checkers.noPlay($this);
@@ -440,19 +440,19 @@ checkers.init = () => {
 							//place the piece
 							checkers.playThePiece($this, $allSquares, `black-piece king-piece`, `black-selected king-selected`, 1, i, j);
 							//red animation
-							checkers.jumpAnimation($gameboard, `red-jump`, `black-jump`)
+							checkers.jumpAnimation($allSquares)
 							//has double jump opportunity up and to the left
 							if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
 								//double jump animation
 								checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
-							}
-					}
+							};
+					};
 				} else {
 					// can't play here animation
 					checkers.noPlay($this);
 				};
 
-			// if any red piece is already selected
+// if any red piece is already selected
 			} else if ($allSquares.hasClass(`red-selected`)) {
 
 				//if this click is already a selected red piece
@@ -500,7 +500,7 @@ checkers.init = () => {
 								if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight) {
 									//double jump animation
 									checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
-								}
+								};
 							} else if ((checkers.xy[1] === (checkers.storedxy[1] + 2)) && hasOpponentPieceUpRight) {
 								//place the piece
 								checkers.playThePiece($this, $allSquares, `red-piece`, `red-selected`, 2, i, j);
@@ -510,7 +510,7 @@ checkers.init = () => {
 								if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight) {
 									//double jump animation
 									checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
-								}
+								};
 							} else {
 								// can't play here animation
 								checkers.noPlay($this);
@@ -532,19 +532,19 @@ checkers.init = () => {
 							//place the piece
 							checkers.playThePiece($this, $allSquares, `red-piece king-piece`, `red-selected king-selected`, 2, i, j);
 							//red animation
-							checkers.jumpAnimation($gameboard);
+							checkers.jumpAnimation($allSquares);
 							//has double jump opportunity up and to the left
 							if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
 								//double jump animation
 								checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
-							}
-					}
+							};
+					};
 				} else {
 					// can't play here animation
 					checkers.noPlay($this);
-				}
+				};
 			}
-			// if no pieces are already selected
+// if no pieces are already selected
 			else if ($allSquares.hasClass(`black-selected` || `red-selected`) === false) {
 
 				// store the x and y axis
