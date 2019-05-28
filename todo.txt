@@ -1,0 +1,9 @@
+// how to make .gitignore ignore my vscode dir
+
+
+
+
+// write a css animation that flashes when you click somewhere you can't move
+// figure out kinging
+// update on click to include enter or spacebar key and include some screenreader only instructions
+// add a role=button to the divs
