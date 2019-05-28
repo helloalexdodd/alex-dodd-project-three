@@ -309,21 +309,17 @@ $this.removeClass(remove)
 //change the playerPosition
 checkers.playerPosition[i][j] = position
 };
-//init
-checkers.init = () => {
-	// calling the setup functions and passing it the columns and rows
-	checkers.setup(8, 8);
-	checkers.setupPieces(8, 8);
-	// listening event for selecting the piece a user wants to move
+// listening event for selecting the piece a user wants to move
+checkers.click = () => {
 	checkers.$gameboard.on(`click keypress`, `.row > div`, function () {
-	
+
 		//some useful variables declarations
 		const allSquares = `#game-board > div > div`;
 		const $allSquares = $(allSquares);
 		const $blackSquares = $(`.black-square`);
 		const $whiteSquares = $(`.white-square`);
 		const $this = $(this);
-		
+
 		//make the instructions disappear
 		checkers.$instructionsBox.hide()
 
@@ -356,11 +352,11 @@ checkers.init = () => {
 			if (cellValue === 2 && (checkers.$gameboard.hasClass(`player-one`)) || (cellValue === 1 && checkers.$gameboard.hasClass(`player-two`))) {
 				// can't play here animation
 				checkers.noPlay($this);
-					// give user instructions
+				// give user instructions
 				checkers.userInstructions(`Please stop trying to pick up your opponent's pieces.`)
 			};
 
-// if any black piece is already selected
+			// if any black piece is already selected
 			if ($allSquares.hasClass(`black-selected`)) {
 
 				//if this click is already a selected black piece
@@ -408,7 +404,7 @@ checkers.init = () => {
 									// double jump animation
 									checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
 								};
-							// and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
+								// and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
 							} else if ((checkers.xy[1] === (checkers.storedxy[1] + 2)) && hasOpponentPieceDownRight) {
 								//place the piece
 								checkers.playThePiece($this, $allSquares, `black-piece`, `black-selected`, 1, i, j);
@@ -427,7 +423,7 @@ checkers.init = () => {
 							// can't play here animation
 							checkers.noPlay($this);
 						};
-//KINGS   // if the x and y axis is only one space away from the starting position
+						//KINGS   // if the x and y axis is only one space away from the starting position
 					} else if (((checkers.xy[1] === (checkers.storedxy[1] + 1)) || (checkers.xy[1] === (checkers.storedxy[1] - 1) || (checkers.xy[0]) === (checkers.storedxy[0] + 1)) || (checkers.xy[0] === (checkers.storedxy[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
 						//place the piece
 						checkers.playThePiece($this, $allSquares, `black-piece king-piece`, `black-selected king-selected`, 1, i, j);
@@ -436,23 +432,23 @@ checkers.init = () => {
 						(((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
-						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) { 
-							//place the piece
-							checkers.playThePiece($this, $allSquares, `black-piece king-piece`, `black-selected king-selected`, 1, i, j);
-							//red animation
-							checkers.jumpAnimation($allSquares)
-							//has double jump opportunity up and to the left
-							if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
-								//double jump animation
-								checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
-							};
+						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) {
+						//place the piece
+						checkers.playThePiece($this, $allSquares, `black-piece king-piece`, `black-selected king-selected`, 1, i, j);
+						//red animation
+						checkers.jumpAnimation($allSquares)
+						//has double jump opportunity up and to the left
+						if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
+							//double jump animation
+							checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
+						};
 					};
 				} else {
 					// can't play here animation
 					checkers.noPlay($this);
 				};
 
-// if any red piece is already selected
+				// if any red piece is already selected
 			} else if ($allSquares.hasClass(`red-selected`)) {
 
 				//if this click is already a selected red piece
@@ -519,7 +515,7 @@ checkers.init = () => {
 							// can't play here animation
 							checkers.noPlay($this);
 						};
-//KINGS   // if the x and y axis is only one space away from the starting position
+						//KINGS   // if the x and y axis is only one space away from the starting position
 					} else if (((checkers.xy[1] === (checkers.storedxy[1] + 1)) || (checkers.xy[1] === (checkers.storedxy[1] - 1) || (checkers.xy[0]) === (checkers.storedxy[0] + 1)) || (checkers.xy[0] === (checkers.storedxy[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
 						//place the piece
 						checkers.playThePiece($this, $allSquares, `red-piece king-piece`, `red-selected king-selected`, 2, i, j);
@@ -529,22 +525,22 @@ checkers.init = () => {
 						((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) {
-							//place the piece
-							checkers.playThePiece($this, $allSquares, `red-piece king-piece`, `red-selected king-selected`, 2, i, j);
-							//red animation
-							checkers.jumpAnimation($allSquares);
-							//has double jump opportunity up and to the left
-							if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
-								//double jump animation
-								checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
-							};
+						//place the piece
+						checkers.playThePiece($this, $allSquares, `red-piece king-piece`, `red-selected king-selected`, 2, i, j);
+						//red animation
+						checkers.jumpAnimation($allSquares);
+						//has double jump opportunity up and to the left
+						if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
+							//double jump animation
+							checkers.doubleJumpAnimation($blackSquares, $whiteSquares, `Go for the Double Jump!`);
+						};
 					};
 				} else {
 					// can't play here animation
 					checkers.noPlay($this);
 				};
 			}
-// if no pieces are already selected
+			// if no pieces are already selected
 			else if ($allSquares.hasClass(`black-selected` || `red-selected`) === false) {
 
 				// store the x and y axis
@@ -579,6 +575,13 @@ checkers.init = () => {
 			checkers.noPlay($this);
 		};
 	});
+};
+//init
+checkers.init = () => {
+	// calling the setup functions and passing it the columns and rows
+	checkers.setup(8, 8);
+	checkers.setupPieces(8, 8);
+	checkers.click();
 }
 $(document).ready(() => {
 	checkers.init();
