@@ -185,9 +185,13 @@ html {
   letter-spacing: -1.2px;
 }
 
+body {
+  background-color: #eddae4;
+}
+
 .wrapper {
   max-width: 1400px;
-  background-color: #eddae4;
+  margin: 0 auto;
 }
 
 .sr-only {
@@ -200,15 +204,40 @@ html {
 .outer-box {
   display: block;
   position: relative;
-  margin: 50px;
-}
-
-.outer-box:last-of-type p {
-  margin-bottom: 50px;
+  margin: 20px;
 }
 
 .inner-box {
   visibility: hidden;
+}
+
+.game-instructions {
+  margin: 20px 100px 50px 0;
+}
+
+h1 {
+  position: relative;
+  width: 70%;
+  margin: 0;
+  color: #31373a;
+  font-size: 4.5rem;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+}
+
+h1 span {
+  color: #e22d42;
+}
+
+h1::before {
+  content: "";
+  position: absolute;
+  height: 6px;
+  width: 50%;
+  bottom: 0;
+  left: 25%;
+  background: #31373a;
 }
 
 .game-board {
@@ -232,46 +261,30 @@ html {
 
 .game-info h2 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.6rem;
   -webkit-transition: .5s;
   transition: .5s;
-  color: #4782b2;
 }
 
-.game-info .player-box:first-of-type h2 {
-  color: #4782b2;
+.game-info .player-box h2 {
+  color: grey;
+}
+
+.game-info .player-box h3 {
+  margin-top: 30px;
+  color: #252a2c;
+}
+
+.game-info .player-box p {
+  margin-top: 50px;
 }
 
 .game-info .player-box:first-of-type .player-turn {
-  color: #31373a;
-}
-
-.game-info .player-box:last-of-type h2 {
-  color: #4782b2;
+  color: #252a2c;
 }
 
 .game-info .player-box:last-of-type .player-turn {
   color: #e22d42;
-}
-
-.game-info .player-turn {
-  font-size: 3rem;
-  -webkit-transition: .5s;
-  transition: .5s;
-}
-
-.game-info h3 {
-  margin-top: 30px;
-}
-
-.game-info p {
-  margin-top: 50px;
-}
-
-.game-info h1 {
-  margin: 50px 0;
-  font-size: 3rem;
-  font-family: "Cormorant Garamond", serif;
 }
 
 .row {
@@ -673,6 +686,27 @@ html {
           animation: gold-jump 3.5s;
 }
 
+.instructions-box {
+  position: absolute;
+  left: 200px;
+  bottom: 100px;
+  opacity: .9;
+  padding: 30px;
+  height: 250px;
+  width: 440px;
+  border-radius: 20px;
+  -webkit-box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
+          box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
+  background-color: #f2f0ed;
+}
+
+.instructions-box .instructions {
+  margin: 0;
+  font-size: 1.5rem;
+  color: black;
+  text-align: center;
+}
+
 .overlay {
   position: absolute;
   top: 0;
@@ -682,25 +716,37 @@ html {
   background: rgba(0, 0, 255, 0.5);
 }
 
-@media (max-width: 1400px) {
-  .game-info h1 {
-    margin-left: -60px;
-    text-align: center;
-  }
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  background: #252a2c;
+}
+
+footer .socialIcons .fab {
+  margin: 20px;
+  font-size: 1.4rem;
+  color: #f2f0ed;
+}
+
+footer p {
+  color: #f2f0ed;
+  text-align: center;
 }
 
 @media (max-width: 1175px) {
   .outer-box {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    margin: 0 auto;
+  }
+  .game-instructions {
+    margin-right: 50px;
+  }
+  h1 {
+    margin: 20px auto;
   }
   .game-board {
     float: none;
@@ -719,9 +765,6 @@ html {
     margin-bottom: 50px;
     padding: 50px;
     height: 300px;
-  }
-  .game-info .player-turn {
-    font-size: 2.5rem;
   }
   .game-info .player-outer-box {
     display: -webkit-box;
@@ -743,40 +786,20 @@ html {
     margin-top: 50px;
     text-align: center;
   }
-  .game-info h1 {
-    margin: 0 0 0 40px;
-    text-align: center;
-  }
   .game-info h3 {
     font-size: 1.2rem;
   }
   p {
+    margin-bottom: 20px;
     text-align: center;
+  }
+  .instructions-box {
+    left: 30%;
+    bottom: 40%;
   }
 }
 
-.instructions-box {
-  position: absolute;
-  left: 200px;
-  top: 400px;
-  opacity: .9;
-  padding: 30px;
-  height: 250px;
-  width: 440px;
-  border-radius: 20px;
-  -webkit-box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
-          box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
-  background-color: #f2f0ed;
-}
-
-.instructions-box .instructions {
-  margin: 0;
-  font-size: 1.6rem;
-  color: black;
-  text-align: center;
-}
-
-@media (max-width: 840px) {
+@media (max-width: 740px) {
   .instructions-box {
     visibility: hidden;
   }

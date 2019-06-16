@@ -4,9 +4,13 @@ html {
     letter-spacing: -1.2px
 }
 
+body {
+	background-color: #eddae4;
+}
+
 .wrapper {
   max-width: 1400px;
-  background-color: #eddae4;
+	margin: 0 auto;
 }
 
 .sr-only {
@@ -19,23 +23,47 @@ html {
 .outer-box {
   display: block;
   position: relative;
-  margin: 50px;
-
-  &:last-of-type p {
-    margin-bottom: 50px;
-  }
+  margin: 20px;
 }
 
 .inner-box {
   visibility: hidden;
 }
 
+.game-instructions {
+	margin: 20px 100px 50px 0;
+}
+
+h1 {
+		position: relative;
+		width: 70%;
+		margin: 0;
+		color: $black;
+		font-size: 4.5rem;
+		font-weight: bold;
+		font-family: $primary-font;
+		text-align: center;
+		
+		& span {
+			color: $red;
+		}
+		
+		&::before {
+			content: "";
+			position: absolute;			
+			height: 6px;
+			width: 50%;
+			bottom: 0;
+			left: 25%;
+			background: $black;
+		}
+  }
+
 .game-board {
   position: relative;
   float: left;
   padding: 50px;
 }
-
 
 .game-info {
   position: relative;
@@ -46,49 +74,32 @@ html {
 
   h2 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 2.6rem;
     transition: .5s;
-    color: $blue;
-  }
-
-  .player-box:first-of-type  {
+	}
+	
+	.player-box {
     h2 {
-      color: $blue;
+      color: grey;
     }
 
-    .player-turn {
-      color: $black;
-    }
-  }
-  
-  .player-box:last-of-type  {
-    h2 {
-      color: $blue;
-    }
+		h3 {
+			margin-top: 30px;
+			color: $dark-black;
+		}
 
-    .player-turn {
-      color: $red;
-    }
-  }
+		p {
+			margin-top: 50px;
+		}
 
-  .player-turn {
-    font-size: 3rem;
-    transition: .5s;
-  }
-
-  h3 {
-    margin-top: 30px;
-  }
-
-  p {
-    margin-top: 50px;
-  }
-  
-  h1 {
-    margin: 50px 0;
-    font-size: 3rem;
-    font-family: $secondary-font;
-  }
+		&:first-of-type .player-turn {
+			color: $dark-black;
+		}
+		
+		&:last-of-type .player-turn {
+			color: $red;
+		}
+	}
 }
 
 .row {
@@ -264,6 +275,27 @@ html {
   animation: gold-jump 3.5s;
 }
 
+
+.instructions-box {
+	position: absolute;
+	left: 200px;
+	bottom: 100px;
+	opacity: .9;
+	padding: 30px;
+	height: 250px;
+	width: 440px;
+	border-radius: 20px;
+	box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
+	background-color: $beige;
+
+	.instructions {
+		margin: 0;
+		font-size: 1.5rem;
+		color: black;
+		text-align: center;
+	}
+}
+
 .overlay {
     position: absolute;
     top: 0;
@@ -271,23 +303,42 @@ html {
     left: 0;
     right: 0;
     background: rgba(0, 0, 255, 0.5);
-
 }
 
-@media (max-width: 1400px) {
-  .game-info h1 {
-    margin-left: -60px;
-    text-align: center;
-  }
+footer {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	background: $dark-black;
+
+	.socialIcons {
+		
+		.fab {
+			margin: 20px;
+			font-size: 1.4rem;
+			color: $beige;
+		}
+	}
+	
+	p {
+		color: $beige;
+		text-align: center;
+	}
 }
 
 @media (max-width: 1175px) {
   .outer-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+		margin: 0 auto;
+	}
+
+	.game-instructions {
+		margin-right: 50px;
+	}
+	
+	h1 {
+    margin: 20px auto;
   }
-  
+
   .game-board {
     float: none;
     padding: 0;
@@ -302,10 +353,6 @@ html {
     padding: 50px;
     height: 300px;
     
-    .player-turn {
-      font-size: 2.5rem;
-    }
-
     .player-outer-box {
       display: flex;
       justify-content: flex-start;
@@ -319,43 +366,24 @@ html {
       text-align: center;
     }
 
-    h1 {
-      margin: 0 0 0 40px;
-      text-align: center;
-    }
-
     h3 {
       font-size: 1.2rem;
     }
   }
-    p {
-      text-align: center;
-    }
-  }
+	
+	p {
+		margin-bottom: 20px;
+		text-align: center;
+	}
 
-  .instructions-box {
-    position: absolute;
-    left: 200px;
-    top: 400px;
-
-    opacity: .9;
-    padding: 30px;
-    height: 250px;
-    width: 440px;
-    border-radius: 20px;
-    box-shadow: 5px 2px 25px 0 rgba(50, 50, 50, 0.5);
-    background-color: $beige;
-
-    .instructions {
-      margin: 0;
-      font-size: 1.6rem;
-      color: black;
-      text-align: center;
-    }
-  }
+	.instructions-box {
+		left: 30%;
+		bottom: 40%;
+	}
+}
 
 
-@media (max-width: 840px) {
+@media (max-width: 740px) {
 .instructions-box {
   visibility: hidden;
 }

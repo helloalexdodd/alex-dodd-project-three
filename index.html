@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Roboto:300&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="./assets/favicon-32x32.png">
-    <link rel="stylesheet" href="./styles/style.css">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Checkers Game</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300, 600, 700&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/19cfb99ae7.js"></script>
+	<link rel="stylesheet" href="./styles/style.css">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Checkers</title>
 </head>
-<body class="wrapper">
-    <span class ="sr-only" tabindex="1_1">Thanks for checking out my checkers game! You can tab through the board starting at the top left corner and working your way first across the row, one row at a time. Each square on the board is labelled starting at a1 - a8 across and ending at H8. To pick up a piece and to place that piece down again, press any key.</span>
-    <div class="outer-box">
-        <div id="game-board" class="game-board player-one"></div>
-        <div class="instructions-box">
-            <p class="instructions">Thanks for checking out my checkers game! Grab a friend, click the black piece you want to
-                move, and click where you want to move it. That's it!</p>
-        </div>
-        <div class="game-info">
-            <h1>This is Checkers!</h1>
-            <div class="player-outer-box">    
-                <div class="player-box">
-                    <h2 class="player-turn player-one-turn">Player 1</h2>
-                    <h3>Move Count =  <span class="player-one-counter">0</span></h3>
-                    <h3>Red Pieces Taken = <span class="player-one-eat-counter">0</span></h3>
-                </div>
-                <div class="player-box">
-                    <h2 class="">Player 2</h2>
-                    <h3>Move Count =  <span class="player-two-counter">0</span></h3>
-                    <h3>Black Pieces Taken = <span class="player-two-eat-counter">0</span></h3>
-                </div>  
-            </div>
-            <p>The game is over when one player cannot make any more moves.</p>
-        </div>
-        <p class="inner-box">This game is not designed to be played on small screens. Please try turning your device to landscape mode, or try again on a screen at least 840px wide.</p>
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
-    <script src="./script/script.js"></script>
+<body>
+	<main class="wrapper">
+		<span class ="sr-only" tabindex="1_1">Thanks for checking out my checkers game! You can tab through the board starting at the top left corner and working your way first across the row, one row at a time. Each square on the board is labelled starting at a1 - a8 across and ending at H8. To pick up a piece and to place that piece down again, press any key.</span>
+		<div class="outer-box">
+			<h1>Ch<span>e</span>ck<span>e</span>rs</h1>
+			<div id="game-board" class="game-board player-one"></div>
+			<div class="instructions-box">
+				<p class="instructions">Thanks for checking out my checkers game! Grab a friend, click the black piece you want to move, and click where you want to move it. That's it!</p>
+			</div>
+			<div class="game-info">
+				<div class="player-outer-box">    
+						<div class="player-box">
+								<h2 class="player-turn player-one-turn">Player 1</h2>
+								<h3 class="player-turn player-one-turn">Move Count =  <span class="player-one-counter">0</span></h3>
+								<h3 class="player-turn player-one-turn">Red Pieces Taken = <span class="player-one-eat-counter">0</span></h3>
+						</div>
+						<div class="player-box">
+								<h2 class="">Player 2</h2>
+								<h3>Move Count =  <span class="player-two-counter">0</span></h3>
+								<h3>Black Pieces Taken = <span class="player-two-eat-counter">0</span></h3>
+						</div>  
+				</div>
+				<p class="game-instructions">The game is over when one player cannot make any more moves.</p>
+			</div>
+			<p class="inner-box">This game is not designed to be played on small screens. Please try turning your device to landscape mode, zooming out, or try again on a screen at least 740px wide.</p>
+		</div>
+	</main>
+	<footer>
+		<div class="socialIcons wrapper">
+			<a href="https://twitter.com/HelloAlexDodd" target=_blank><i class="fab fa-twitter"></i></a>
+			<a href="https://www.linkedin.com/in/helloalexdodd/" target=_blank><i class="fab fa-linkedin"></i></a>
+			<a href="https://github.com/helloalexdodd" target=_blank><i class="fab fa-github"></i></a>
+			<a href="https://medium.com/@helloalexdodd" target=_blank><i class="fab fa-medium-m"></i></a>
+		</div>
+		<div class="footerNotes wrapper">
+			<p>Alex Dodd &copy 2019</p>
+		</div>
+	</footer>	
 </body>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
+<script src="./script/script.js"></script>
 </html>
