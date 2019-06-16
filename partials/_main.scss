@@ -6,7 +6,6 @@ html {
 
 body {
 	background-color: #eddae4;
-	min-height: 100vh;
 }
 
 .wrapper {
@@ -307,6 +306,8 @@ h1 {
 }
 
 footer {
+	position: fixed;
+	bottom: 0;
 	display: flex;
 	justify-content: space-between;
 	width: 100%;

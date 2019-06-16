@@ -187,7 +187,6 @@ html {
 
 body {
   background-color: #eddae4;
-  min-height: 100vh;
 }
 
 .wrapper {
@@ -718,6 +717,8 @@ h1::before {
 }
 
 footer {
+  position: fixed;
+  bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
