@@ -187,6 +187,7 @@ html {
 
 body {
   background-color: #eddae4;
+  min-height: 100vh;
 }
 
 .wrapper {
