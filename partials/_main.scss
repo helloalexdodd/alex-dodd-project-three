@@ -14,10 +14,10 @@ body {
 }
 
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
 }
 
 .outer-box {
@@ -35,34 +35,34 @@ body {
 }
 
 h1 {
-		position: relative;
-		width: 70%;
-		margin: 0;
-		color: $black;
-		font-size: 4.5rem;
-		font-weight: bold;
-		font-family: $primary-font;
-		text-align: center;
-		
-		& span {
-			color: $red;
-		}
-		
-		&::before {
-			content: "";
-			position: absolute;			
-			height: 6px;
-			width: 50%;
-			bottom: 0;
-			left: 25%;
-			background: $black;
-		}
-  }
+	position: relative;
+	width: 70%;
+	margin: 0;
+	color: $black;
+	font-size: 4.5rem;
+	font-weight: bold;
+	font-family: $primary-font;
+	text-align: center;
+	
+	& span {
+		color: $red;
+	}
+	
+	&::before {
+		content: "";
+		position: absolute;			
+		height: 6px;
+		width: 50%;
+		bottom: 0;
+		left: 25%;
+		background: $black;
+	}
+}
 
 .game-board {
   position: relative;
   float: left;
-  padding: 50px;
+	padding: 50px;
 }
 
 .game-info {
@@ -124,33 +124,33 @@ h1 {
 }
 
 .black-piece:before {
-    content: '';
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: block;
-    position: relative;
-    background-color: $black;
-    border: 17.5px solid $dark-black;
-    top: 42px;
-    transform: translateY(-50%);
+	content: '';
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: block;
+	position: relative;
+	background-color: $black;
+	border: 17.5px solid $dark-black;
+	top: 42px;
+	transform: translateY(-50%);
 }
 
 .red-piece:before {
-    content: '';
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: block;
-    position: relative;
-    background-color: $red;
-    border: 17.5px solid $dark-red;
-    top: 42px;
-    transform: translateY(-50%);
+	content: '';
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: block;
+	position: relative;
+	background-color: $red;
+	border: 17.5px solid $dark-red;
+	top: 42px;
+	transform: translateY(-50%);
 }
 
 .king-piece:before {
-    background-color: $yellow;
+	background-color: $yellow;
 }
 
 .black-selected {
@@ -297,12 +297,12 @@ h1 {
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 255, 0.5);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 255, 0.5);
 }
 
 footer {
