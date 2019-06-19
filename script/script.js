@@ -34,7 +34,7 @@ checkers.setup = (rows, cols) => {
 			checkers.playerPosition[i][j] = 0;
 			checkers.boardy[j] = j;
 			if (i % 2 === 0 && j % 2 === 0 || i % 2 !== 0 && j % 2 !== 0) {
-				checkers.boardGrid[i][j] = `<div id="${i}_${j}" class="white-square square" role="button"></div>`
+				checkers.boardGrid[i][j] = `<div id="${i}_${j}" class="white-square square" aria-label="${n}${j + 1}" role="button"></div>`
 			} else {
 				checkers.boardGrid[i][j] = `<div id="${i}_${j}" class="black-square square" tabIndex="${i + 1}_${j + 2}" aria-label="${n}${j + 1}" role="button"></div>`
 			};
@@ -403,8 +403,8 @@ checkers.click = () => {
 						};
 					
 						// if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one more than the starting position
-						if (checkers.xy[1] === (checkers.storedxy[1] + 1) || checkers.xy[1] === (checkers.storedxy[1] - 1) && (checkers.xy[0]) === (checkers.storedxy[0] + 1)) {
-					
+						if ((checkers.xy[1] === (checkers.storedxy[1] + 1) || checkers.xy[1] === (checkers.storedxy[1] - 1)) && (checkers.xy[0]) === (checkers.storedxy[0] + 1)) {
+
 							// place the piece
 							checkers.playThePiece($this, $allSquares, `black-piece`, `black-selected`, 1, i, j);
 					
@@ -461,8 +461,8 @@ checkers.click = () => {
 					
 						//if the x and y axis are two rows away from the starting point and there's an opponent's piece in between
 					} else if
-						(((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) ||
-						((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
+						(((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2)) && ($allSquares.hasClass(`king-selected`))) ||
+						((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2)) && ($allSquares.hasClass(`king-selected`))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) {
 					
@@ -525,7 +525,7 @@ checkers.click = () => {
 							checkers.goldAnimation($this, $blackSquares, $whiteSquares, $allSquares)
 						};
 						//if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one down than the starting position
-						if (checkers.xy[1] === (checkers.storedxy[1] + 1) || checkers.xy[1] === (checkers.storedxy[1] - 1) && (checkers.xy[0]) === (checkers.storedxy[0] - 1)) {
+						if ((checkers.xy[1] === (checkers.storedxy[1] + 1) || checkers.xy[1] === (checkers.storedxy[1] - 1)) && (checkers.xy[0]) === (checkers.storedxy[0] - 1)) {
 
 							//place the piece
 							checkers.playThePiece($this, $allSquares, `red-piece`, `red-selected`, 2, i, j);
@@ -583,8 +583,8 @@ checkers.click = () => {
 					} else if
 						(((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) ||
 						((checkers.xy[0] === (checkers.storedxy[0] - 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
-						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2))) ||
-						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) {
+						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] + 2)) && ($allSquares.hasClass(`king-selected`))) ||
+						((checkers.xy[0] === (checkers.storedxy[0] + 2)) && (checkers.xy[1] === (checkers.storedxy[1] - 2)) && ($allSquares.hasClass(`king-selected`))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) {
 						
 						//place the piece
 						checkers.playThePiece($this, $allSquares, `red-piece king-piece`, `red-selected king-selected`, 2, i, j);
