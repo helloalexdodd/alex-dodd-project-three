@@ -319,12 +319,26 @@ footer {
 			margin: 20px;
 			font-size: 1.4rem;
 			color: $beige;
+
+			&:hover {
+
+			}
 		}
 	}
-	
+
 	p {
 		color: $beige;
 		text-align: center;
+	
+		a {
+			color: $beige;
+			text-decoration: none;
+		}
+	}
+
+	.fab:hover,
+	p a:hover {		
+		color: $blue;
 	}
 }
 

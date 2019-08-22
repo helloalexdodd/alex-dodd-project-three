@@ -740,6 +740,16 @@ footer p {
   text-align: center;
 }
 
+footer p a {
+  color: #f2f0ed;
+  text-decoration: none;
+}
+
+footer .fab:hover,
+footer p a:hover {
+  color: #4782b2;
+}
+
 @media (max-width: 1175px) {
   .outer-box {
     margin: 0 auto;
