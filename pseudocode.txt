@@ -1,4 +1,0 @@
-- write a setup function that draws the board to the DOM
-- write a loop that targets the starting piece placements and place the pieces on the board using after elements
-- write a click function that checks to see if 1. the player hasn't already selected a piece and 2. the player has selected a piece
-- inside that click function, write another click function that checks 1. if the player has clicked a square that the selected piece can move to using board array coordinates and 2. if the player's move has eliminated any of the opponent's pieces.

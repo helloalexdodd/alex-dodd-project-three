@@ -1,6 +1,6 @@
 const checkers = {
 	boardGrid: [], // an empty array to create our boardGrid
-	playerPosition: [], // an empty array to create our playerPosition index
+	cellValue: [], // an empty array to create our cellValue index
 	boardx: [], // empty arrays to hold x and y axis
 	boardy: [],
 	destXY: {}, // variables to hold clicked board positions
@@ -14,20 +14,20 @@ const checkers = {
 	$gameboard: $(`#game-board`),
 	$h2: $(`h2`),
 	$h3: $(`h3`),
-	allSquares: `#game-board > div > div`
+	anySquare: `#game-board > div > div`
 }
 
 // setting up the board and filling empty global divs for access to x and y axis
 checkers.setup = (rows, cols) => {
-	const { boardGrid, playerPosition, boardx, boardy, $gameboard } = checkers
+	const { boardGrid, cellValue, boardx, boardy, $gameboard } = checkers
 	for (let i = 0; i < rows; i++) {
 		boardGrid[i] = []
-		playerPosition[i] = []
+		cellValue[i] = []
 		boardx[i] = i
 		boardy[i] = []
 		let n = String.fromCharCode(104 - i)
 		for (let j = 0; j < cols; j++) {
-			playerPosition[i][j] = 0
+			cellValue[i][j] = 0
 			boardy[j] = j
 			if (i % 2 === 0 && j % 2 === 0 || i % 2 !== 0 && j % 2 !== 0) {
 				boardGrid[i][j] = `<div id="${i}_${j}" class="white-square square" aria-label="${n}${j + 1}" role="button"></div>`
@@ -44,16 +44,16 @@ checkers.setup = (rows, cols) => {
 
 // assigning game pieces to their starting positions
 checkers.setupPieces = (rows, cols) => {
-	const { playerPosition } = checkers
+	const { cellValue } = checkers
 	for (let i = 0; i < rows; i++) {
 		for (let j = 0; j < cols; j++) {
 			let cellID = `#${i}_${j}`
 			if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i <= 2) {
 				$(cellID).addClass(`black-piece`)
-				playerPosition[i][j] = 1
+				cellValue[i][j] = 1
 			} else if ((i % 2 === 0 && j % 2 !== 0 || i % 2 !== 0 && j % 2 === 0) && i >= 5) {
 				$(cellID).addClass(`red-piece`)
-				playerPosition[i][j] = 2
+				cellValue[i][j] = 2
 			}
 		}
 	}
@@ -102,14 +102,14 @@ checkers.addToEatCounter = () => {
 	}
 }
 
-checkers.checkForOppo = (cellValue, xy, direction) => {
-	const { playerPosition } = checkers
+checkers.checkForOppo = (cell, xy, direction) => {
+	const { cellValue } = checkers
 	let origX = 0
 	let origY = 0
 	let oppoX = 0
 	let oppoY = 0
-	const origPosition = []
 	const oppoPosition = []
+	const origSelection = []
 
 	switch (direction) {
 		case `downLeft`:
@@ -137,9 +137,8 @@ checkers.checkForOppo = (cellValue, xy, direction) => {
 			oppoY = xy[1] - 1
 			break
 	}
-
-	origPosition.push(origX, origY)
-	const origDOMId = origPosition.join(`_`)
+	origSelection.push(origX, origY)
+	const origDOMId = origSelection.join(`_`)
 	const $origDOMId = $($(`#${origDOMId}`))
 
 	oppoPosition.push(oppoX, oppoY)
@@ -147,24 +146,24 @@ checkers.checkForOppo = (cellValue, xy, direction) => {
 	const $oppoDOMId = $($(`#${oppoDOMId}`))
 
 	if (oppoX <= 7 && oppoX >= 0) {
-		const oppoCellValue = playerPosition[oppoX][oppoY]
+		const oppoCell = cellValue[oppoX][oppoY]
 		// if the opponent's piece is between the origin and new location of the piece
-		if ($origDOMId.hasClass(`black-selected`) && oppoCellValue == 2 && cellValue == 0) {
+		if ($origDOMId.hasClass(`black-selected`) && oppoCell == 2 && cell == 0) {
 			$oppoDOMId.removeClass(`red-piece king-piece`)
-			playerPosition[oppoX][oppoY] = 0
+			cellValue[oppoX][oppoY] = 0
 			return true
 			// if the opponent's piece is between the origin and new location of the piece
-		} else if ($origDOMId.hasClass(`red-selected`) && oppoCellValue == 1 && cellValue == 0) {
+		} else if ($origDOMId.hasClass(`red-selected`) && oppoCell == 1 && cell == 0) {
 			$oppoDOMId.removeClass(`black-piece king-piece`)
-			playerPosition[oppoX][oppoY] = 0
+			cellValue[oppoX][oppoY] = 0
 			return true
 		}
 		return false
 	}
 }
 
-checkers.checkForDouble = (cellValue, xy, direction) => {
-	const { playerPosition, $gameboard } = checkers
+checkers.checkForDouble = (cell, xy, direction) => {
+	const { cellValue, $gameboard } = checkers
 	let destX = 0
 	let destY = 0
 	let oppoX = 0
@@ -198,33 +197,63 @@ checkers.checkForDouble = (cellValue, xy, direction) => {
 	}
 	
 	if (destX <= 7 && destX >= 0 && destY <= 7 && destY >= 0) {
-		const oppoCellValue = playerPosition[oppoX][oppoY]
-		const destCellValue = playerPosition[destX][destY]
-		// if the opponent's piece is between the origin and new location of the piece
-		if ((($gameboard.hasClass(`player-one`)) && oppoCellValue == 2 && destCellValue === 0 && cellValue == 0) ||
-			(($gameboard.hasClass(`player-two`)) && oppoCellValue === 1 && destCellValue === 0 && cellValue === 0)) {
+		const oppoCell = cellValue[oppoX][oppoY]
+		const destCell = cellValue[destX][destY]
+		if ((($gameboard.hasClass(`player-one`)) && oppoCell == 2 && destCell === 0 && cell == 0) ||
+			(($gameboard.hasClass(`player-two`)) && oppoCell === 1 && destCell === 0 && cell === 0)) {
 			return true
 		}
 	}
 	return false
 }
 
+checkForSingleMove = (destXY, origXY) => {
+	const { $gameboard } = checkers
+	if ($gameboard.hasClass(`player-one`)) {
+		return (destXY[1] === (origXY[1] + 1) || destXY[1] === (origXY[1] - 1)) && (destXY[0]) === (origXY[0] + 1)
+	}
+	return (destXY[1] === (origXY[1] + 1) || destXY[1] === (origXY[1] - 1)) && (destXY[0]) === (origXY[0] - 1)
+}
+
+checkForJumpMove = (cell, destXY, origXY) => {
+	const { checkForOppo, $gameboard } = checkers
+	const checkForOpponentDownLeft = checkForOppo(cell, destXY, `downLeft`)
+	const checkForOpponentDownRight = checkForOppo(cell, destXY, `downRight`)
+	const checkForOpponentUpLeft = checkForOppo(cell, destXY, `upLeft`)
+	const checkForOpponentUpRight = checkForOppo(cell, destXY, `upRight`)
+	
+	if ($gameboard.hasClass(`player-one`)) {
+		return (destXY[0] === (origXY[0] + 2)) && (((destXY[1] === (origXY[1] - 2)) && checkForOpponentDownLeft) || ((destXY[1] === (origXY[1] + 2)) && checkForOpponentDownRight))
+	}
+	return (destXY[0] === (origXY[0] - 2)) && (((destXY[1] === (origXY[1] - 2)) && checkForOpponentUpLeft) || ((destXY[1] === (origXY[1] + 2)) && checkForOpponentUpRight))
+}
+
 checkers.playPiece = ($this, add) => {
-	const { allSquares, addToCounter, switchPlayer } = checkers
+	const { anySquare, addToCounter, switchPlayer } = checkers
 	$this.addClass(add)
-	$(allSquares).removeClass(`black-selected red-selected king-selected`)
+	$(anySquare).removeClass(`black-selected red-selected king-selected`)
 	addToCounter()
 	switchPlayer()
 }
 
-checkers.noPlay = ($this) => {
+checkers.getDOMId = (origXY) => {
+	const origSelection = []
+	const origX = origXY[0]
+	const origY = origXY[1]
+	origSelection.push(origX, origY)
+	const origDOMId = origSelection.join(`_`)
+	const $origDOMId = $($(`#${origDOMId}`))
+	return $origDOMId
+}
+
+checkers.stopPlay = ($this) => {
 	$this.addClass(`no-play`)
 	setTimeout(() => {
 		$this.removeClass(`no-play`)
 	}, 1000)
 }
 
-checkers.doubleJumpAnimation = ($blackSquares, $whiteSquares) => {
+checkers.animateDoubleJump = ($blackSquares, $whiteSquares) => {
 	const { switchPlayer, $instructions, $instructionsBox } = checkers
 	switchPlayer()
 	setTimeout(function () {
@@ -239,7 +268,6 @@ checkers.doubleJumpAnimation = ($blackSquares, $whiteSquares) => {
 	        $whiteSquares.removeClass('white-flicker')
 	    }, 4000)
 	}, 1000)
-// text notification
 	setTimeout(function () {
 		$instructionsBox.css(`height`, `100px`)
 		$instructionsBox.fadeIn(`1000`)
@@ -251,31 +279,30 @@ checkers.doubleJumpAnimation = ($blackSquares, $whiteSquares) => {
 }
 
 // kinging animation
-checkers.goldAnimation = ($this, $blackSquares, $whiteSquares, $allSquares) => {
-	$this.addClass(`king-piece`)
+checkers.animateGold = ($blackSquares, $whiteSquares, $anySquare) => {
 	$blackSquares.addClass(`gold-jump`)
 	$whiteSquares.addClass(`black-jump`)
 	setTimeout(function () {
-		$allSquares.removeClass('gold-jump black-jump')
+		$anySquare.removeClass('gold-jump black-jump')
 	}, 3500)
 }
 
 // black and red animations
-checkers.jumpAnimation = ($allSquares) => {
+checkers.animateJump = ($anySquare) => {
 	const { $gameboard, addToEatCounter } = checkers
 	if ($gameboard.hasClass(`player-two`)) {
-		$allSquares.addClass('black-jump')
+		$anySquare.addClass('black-jump')
 	} else {
-		$allSquares.addClass('red-jump')
+		$anySquare.addClass('red-jump')
 	}
 	setTimeout(function () {
-		$allSquares.removeClass(`red-jump`)
-		$allSquares.removeClass(`black-jump`)
+		$anySquare.removeClass(`red-jump`)
+		$anySquare.removeClass(`black-jump`)
 	}, 2000)
 	addToEatCounter()
 }
 
-checkers.userInstructions = (string) => {
+checkers.messagePlayer = (string) => {
 	const { $instructions, $instructionsBox } = checkers
 	$instructionsBox.css(`height`, `150px`)
 	$instructionsBox.fadeIn(`1000`)
@@ -286,10 +313,10 @@ checkers.userInstructions = (string) => {
 }
 
 checkers.onClick = () => {
-	let { allSquares, $instructionsBox, playerPosition, destXY, origXY, boardx, boardy, checkForOppo, checkForDouble, $gameboard, noPlay, userInstructions, goldAnimation, jumpAnimation, doubleJumpAnimation, playPiece } = checkers
+	let { anySquare, $instructionsBox, cellValue, destXY, origXY, boardx, boardy, checkForOppo, checkForDouble, getDOMId, $gameboard, stopPlay, messagePlayer, animateGold, animateJump, animateDoubleJump, playPiece } = checkers
 
-	$gameboard.on(`click keypress`, `.row > div`, function () {		
-		const $allSquares = $(allSquares)
+	$gameboard.on(`click keypress`, `.row > div`, function() {		
+		const $anySquare = $(anySquare)
 		const $blackSquares = $(`.black-square`)
 		const $whiteSquares = $(`.white-square`)
 		const $this = $(this)
@@ -302,247 +329,111 @@ checkers.onClick = () => {
 		const i = idArrayString[0]
 		const j = idArrayString[1]
 
-		cellValue = (playerPosition[i][j])
-
+		cell = (cellValue[i][j])
 		destXY = [boardx[i], boardy[j]]
 
-		const hasOpponentPieceDownLeft = checkForOppo(cellValue, destXY, `downLeft`)
-		const hasOpponentPieceDownRight = checkForOppo(cellValue, destXY, `downRight`)
-		const hasOpponentPieceUpLeft = checkForOppo(cellValue, destXY, `upLeft`)
-		const hasOpponentPieceUpRight = checkForOppo(cellValue, destXY, `upRight`)
-		const hasDoubleJumpDownLeft = checkForDouble(cellValue, destXY, `downLeft`)
-		const hasDoubleJumpDownRight = checkForDouble(cellValue, destXY, `downRight`)
-		const hasDoubleJumpUpLeft = checkForDouble(cellValue, destXY, `upLeft`)
-		const hasDoubleJumpUpRight = checkForDouble(cellValue, destXY, `upRight`)
+		const isDoubleDownLeft = checkForDouble(cell, destXY, `downLeft`)
+		const isDoubleDownRight = checkForDouble(cell, destXY, `downRight`)
+		const isDoubleUpLeft = checkForDouble(cell, destXY, `upLeft`)
+		const isDoubleUpRight = checkForDouble(cell, destXY, `upRight`)
+		const isSingleMove = checkForSingleMove(destXY, origXY)
+		const isJumpMove = checkForJumpMove(cell, destXY, origXY)
+		const $prevSelection = getDOMId(origXY)
 
-		// if this click is a black square (because pieces can only move on black squares)
-		if ($this.hasClass(`black-square`)) {
-
-			// if this is a red piece and a different black piece is already selected
-			if (cellValue === 2 && ($gameboard.hasClass(`player-one`)) || (cellValue === 1 && $gameboard.hasClass(`player-two`))) {
-				noPlay($this)
-				userInstructions(`Please stop trying to pick up your opponent's pieces.`)
-			}
-
-			// if any black piece is already selected
-			if ($allSquares.hasClass(`black-selected`)) {
-
-				// if this click is already a selected black piece
-				if ($this.hasClass(`black-selected`) && ($this.hasClass(`king-selected`) === false)) {
-					$this.addClass(`black-piece`).removeClass(`black-selected`)
-					playerPosition[i][j] = 1
-					
-					// if this click is already a selected black king
-				} else if ($this.hasClass(`king-selected`)) {
-					$this.addClass(`black-piece king-piece`).removeClass(`black-selected king-selected`)
-					playerPosition[i][j] = 1
-
-					// if this is a black piece and a different black piece is already selected
-				} else if (cellValue === 1 && ($allSquares.hasClass(`black-selected`))) {
-					noPlay($this)
-
-/////////////////////////////////
-
-					// if this isn't already where any piece already sits and the piece that's selected is black
-				} else if (cellValue === 0 && $allSquares.hasClass(`black-selected`)) {
-
-					// if the piece is being moved forward on the board and isn't a king  
-					if (destXY[0] > origXY[0] && $allSquares.hasClass(`king-selected`) === false) {
-
-						// if any piece is already selected and it is the first or last row
-						if (destXY[0] === 7) {
-							goldAnimation($this, $blackSquares, $whiteSquares, $allSquares)
+		if ($gameboard.hasClass(`player-one`)) {
+			switch (cell) {
+				case 0: // clicking on an empty square
+					if ($anySquare.hasClass(`black-selected`)) {
+						if ($this.hasClass(`black-selected`)) {
+							cellValue[i][j] = 1
+							$this.addClass(`black-piece`).removeClass(`black-selected`)
+							$this.hasClass(`king-selected`) ? $this.addClass(`king-piece`).removeClass(`king-selected`) : null
 						}
-					
-						// if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one more than the starting position
-						if ((destXY[1] === (origXY[1] + 1) || destXY[1] === (origXY[1] - 1)) && (destXY[0]) === (origXY[0] + 1)) {
+						if (isSingleMove) {
 							playPiece($this, `black-piece`)
-							playerPosition[i][j] = 1
-
-							// if the x axis is two rows down from the starting point
-						} else if (destXY[0] === (origXY[0] + 2)) {
-					
-							// and the y axis is two columns to the left and the square in between those two squares has an opposing player's piece in it
-							if ((destXY[1] === (origXY[1] - 2)) && hasOpponentPieceDownLeft) {
-								playPiece($this, `black-piece`)
-								playerPosition[i][j] = 1
-								jumpAnimation($allSquares)
-					
-								// and has a double jump opportunity down
-								if (hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
-									doubleJumpAnimation($blackSquares, $whiteSquares)
-								}
-					
-								// and the y axis of the click is two columns to the right and the square in between those two squares has an opposing player's piece in it
-							} else if ((destXY[1] === (origXY[1] + 2)) && hasOpponentPieceDownRight) {
-								playPiece($this, `black-piece`)
-								playerPosition[i][j] = 1
-								jumpAnimation($allSquares)
-					
-								// and has a double jump opportunity down
-								if (hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
-									doubleJumpAnimation($blackSquares, $whiteSquares)
-								}
-							} else {
-								noPlay($this)
-							}
-						} else {
-							noPlay($this)
+							cellValue[i][j] = 1
 						}
-					
-						// if the x and y axis is only one space away from the starting position
-					} else if (((destXY[1] === (origXY[1] + 1)) || (destXY[1] === (origXY[1] - 1) || (destXY[0]) === (origXY[0] + 1)) || (destXY[0] === (origXY[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
-						playPiece($this, `black-piece king-piece`)
-						playerPosition[i][j] = 1
-					
-						//if the x and y axis are two rows away from the starting point and there's an opponent's piece in between
-					} else if
-						(((destXY[0] === (origXY[0] - 2)) && (destXY[1] === (origXY[1] - 2)) && ($allSquares.hasClass(`king-selected`))) ||
-						((destXY[0] === (origXY[0] - 2)) && (destXY[1] === (origXY[1] + 2)) && ($allSquares.hasClass(`king-selected`))) ||
-						((destXY[0] === (origXY[0] + 2)) && (destXY[1] === (origXY[1] + 2))) ||
-						((destXY[0] === (origXY[0] + 2)) && (destXY[1] === (origXY[1] - 2))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) {
-						playPiece($this, `black-piece king-piece`)
-						playerPosition[i][j] = 1
-						jumpAnimation($allSquares)
-					
-						//has double jump opportunity up and to the left
-						if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
-					
-							//double jump animation
-							doubleJumpAnimation($blackSquares, $whiteSquares)
+						if (isJumpMove) {
+							playPiece($this, `black-piece`)
+							cellValue[i][j] = 1
+							animateJump($anySquare)
+							if (isDoubleDownLeft || isDoubleDownRight) {
+								animateDoubleJump($blackSquares, $whiteSquares)
+							}
 						}
 					} else {
-					noPlay($this)
-				}
-				} else {
-					noPlay($this)
-				}
-
-				// if any red piece is already selected
-			} else if ($allSquares.hasClass(`red-selected`)) {
-
-				//if this click is already a selected red piece
-				if (this.classList.contains(`red-selected`) && (this.classList.contains(`king-selected`) === false)) {
-					$this.addClass(`red-piece`).removeClass(`red-selected`)
-					playerPosition[i][j] = 2
-
-					//if this click is already a selected red king
-				} else if (this.classList.contains(`king-selected`)) {
-					$this.addClass(`red-piece king-piece`).removeClass(`red-selected king-selected`)
-					playerPosition[i][j] = 2
-
-					//if this is a red piece and a different red piece is already selected
-				} else if (cellValue === 2 && ($allSquares.hasClass(`red-selected`))) {
-					noPlay($this)
-					userInstructions(`Please unselect the first piece before selecting a new one.`)
-
-					// if this isn't already where any piece already sits and the piece that is selected is red
-				} else if (cellValue === 0 && $allSquares.hasClass(`red-selected`)) {
-
-					// store the new x and y axis
-					destXY = [boardx[i], boardy[j]]
-
-					// if the piece is being moved forward on the board and isn't a king
-					if (destXY[0] < origXY[0] && $allSquares.hasClass(`king-selected`) === false) {
-
-						//if any piece is already selected and it is the first or last row
-						if (destXY[0] === 0) {
-							goldAnimation($this, $blackSquares, $whiteSquares, $allSquares)
-						}
-						//if the y axis of the click is only one column away from the starting position and if the x axis of the click is only one down than the starting position
-						if ((destXY[1] === (origXY[1] + 1) || destXY[1] === (origXY[1] - 1)) && (destXY[0]) === (origXY[0] - 1)) {
-							playPiece($this, `red-piece`)
-							playerPosition[i][j] = 2
-
-							//if the x axis is two rows down from the starting point
-						} else if (destXY[0] === (origXY[0] - 2)) {
-
-							// and the y axis of the click is two columns to the left and the square in between those two squares has an opposing player's piece in it
-							if ((destXY[1] === (origXY[1] - 2)) && hasOpponentPieceUpLeft) {
-								playPiece($this, `red-piece`)
-								playerPosition[i][j] = 2
-								jumpAnimation($allSquares)
-
-								//has double jump opportunity up and to the left
-								if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight) {
-									doubleJumpAnimation($blackSquares, $whiteSquares)
-								}
-							} else if ((destXY[1] === (origXY[1] + 2)) && hasOpponentPieceUpRight) {
-								playPiece($this, `red-piece`)
-								playerPosition[i][j] = 2
-								jumpAnimation($allSquares)
-
-								// has double jump opportunity up and to the left
-								if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight) {
-									doubleJumpAnimation($blackSquares, $whiteSquares)
-								}
-							} else {
-								noPlay($this)
-							}
-						} else {
-							noPlay($this)
-						}
-
-						// if the x and y axis is only one space away from the starting position
-					} else if (((destXY[1] === (origXY[1] + 1)) || (destXY[1] === (origXY[1] - 1) || (destXY[0]) === (origXY[0] + 1)) || (destXY[0] === (origXY[0] - 1))) && ($allSquares.hasClass(`king-selected`))) {
-						playPiece($this, `red-piece king-piece`)
-						playerPosition[i][j] = 2
-						
-						//if the x axis is two rows down from the starting point
-					} else if
-						(((destXY[0] === (origXY[0] - 2)) && (destXY[1] === (origXY[1] - 2))) ||
-						((destXY[0] === (origXY[0] - 2)) && (destXY[1] === (origXY[1] + 2))) ||
-						((destXY[0] === (origXY[0] + 2)) && (destXY[1] === (origXY[1] + 2)) && ($allSquares.hasClass(`king-selected`))) ||
-						((destXY[0] === (origXY[0] + 2)) && (destXY[1] === (origXY[1] - 2)) && ($allSquares.hasClass(`king-selected`))) && (hasOpponentPieceUpLeft || hasOpponentPieceUpRight || hasOpponentPieceDownLeft || hasOpponentPieceDownRight)) {
-						playPiece($this, `red-piece king-piece`)
-						playerPosition[i][j] = 2
-						jumpAnimation($allSquares)
-						
-						//has double jump opportunity up and to the left
-						if (hasDoubleJumpUpLeft || hasDoubleJumpUpRight || hasDoubleJumpDownLeft || hasDoubleJumpDownRight) {
-							doubleJumpAnimation($blackSquares, $whiteSquares)
-						}
-					} else {
-						noPlay($this)
+						stopPlay($this)
 					}
-				} else {
-					noPlay($this)
-				}
+					break
+				case 1: //clicking on your own piece
+					if ($anySquare.hasClass(`black-selected`)) {
+						if ($this.hasClass(`black-piece`)) {
+							cellValue[origXY[0]][origXY[1]] = 1
+							origXY = [boardx[i], boardy[j]]
+							cellValue[i][j] = 0
+							$prevSelection.removeClass(`black-selected`).addClass(`black-piece`)
+							$this.addClass(`black-selected`).removeClass(`black-piece`)
+							$this.hasClass(`king-piece`) ? $this.addClass(`king-selected`).removeClass(`king-piece`) : null	
+						}
+					} else if (!$anySquare.hasClass(`black-selected`)) {
+						origXY = [boardx[i], boardy[j]]
+						cellValue[i][j] = 0
+						$this.addClass(`black-selected`).removeClass(`black-piece`)
+						$this.hasClass(`king-piece`) ? $this.addClass(`king-selected`).removeClass(`king-piece`) : null
+					}
+					break
+				case 2: // clicking on opponent's piece
+					stopPlay($this)
+					!$anySquare.hasClass(`black-selected`) ? messagePlayer(`Please stop trying to pick up your opponent's pieces.`) : null
+					break
 			}
-			
-			// if no pieces are already selected
-			else if ($allSquares.hasClass(`black-selected` || `red-selected`) === false) {
-
-				// store the x and y axis
-				origXY = [boardx[i], boardy[j]]
-
-				//if it's a black king
-				if (cellValue === 1 && ($gameboard.hasClass(`player-one`) && $this.hasClass(`king-piece`))) {
-					$this.addClass(`black-selected king-selected`).removeClass(`black-piece king-piece`)
-					playerPosition[i][j] = 0
-				}
-			
-				//if it's a red king
-				if (cellValue === 2 && ($gameboard.hasClass(`player-two`) && $this.hasClass(`king-piece`))) {
-					$this.addClass(`red-selected king-selected`).removeClass(`red-piece king-piece`)
-					playerPosition[i][j] = 0
-				}
-			
-				// if it's a black piece  
-				else if (cellValue === 1 && ($gameboard.hasClass(`player-one`))) {
-					$this.addClass(`black-selected`).removeClass(`black-piece`)
-					playerPosition[i][j] = 0
-
-					// if it's a red piece
-				} else if (cellValue === 2 && ($gameboard.hasClass(`player-two`))) {
-					$this.addClass(`red-selected`).removeClass(`red-piece`)
-					playerPosition[i][j] = 0
-				} else {
-					noPlay($this)
-				}
+		} else if ($gameboard.hasClass(`player-two`)) {
+			switch (cell) {
+				case 0: // clicking on an empty square
+					if ($anySquare.hasClass(`red-selected`)) {
+						if ($this.hasClass(`red-selected`)) {
+							cellValue[i][j] = 2
+							$this.addClass(`red-piece`).removeClass(`red-selected`)
+							$this.hasClass(`king-selected`) ? $this.addClass(`king-piece`).removeClass(`king-selected`) : null
+						}
+						if (isSingleMove) {
+							playPiece($this, `red-piece`)
+							cellValue[i][j] = 2
+						}
+						if (isJumpMove) {
+							playPiece($this, `red-piece`)
+							cellValue[i][j] = 2
+							animateJump($anySquare)
+							if (isDoubleUpLeft || isDoubleUpRight) {
+								animateDoubleJump($blackSquares, $whiteSquares)
+							}
+						}
+					} else {
+						stopPlay($this)
+					}
+					break
+				case 2: //clicking on your own piece
+					if ($anySquare.hasClass(`red-selected`)) {
+						if ($this.hasClass(`red-piece`)) {
+							cellValue[origXY[0]][origXY[1]] = 2
+							origXY = [boardx[i], boardy[j]]
+							cellValue[i][j] = 0
+							$prevSelection.removeClass(`red-selected`).addClass(`red-piece`)
+							$this.addClass(`red-selected`).removeClass(`red-piece`)
+							$this.hasClass(`king-piece`) ? $this.addClass(`king-selected`).removeClass(`king-piece`) : null
+						}
+					} else if (!$anySquare.hasClass(`red-selected`)) {
+						origXY = [boardx[i], boardy[j]]
+						cellValue[i][j] = 0
+						$this.addClass(`red-selected`).removeClass(`red-piece`)
+						$this.hasClass(`king-piece`) ? $this.addClass(`king-selected`).removeClass(`king-piece`) : null
+					}
+					break
+				case 1: // clicking on opponent's piece
+					stopPlay($this)
+					!$anySquare.hasClass(`red-selected`) ? messagePlayer(`Please stop trying to pick up your opponent's pieces.`) : null
+					break
 			}
-		} else {
-			noPlay($this)
 		}
 	})
 }
